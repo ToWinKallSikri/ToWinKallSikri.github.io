@@ -1,2 +1,2 @@
 # Resumee aka Curriculum Vitae
-My persoanl portfolio, yet to be updated
+My personal ***portfolio***, yet to be updated
