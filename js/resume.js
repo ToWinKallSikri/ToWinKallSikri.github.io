@@ -8,7 +8,7 @@
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
         $('html, body').animate({
-          scrollTop: (target.offset().top)
+          scrollTop: (target.offset().top - 48)
         }, 1000, "easeInOutExpo");
         return false;
       }
@@ -20,9 +20,47 @@
     $('.navbar-collapse').collapse('hide');
   });
 
-  // Activate scrollspy to add active class to navbar items on scroll
-  $('body').scrollspy({
-    target: '#sideNav'
+  // Keeps sidebar section state in sync with viewport position.
+  var navLinks = $('#sideNav .navbar-nav .js-scroll-trigger[href^="#"]');
+  var sections = navLinks.map(function() {
+    var target = $($(this).attr('href'));
+    return target.length ? target[0] : null;
+  }).get();
+
+  function updateActiveNav() {
+    var scrollPosition = $(window).scrollTop() + 150;
+    var currentId = sections.length ? sections[0].id : '';
+
+    sections.forEach(function(section) {
+      if (scrollPosition >= section.offsetTop) {
+        currentId = section.id;
+      }
+    });
+
+    navLinks.removeClass('active');
+    if (currentId) {
+      $('#sideNav .navbar-nav .js-scroll-trigger[href="#' + currentId + '"]').addClass('active');
+    }
+  }
+
+  // Adds subtle navbar elevation after scrolling.
+  $(window).on('scroll', function() {
+    if ($(this).scrollTop() > 12) {
+      $('#sideNav').addClass('navbar-shrink');
+    } else {
+      $('#sideNav').removeClass('navbar-shrink');
+    }
+
+    updateActiveNav();
+  });
+
+  $(window).on('resize load', function() {
+    updateActiveNav();
+  });
+
+  navLinks.on('click', function() {
+    navLinks.removeClass('active');
+    $(this).addClass('active');
   });
 
 })(jQuery); // End of use strict
