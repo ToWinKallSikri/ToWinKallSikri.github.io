@@ -1,15 +1,31 @@
 (function($) {
   "use strict"; // Start of use strict
 
+  var isAutoScrolling = false;
+  var autoScrollTimer = null;
+
   // Smooth scrolling using jQuery easing
   $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
       target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
       if (target.length) {
-        $('html, body').animate({
-          scrollTop: (target.offset().top - 48)
-        }, 1000, "easeInOutExpo");
+        var destination = target.offset().top - 48;
+
+        isAutoScrolling = true;
+        if (autoScrollTimer) {
+          clearTimeout(autoScrollTimer);
+        }
+
+        $('html, body').stop(true).animate({
+          scrollTop: destination
+        }, 600, "easeInOutExpo", function() {
+          autoScrollTimer = setTimeout(function() {
+            isAutoScrolling = false;
+            updateActiveNav();
+          }, 40);
+        });
+
         return false;
       }
     }
@@ -51,7 +67,9 @@
       $('#sideNav').removeClass('navbar-shrink');
     }
 
-    updateActiveNav();
+    if (!isAutoScrolling) {
+      updateActiveNav();
+    }
   });
 
   $(window).on('resize load', function() {
@@ -61,6 +79,11 @@
   navLinks.on('click', function() {
     navLinks.removeClass('active');
     $(this).addClass('active');
+  });
+
+  // Prevent anchor buttons from remaining in focused visual state after click.
+  $('.cta-row .btn').on('mouseup touchend', function() {
+    $(this).blur();
   });
 
 })(jQuery); // End of use strict

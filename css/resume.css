@@ -15,10 +15,6 @@
   --accent: #2cc9b9;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
   background:
@@ -243,9 +239,17 @@ a:active {
 }
 
 .btn-primary:hover,
-.btn-primary:focus {
+.btn-primary:focus,
+.btn-primary:active {
   background-color: var(--primary-strong) !important;
   border-color: var(--primary-strong) !important;
+}
+
+.cta-row .btn.btn-primary:focus,
+.cta-row .btn.btn-primary:active {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  box-shadow: none;
 }
 
 .btn-outline-primary {
@@ -258,6 +262,14 @@ a:active {
   background-color: var(--primary);
   border-color: var(--primary);
   color: #ffffff;
+}
+
+.cta-row .btn.btn-outline-primary:focus,
+.cta-row .btn.btn-outline-primary:active {
+  background-color: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: none;
 }
 
 .tiny-note {
