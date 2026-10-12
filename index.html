@@ -10,13 +10,13 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Cybersecurity and software engineering portfolio of Twinkal Sikri, featuring projects, education, and practical security experience.">
+    <meta name="description" content="Cybersecurity and software engineering portfolio of Twinkal Sikri: MSc Cyber Security (Lancaster University), OT/ICS security research in Cyber-Informed Engineering, projects and practical security experience.">
     <meta name="author" content="Twinkal Sikri">
 
     <!-- Open Graph Meta Tags for Social Media Preview -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Twinkal Sikri | Cybersecurity and Software Engineering Portfolio">
-    <meta property="og:description" content="Explore projects, hands-on SOC and network defense experience, and software engineering work by Twinkal Sikri.">
+    <meta property="og:description" content="OT/ICS security research, hands-on SOC and network defence experience, and software engineering work by Twinkal Sikri.">
     <meta property="og:url" content="https://towinkalSikri.github.io">
     <meta property="og:image" content="img/image.png">
     <meta property="og:image:alt" content="Twinkal Sikri Profile Picture">
@@ -25,7 +25,7 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Twinkal Sikri | Cybersecurity Portfolio">
-    <meta name="twitter:description" content="Projects, technical stack, and cybersecurity focused software engineering experience.">
+    <meta name="twitter:description" content="OT/ICS security research, projects, technical stack, and security-focused software engineering experience.">
     <meta name="twitter:image" content="img/image.png">
 
     <title>Twinkal Sikri | Portfolio</title>
@@ -42,6 +42,19 @@
     <!-- Custom styles for this template -->
     <link href="css/resume.css" rel="stylesheet">
 
+    <!-- Small additions for the Dissertation section (kept inline so only index.html changes) -->
+    <style>
+      .flow-steps { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0; margin: 0 0 1.5rem; list-style: none; counter-reset: step; }
+      .flow-steps li { flex: 1 1 10rem; position: relative; background: var(--bg-surface); border: 1px solid var(--line-soft); border-radius: 0.6rem; padding: 0.8rem 0.9rem 0.8rem 2.6rem; font-size: 0.92rem; line-height: 1.4; color: var(--ink-strong); }
+      .flow-steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0.8rem; top: 0.8rem; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+      .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; list-style: none; }
+      .tag-list li { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; color: var(--primary-strong); background: var(--bg-fade); border: 1px solid var(--line-soft); border-radius: 999px; padding: 0.3rem 0.75rem; }
+      .research-title { font-size: 1.6rem; line-height: 1.25; }
+      .key-figure { font-size: 1.5rem; font-weight: 700; color: var(--primary); line-height: 1.1; }
+      .stack-card .key-figure + p { margin-top: 0.35rem; }
+      @media (max-width: 575.98px) { .flow-steps li { flex-basis: 100%; } }
+    </style>
+
   </head>
 
   <body id="page-top">
@@ -51,7 +64,7 @@
         <span class="d-block d-lg-none">TWINKAL SIKRI</span>
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-3" src="img/profile.png" alt="Twinkal Sikri profile picture">
-          <span class="brand-kicker">CySec && SWE</span>
+          <span class="brand-kicker">CySec &amp;&amp; OT &amp;&amp; SWE</span>
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +74,9 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#dissertation">Dissertation</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#experience">Experience</a>
@@ -88,7 +104,7 @@
 
       <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
         <div class="my-auto intro-wrap">
-          <p class="eyebrow mb-4">Cybersecurity Engineer in Training</p>
+          <p class="eyebrow mb-4">Cybersecurity Engineer in Training · OT/ICS Security</p>
           <h1 class="mb-3 hero-title">Twinkal <span class="text-primary">Sikri</span></h1>
           <div class="subheading mb-4">Italy, UK and Europe · (+44) 7454490321 ·
             <a href="mailto:twinxvii@gmail.com">twinxvii@gmail.com</a>
@@ -97,11 +113,12 @@
             Former construction surveyor turned security-focused software engineer, building reliable systems that are both technically solid and operationally useful. I focus on secure-by-design architecture, threat-aware engineering, and practical automation.
           </p>
           <p class="mb-4">
-            MSc Cybersecurity student at Lancaster University with hands-on experience in SOC implementation, network monitoring, software engineering, and digital forensics.
+            MSc Cyber Security student at Lancaster University with hands-on experience in SOC implementation, network monitoring, software engineering, and digital forensics. My MSc dissertation applies Cyber-Informed Engineering to Operational Technology (OT): a quantitative framework that helps decide whether a proposed change to an industrial control system in Critical National Infrastructure is secure enough to approve.
           </p>
           <div class="cta-row mb-5">
             <a class="btn btn-primary btn-lg mr-3 mb-2" href="Twinkal_Sikri_s_CV__CyS_.pdf" target="_blank" rel="noopener noreferrer">Download CV (CyS)</a>
             <a class="btn btn-primary btn-lg mr-3 mb-2" href="Twinkal_Sikri_s_CV__SWE_.pdf" target="_blank" rel="noopener noreferrer">Download CV (SWE)</a>
+            <a class="btn btn-outline-primary btn-lg mr-3 mb-2 js-scroll-trigger" href="#dissertation">Read Dissertation</a>
             <a class="btn btn-outline-primary btn-lg mb-2 js-scroll-trigger" href="#projects">View Projects</a>
           </div>
           <ul class="list-inline list-social-icons mb-3">
@@ -122,7 +139,79 @@
               </a>
             </li>
           </ul>
-          <p class="tiny-note mb-0">Open to internships and graduate roles in cybersecurity, network defense, and secure software development.</p>
+          <p class="tiny-note mb-0">Open to graduate and junior roles in OT/ICS security, industrial cyber risk and compliance, security operations, and secure software development.</p>
+        </div>
+      </section>
+
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="dissertation">
+        <div class="my-auto">
+          <h2 class="mb-5">Dissertation</h2>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-4">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-2 research-title">A Quantitative CIE-Informed Change Management Framework for OT Attack Surface Reduction in CNI</h3>
+              <div class="subheading mb-3">MSc Cyber Security · Lancaster University · Supervised by Prof. Paul Smith</div>
+              <p><strong>The problem.</strong> OT systems in Critical National Infrastructure are being digitalised, and every change (a new networked sensor, a remote-access path, a cloud service) can quietly erode the engineered protections around the physical process. ISO/IEC 27001, IEC 62443-2-1, NIST SP 800-82r3 and the Cyber-Informed Engineering (CIE) Implementation Guide all require change control, but none defines how to score the security impact of a single change.</p>
+              <p><strong>What I built.</strong> The CIE-Informed Change Impact Metric (CCIM): a decision-support framework that turns CIE principles into measurable variables, scores a proposed OT change, and either approves it or sends it back for a CIE-guided redesign, while making the trade-off between security, usability and cost explicit.</p>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">Mar 2026 - Aug 2026</span>
+            </div>
+          </div>
+
+          <div class="subheading mb-3">How CCIM works</div>
+          <ol class="flow-steps">
+            <li>Describe the proposed OT change (e.g. a WAN-routed feedback loop, a new interlock, a cloud-hosted controller).</li>
+            <li>Score four CIE-derived risk vectors: consequence exposure, engineered controls, digitalisation and interdependency.</li>
+            <li>Weight them with AHP to reflect the organisation's risk appetite, then combine into an Attack Surface Delta Score.</li>
+            <li>Divide by usability and cost-benefit scores to get a Trade-off Index.</li>
+            <li>Compare with a calibrated threshold: pass, or escalate to a CIE-guided redesign.</li>
+          </ol>
+
+          <div class="row stack-grid mb-4">
+            <div class="col-md-4 mb-4">
+              <div class="stack-card">
+                <div class="key-figure">22</div>
+                <p>OT change scenarios extracted from documented incidents (Stuxnet, Triton, Ukraine 2015, Oldsmar, Colonial Pipeline) and published mitigations (data diodes, SIS/BPCS independence, DMZ segmentation) to build the calibration set.</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="stack-card">
+                <div class="key-figure">20,000</div>
+                <p>PERT-based Monte Carlo draws in Python (NumPy, fixed seed for reproducibility) used to simulate the score distribution for acceptable and unacceptable changes.</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="stack-card">
+                <div class="key-figure">AUC ≈ 0.993</div>
+                <p>ROC analysis with Youden's J set the approval threshold (τ ≈ 0.277 for the worked weight profile), separating simulated incidents from mitigations almost perfectly.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="subheading mb-3">Case studies and findings</div>
+          <ul class="fa-ul mb-4">
+            <li><i class="fa-li fa fa-bolt"></i><strong>Microgrid, WAN-routed PMU feedback:</strong> failed under both a nuclear and a manufacturing risk profile and was escalated for redesign. The physical-and-digital interlock mitigation passed comfortably under both.</li>
+            <li><i class="fa-li fa fa-tint"></i><strong>AI-enabled chlorine dosing at a water treatment facility:</strong> a cloud-hosted optimiser only just passed (about 5% below the threshold), and a one-point change in a single score flipped the verdict. CCIM made that fragility visible where a compliance review against IEC 61508 could not.</li>
+            <li><i class="fa-li fa fa-balance-scale"></i><strong>Legacy vs CCIM:</strong> compared against standards-led change review, CCIM keeps the engineering content of the standards but adds a reproducible, auditable decision boundary.</li>
+            <li><i class="fa-li fa fa-search"></i><strong>Honest limits and next steps:</strong> scores and AHP weights are illustrative and need structured expert validation (inter-rater agreement), a larger calibration corpus, and a non-compensatory gate for extreme scores.</li>
+          </ul>
+
+          <div class="subheading mb-3">Standards and methods</div>
+          <ul class="tag-list">
+            <li>Cyber-Informed Engineering (CIE)</li>
+            <li>Consequence-driven CIE (CCE)</li>
+            <li>IEC 62443</li>
+            <li>ISO/IEC 27001</li>
+            <li>NIST SP 800-82r3</li>
+            <li>NIST CSF 2.0</li>
+            <li>IEC 61508 / IEC 61511</li>
+            <li>STPA-SafeSec</li>
+            <li>AHP</li>
+            <li>Monte Carlo (PERT)</li>
+            <li>ROC / Youden's J</li>
+            <li>Design Science Research</li>
+          </ul>
         </div>
       </section>
 
@@ -149,7 +238,7 @@
               <p>Provided freelance technical consultancy services, assisting clients with various technical challenges and requirements.</p>
               <p>Helped design and maintain a website for a family business, contributing to configuration, hosting, deployment, and general technical setup.</p>
               <p>Provided hardware assistance and practical technical consultancy while learning to assess requirements, troubleshoot issues, and deliver reliable solutions independently.</p>
-              <p>Most of the times, the tasks were completed to sharpen my skill rather than being a paid service.</p>
+              <p>Most of the time, the work was done to sharpen my skills rather than as a paid service.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">2021 - Present</span>
@@ -177,8 +266,9 @@
             <div class="resume-content mr-auto">
               <h3 class="mb-0">Lancaster University</h3>
               <div class="subheading mb-3">MSc in Cyber Security</div>
-              <div>School of Computing and Communication</div>
+              <div>School of Computing and Communications</div>
               <p>Grade: 75% (Distinction)</p>
+              <p>Dissertation: <a class="js-scroll-trigger" href="#dissertation">A Quantitative CIE-Informed Change Management Framework for OT Attack Surface Reduction in CNI</a>, supervised by Prof. Paul Smith.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Sep 2025 - Dec 2026</span>
@@ -191,6 +281,7 @@
               <div class="subheading mb-3">BSc (Hons) in Computer Science</div>
               <div>Scuola di Scienze e Tecnologie Informatiche</div>
               <p>Grade: 96/110</p>
+              <p>Thesis: SOC implementation for SMEs. Lab projects in Computer Architecture (bare-metal AVR firmware) and Programming Methodologies (Java).</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Sep 2021 - Apr 2025</span>
@@ -221,7 +312,20 @@
             <li><i class="fa-li fa fa-shield"></i>Information System Security Management and Risk Management</li>
             <li><i class="fa-li fa fa-shield"></i>Network Security, Penetration Testing, and Digital Forensics</li>
             <li><i class="fa-li fa fa-shield"></i>Cryptography and Security by Design (Cyber-Informed Engineering)</li>
-            <li><i class="fa-li fa fa-shield"></i>Interest in Industrial Compliance frameworks (ISO, IAC, ITIL)</li>
+            <li><i class="fa-li fa fa-shield"></i>Standards compliance: ISO/IEC 27001, IEC 62443, NIST SP 800-82r3, NIST CSF 2.0, ITIL</li>
+          </ul>
+
+          <div class="subheading mb-3">OT / ICS Security</div>
+          <ul class="fa-ul mb-5">
+            <li><i class="fa-li fa fa-industry"></i>Cyber-Informed Engineering and consequence-driven thinking applied to OT change management in CNI</li>
+            <li><i class="fa-li fa fa-industry"></i>ICS architecture concepts from my research: PLC, SCADA, DCS, HMI, safety instrumented systems, and IT/OT convergence risks</li>
+            <li><i class="fa-li fa fa-industry"></i>Quantitative risk assessment: AHP weighting, Monte Carlo simulation, ROC analysis and threshold calibration</li>
+            <li><i class="fa-li fa fa-industry"></i>Functional safety awareness: IEC 61508 / IEC 61511 and the limits of deterministic standards for AI-enabled control</li>
+          </ul>
+
+          <div class="subheading mb-3">Embedded Systems</div>
+          <ul class="fa-ul mb-5">
+            <li><i class="fa-li fa fa-microchip"></i>Bare-metal C on the ATmega328P: direct register I/O, Timer1 interrupts, and finite-state design (see Projects). Keen to keep growing in embedded systems and control engineering.</li>
           </ul>
 
           <div class="subheading mb-3">Software Engineering</div>
@@ -254,6 +358,12 @@
             </li>
             <li class="list-inline-item">
               <i class="devicon-java-plain"></i>
+            </li>
+            <li class="list-inline-item">
+              <i class="devicon-c-plain"></i>
+            </li>
+            <li class="list-inline-item">
+              <i class="devicon-arduino-plain"></i>
             </li>
             <li class="list-inline-item">
               <i class="devicon-python-plain"></i>
@@ -309,6 +419,18 @@
             <div class="stack-card">
               <h4>Infrastructure and Systems</h4>
               <p>Docker, Proxmox, VMware ESXi, VirtualBox, GNS3, Cisco Packet Tracer, TCP/IP, SMB, FTP, PowerShell, Bash, Batch</p>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="stack-card">
+              <h4>OT and Risk Analysis</h4>
+              <p>CIE / CCE, IEC 62443, NIST SP 800-82r3, STPA-SafeSec, AHP, Python (NumPy) Monte Carlo, ROC analysis, LaTeX</p>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="stack-card">
+              <h4>Embedded</h4>
+              <p>C on AVR ATmega328P (Arduino Uno), register-level GPIO, Timer1 CTC interrupts, Wokwi simulator, 1-Wire and DHT22 protocols</p>
             </div>
           </div>
         </div>
@@ -368,6 +490,17 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
+              <h3 class="mb-0">CCIM: Quantitative OT Change Management (MSc Dissertation)</h3>
+              <div class="subheading mb-3">OT/ICS Security / Risk Management</div>
+              <p>Designed a CIE-informed scoring framework that decides whether a proposed OT change in Critical National Infrastructure can be approved or needs redesign, with the threshold calibrated by a Python Monte Carlo simulation over 22 real incident and mitigation scenarios. <a class="js-scroll-trigger" href="#dissertation">Full summary</a></p>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">Mar 2026 - Aug 2026</span>
+            </div>
+          </div>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
               <h3 class="mb-0">FAT16 File System Reconstruction</h3>
               <div class="subheading mb-3">Digital Forensics / Low-level Programming</div>
               <p>Developed a Python forensic tool to recover and reconstruct files from a FAT16 disk image by traversing FAT cluster chains directly when root directory metadata was wiped.</p>
@@ -413,7 +546,19 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">SOC Implementation (Dissertation)</h3>
+              <h3 class="mb-0">Embedded Firmware: 1-Wire Sensor Emulation</h3>
+              <div class="subheading mb-3">Embedded Systems / Computer Architecture</div>
+              <p>Wrote bare-metal C firmware for an ATmega328P (Arduino Uno, simulated in Wokwi) that reads a DHT22 temperature and humidity sensor and presents the data like a DS18B20 1-Wire device: it interprets the Convert T [44h] command, runs a single conversion, stores the result in a custom 64-bit scratchpad (two-decimal fixed point plus checksum), then returns to idle.</p>
+              <p>Built under a "minimum machine resources" brief: independent state machines communicating through global flags, all timing driven by a 1 ms Timer1 CTC interrupt, short ISRs to respect real-time constraints, and direct register I/O (DDRD, PORTD, PIND) with no Arduino functions or external libraries.</p>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">Feb 2025</span>
+            </div>
+          </div>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0">SOC Implementation (BSc Thesis)</h3>
               <div class="subheading mb-3">Security Operations for SMEs</div>
               <p>Designed and implemented a resource-conscious SOC using Wazuh, pfSense, Snort, VirusTotal, Proxmox, and VMware ESXi with custom logging rules and multicloud attack simulation.</p>
             </div>
@@ -430,6 +575,18 @@
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Oct 2023 - Feb 2024</span>
+            </div>
+          </div>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0">Java Console Game: Vector Rally Race Simulator</h3>
+              <div class="subheading mb-3">Object-Oriented Design / Java and Gradle</div>
+              <p>Built a turn-based Formula 1 "vector rally" simulation in Java with Gradle, with a modular design separating the game engine, a referee that enforces rules and start order, a collision checker, and a parser that builds custom tracks from text files.</p>
+              <p>Implemented bot players with randomly assigned speed strategies and trajectory checks that split each move into integer route points to detect off-track moves and collisions; designed to be extended to human players.</p>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">2023 - 2024</span>
             </div>
           </div>
 
@@ -450,16 +607,20 @@
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="interests">
         <div class="my-auto">
           <h2 class="mb-5">Interests</h2>
-          <p>I am deeply passionate about science, technology, and engineering.</br>
-            Over the years, I've discovered my natural tendency to dive deep into fascinating and stimulating topics related to computer science, physics, and chemistry.</br>
-            Since I was a child, I've been a true "tinkerer," constantly dismantling and reassembling objects just to understand how they work.</br>
-            My passion for technology led me to explore the exciting worlds of Cyber Security and Computer Science, which I've decided to study and master.</br>
-            I am endlessly curious. I never tire of asking "how" and "why" about everything around me.</br>
-            I also have a love for motors, hardware, and the incredible amount of technology hidden within even the simplest objects.</br>
+          <p>I am deeply passionate about science, technology, and engineering.<br>
+            Over the years, I've discovered my natural tendency to dive deep into fascinating and stimulating topics related to computer science, physics, and chemistry.<br>
+            Since I was a child, I've been a true "tinkerer," constantly dismantling and reassembling objects just to understand how they work.<br>
+            My passion for technology led me to explore the exciting worlds of Cyber Security and Computer Science, which I've decided to study and master.<br>
+            I am endlessly curious. I never tire of asking "how" and "why" about everything around me.<br>
+            I also have a love for motors, hardware, and the incredible amount of technology hidden within even the simplest objects.<br>
             I could list a thousand more reasons to describe how curious I am and how much I enjoy keeping up with the modern world, but I wouldn't want to bore you!
           </p>
-          <p class="mb-0">Oh, and one more thing.. I'm a huge fitness enthusiast, fascinated by the entrepreneurship world, and I can say with absolute certainty: I'm a proud nerd!</p>
+          <p>
+            Lately I have been drawn to control engineering and embedded systems: how a controller, a few registers and some well-timed interrupts end up moving real, physical equipment. My dissertation took me into PLCs, SCADA and industrial safety from the security side, and I would love to learn them from the engineering side too.
+          </p>
+          <p class="mb-0">Oh, and one more thing... I'm a huge fitness enthusiast, fascinated by the entrepreneurship world, and I can say with absolute certainty: I'm a proud nerd!</p>
         </div>
+      </section>
 
     </div>
 
