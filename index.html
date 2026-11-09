@@ -34,26 +34,13 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Jersey+10&family=Modak&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
     <!-- Custom styles for this template -->
     <link href="css/resume.css" rel="stylesheet">
-
-    <!-- Small additions for the Dissertation section (kept inline so only index.html changes) -->
-    <style>
-      .flow-steps { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 0; margin: 0 0 1.5rem; list-style: none; counter-reset: step; }
-      .flow-steps li { flex: 1 1 10rem; position: relative; background: var(--bg-surface); border: 1px solid var(--line-soft); border-radius: 0.6rem; padding: 0.8rem 0.9rem 0.8rem 2.6rem; font-size: 0.92rem; line-height: 1.4; color: var(--ink-strong); }
-      .flow-steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0.8rem; top: 0.8rem; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-      .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0; margin: 0; list-style: none; }
-      .tag-list li { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; color: var(--primary-strong); background: var(--bg-fade); border: 1px solid var(--line-soft); border-radius: 999px; padding: 0.3rem 0.75rem; }
-      .research-title { font-size: 1.6rem; line-height: 1.25; }
-      .key-figure { font-size: 1.5rem; font-weight: 700; color: var(--primary); line-height: 1.1; }
-      .stack-card .key-figure + p { margin-top: 0.35rem; }
-      @media (max-width: 575.98px) { .flow-steps li { flex-basis: 100%; } }
-    </style>
 
   </head>
 
@@ -113,7 +100,7 @@
             Former construction surveyor turned security-focused software engineer, building reliable systems that are both technically solid and operationally useful. I focus on secure-by-design architecture, threat-aware engineering, and practical automation.
           </p>
           <p class="mb-4">
-            MSc Cyber Security student at Lancaster University with hands-on experience in SOC implementation, network monitoring, software engineering, and digital forensics. My MSc dissertation applies Cyber-Informed Engineering to Operational Technology (OT): a quantitative framework that helps decide whether a proposed change to an industrial control system in Critical National Infrastructure is secure enough to approve.
+            I am completing an MSc in Cyber Security at Lancaster University, alongside hands-on work in SOC operations, network monitoring, software engineering, and digital forensics. My dissertation explores a clearer way to assess the security impact of changes to industrial systems.
           </p>
           <div class="cta-row mb-5">
             <a class="btn btn-primary btn-lg mr-3 mb-2" href="Twinkal_Sikri_s_CV__CyS_.pdf" target="_blank" rel="noopener noreferrer">Download CV (CyS)</a>
@@ -417,55 +404,53 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-4">
             <div class="resume-content mr-auto">
-              <h3 class="mb-2 research-title">A Quantitative CIE-Informed Change Management Framework for OT Attack Surface Reduction in CNI</h3>
+              <h3 class="mb-2 research-title">Assessing the security impact of changes to OT systems</h3>
               <div class="subheading mb-3">MSc Cyber Security · Lancaster University · Supervised by Prof. Paul Smith</div>
-              <p><strong>The problem.</strong> OT systems in Critical National Infrastructure are being digitalised, and every change (a new networked sensor, a remote-access path, a cloud service) can quietly erode the engineered protections around the physical process. ISO/IEC 27001, IEC 62443-2-1, NIST SP 800-82r3 and the Cyber-Informed Engineering (CIE) Implementation Guide all require change control, but none defines how to score the security impact of a single change.</p>
-              <p><strong>What I built.</strong> The CIE-Informed Change Impact Metric (CCIM): a decision-support framework that turns CIE principles into measurable variables, scores a proposed OT change, and either approves it or sends it back for a CIE-guided redesign, while making the trade-off between security, usability and cost explicit.</p>
+              <p>My dissertation develops a practical way to assess how proposed changes could affect the security of operational technology (OT) in critical infrastructure. A new sensor, remote connection or cloud service can introduce risk, even when it supports an important operational need.</p>
+              <p>The resulting CIE-Informed Change Impact Metric (CCIM) applies Cyber-Informed Engineering principles to each proposed change. It gives teams a consistent basis for deciding whether to proceed, look more closely, or redesign the change—while considering security, usability and cost together.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Mar 2026 - Aug 2026</span>
             </div>
           </div>
 
-          <div class="subheading mb-3">How CCIM works</div>
+          <div class="subheading mb-3">How the framework works</div>
           <ol class="flow-steps">
-            <li>Describe the proposed OT change (e.g. a WAN-routed feedback loop, a new interlock, a cloud-hosted controller).</li>
-            <li>Score four CIE-derived risk vectors: consequence exposure, engineered controls, digitalisation and interdependency.</li>
-            <li>Weight them with AHP to reflect the organisation's risk appetite, then combine into an Attack Surface Delta Score.</li>
-            <li>Divide by usability and cost-benefit scores to get a Trade-off Index.</li>
-            <li>Compare with a calibrated threshold: pass, or escalate to a CIE-guided redesign.</li>
+            <li>Describe the proposed change and the system it affects.</li>
+            <li>Assess its potential consequences, existing protections, digital connections and dependencies.</li>
+            <li>Combine the assessment into a score and compare it with a threshold to guide approval or further review.</li>
           </ol>
 
           <div class="row stack-grid mb-4">
             <div class="col-md-4 mb-4">
               <div class="stack-card">
-                <div class="key-figure">22</div>
-                <p>OT change scenarios extracted from documented incidents (Stuxnet, Triton, Ukraine 2015, Oldsmar, Colonial Pipeline) and published mitigations (data diodes, SIS/BPCS independence, DMZ segmentation) to build the calibration set.</p>
+                <div class="key-figure">22 scenarios</div>
+                <p>Documented incidents and published mitigations informed the example assessment set.</p>
               </div>
             </div>
             <div class="col-md-4 mb-4">
               <div class="stack-card">
-                <div class="key-figure">20,000</div>
-                <p>PERT-based Monte Carlo draws in Python (NumPy, fixed seed for reproducibility) used to simulate the score distribution for acceptable and unacceptable changes.</p>
+                <div class="key-figure">20,000 simulations</div>
+                <p>Monte Carlo simulations explored how scores varied for acceptable and unacceptable changes.</p>
               </div>
             </div>
             <div class="col-md-4 mb-4">
               <div class="stack-card">
                 <div class="key-figure">AUC ≈ 0.993</div>
-                <p>ROC analysis with Youden's J set the approval threshold (τ ≈ 0.277 for the worked weight profile), separating simulated incidents from mitigations almost perfectly.</p>
+                <p>In the simulated dataset, ROC analysis showed strong separation between incident scenarios and mitigations.</p>
               </div>
             </div>
           </div>
 
           <div class="subheading mb-3">Case studies and findings</div>
-          <ul class="fa-ul mb-4">
-            <li><i class="fa-li fa fa-bolt"></i><strong>Microgrid, WAN-routed PMU feedback:</strong> failed under both a nuclear and a manufacturing risk profile and was escalated for redesign. The physical-and-digital interlock mitigation passed comfortably under both.</li>
-            <li><i class="fa-li fa fa-tint"></i><strong>AI-enabled chlorine dosing at a water treatment facility:</strong> a cloud-hosted optimiser only just passed (about 5% below the threshold), and a one-point change in a single score flipped the verdict. CCIM made that fragility visible where a compliance review against IEC 61508 could not.</li>
-            <li><i class="fa-li fa fa-balance-scale"></i><strong>Legacy vs CCIM:</strong> compared against standards-led change review, CCIM keeps the engineering content of the standards but adds a reproducible, auditable decision boundary.</li>
-            <li><i class="fa-li fa fa-search"></i><strong>Honest limits and next steps:</strong> scores and AHP weights are illustrative and need structured expert validation (inter-rater agreement), a larger calibration corpus, and a non-compensatory gate for extreme scores.</li>
+          <ul class="dissertation-findings mb-4">
+            <li><strong>Microgrid:</strong> A remote feedback connection was flagged for redesign under both tested risk profiles. A proposed interlock mitigation passed.</li>
+            <li><strong>Water treatment:</strong> A cloud-based chlorine-dosing optimiser scored close to the approval threshold. A small change in its assessment changed the result, highlighting the need for careful review of borderline cases.</li>
+            <li><strong>Comparison:</strong> The framework builds on standards-led reviews by adding a consistent, repeatable way to document decisions.</li>
+            <li><strong>Limitations:</strong> The scores and weightings are illustrative. Expert validation and a larger set of examples are needed before the framework could be used in practice.</li>
           </ul>
 
-          <div class="subheading mb-3">Standards and methods</div>
+          <div class="subheading mb-3">Related standards and methods</div>
           <ul class="tag-list">
             <li>Cyber-Informed Engineering (CIE)</li>
             <li>Consequence-driven CIE (CCE)</li>

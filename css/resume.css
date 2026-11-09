@@ -4,25 +4,24 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-resume/blob/master/LICENSE)
  */
 :root {
-  --bg-canvas: #f7fbff;
+  --bg-canvas: #f8f7f3;
   --bg-surface: #ffffff;
-  --bg-fade: #e8f3ff;
-  --ink-strong: #1f2f46;
-  --ink-muted: #4d617e;
-  --line-soft: #d9e7f7;
-  --primary: #1f7ae0;
-  --primary-strong: #1459b8;
-  --accent: #2cc9b9;
+  --bg-fade: #f1f0eb;
+  --ink-strong: #263746;
+  --ink-muted: #53616b;
+  --line-soft: #deded8;
+  --primary: #345b78;
+  --primary-strong: #24445e;
+  --accent: #718696;
 }
 
 body {
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  background:
-    radial-gradient(60rem 28rem at 15% -10%, rgba(44, 201, 185, 0.24), transparent 58%),
-    radial-gradient(44rem 24rem at 100% 0%, rgba(31, 122, 224, 0.19), transparent 62%),
-    var(--bg-canvas);
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  background: var(--bg-canvas);
   color: var(--ink-muted);
   padding-top: 58px;
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
 @media (min-width: 992px) {
@@ -35,10 +34,10 @@ body {
 h1,
 h2 {
   color: var(--ink-strong);
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
+  font-family: 'Lora', Georgia, serif;
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
 }
 
 h3,
@@ -46,20 +45,20 @@ h4,
 h5,
 h6 {
   color: var(--ink-strong);
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
+  font-family: 'Source Sans 3', Arial, sans-serif;
   font-style: normal;
   font-weight: 600;
   letter-spacing: 0;
 }
 
 h1 {
-  font-size: clamp(3rem, 8vw, 5.8rem);
-  line-height: 0.95;
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 1.05;
 }
 
 h2 {
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  margin-bottom: 2.2rem !important;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  margin-bottom: 1.75rem !important;
 }
 
 h3 {
@@ -67,9 +66,9 @@ h3 {
 }
 
 .eyebrow {
-  color: var(--primary);
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.8rem;
   font-weight: 600;
@@ -81,12 +80,12 @@ h3 {
 }
 
 .subheading {
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  font-size: 0.9rem;
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--ink-muted);
+  color: var(--ink-strong);
 }
 
 a {
@@ -108,20 +107,20 @@ a:active {
 }
 
 #sideNav {
-  background: linear-gradient(160deg, #1f7ae0 0%, #2cc9b9 100%) !important;
-  box-shadow: 0 16px 40px -20px rgba(10, 43, 85, 0.6);
+  background: #263d50 !important;
+  box-shadow: none;
 }
 
 #sideNav .navbar-brand .img-profile {
-  border: 0.35rem solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 14px 30px -20px rgba(7, 30, 60, 0.8);
+  border: 0.25rem solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
 }
 
 #sideNav .brand-kicker {
   display: block;
   max-width: 12rem;
   margin: 0.6rem auto 0;
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
+  font-family: 'Source Sans 3', Arial, sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -130,13 +129,13 @@ a:active {
 }
 
 #sideNav .navbar-nav .nav-item .nav-link {
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 0.74rem;
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.85);
   border-left: 2px solid transparent;
-  transition: all 200ms ease;
+  transition: color 180ms ease, background-color 180ms ease;
 }
 
 #sideNav .navbar-nav .nav-item .nav-link:hover {
@@ -151,7 +150,7 @@ a:active {
 }
 
 .navbar-shrink {
-  box-shadow: 0 10px 24px -16px rgba(13, 57, 111, 0.9);
+  box-shadow: none;
 }
 
 @media (min-width: 992px) {
@@ -207,7 +206,7 @@ a:active {
   }
 
   #sideNav .navbar-brand {
-    font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
+    font-family: 'Source Sans 3', Arial, sans-serif;
     font-size: 0.9rem;
     letter-spacing: 0.08em;
     font-weight: 600;
@@ -215,21 +214,21 @@ a:active {
 }
 
 .intro-wrap {
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), rgba(245, 250, 255, 0.86));
-  border: 1px solid rgba(217, 231, 247, 0.85);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 20px 50px -34px rgba(24, 77, 146, 0.55);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 0.2rem;
+  padding: 2.25rem;
+  box-shadow: none;
 }
 
 .cta-row .btn {
-  border-radius: 0.35rem;
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 0.78rem;
+  border-radius: 0.2rem;
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.95rem;
   font-weight: 600;
-  padding: 0.86rem 1.15rem;
+  padding: 0.7rem 1rem;
 }
 
 .btn-primary,
@@ -273,23 +272,22 @@ a:active {
 }
 
 .tiny-note {
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
+  font-family: 'Source Sans 3', Arial, sans-serif;
   font-size: 0.75rem;
-  color: #7085a3;
+  color: var(--ink-muted);
 }
 
 section.resume-section {
   border-bottom: 1px solid var(--line-soft);
-  padding-top: 4.5rem !important;
-  padding-bottom: 4.5rem !important;
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
 }
 
 section.resume-section .resume-item {
-  padding: 1.25rem 1.4rem;
-  border: 1px solid rgba(217, 231, 247, 0.95);
-  border-radius: 0.75rem;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(243, 249, 255, 0.88));
-  box-shadow: 0 14px 26px -24px rgba(14, 55, 109, 0.8);
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  background: transparent;
+  box-shadow: none;
 }
 
 section.resume-section .resume-item p:last-child {
@@ -298,10 +296,10 @@ section.resume-section .resume-item p:last-child {
 
 section.resume-section .resume-item .resume-date {
   min-width: 0;
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
   font-weight: 600;
 }
 
@@ -356,9 +354,9 @@ section.resume-section .resume-item .resume-date .text-primary {
 .stack-card {
   height: 100%;
   border: 1px solid var(--line-soft);
-  border-radius: 0.75rem;
+  border-radius: 0.2rem;
   background: var(--bg-surface);
-  padding: 1.2rem 1.25rem;
+  padding: 1.1rem 1.2rem;
 }
 
 .stack-card h4 {
@@ -373,7 +371,7 @@ section.resume-section .resume-item .resume-date .text-primary {
 .language-table {
   background: var(--bg-surface);
   border: 1px solid var(--line-soft);
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   overflow: hidden;
 }
 
@@ -381,10 +379,10 @@ section.resume-section .resume-item .resume-date .text-primary {
 .language-table th {
   border-top: 0;
   border-bottom: 1px solid var(--line-soft);
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  font-size: 0.74rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
   font-weight: 700;
   color: #335072;
 }
@@ -395,12 +393,12 @@ section.resume-section .resume-item .resume-date .text-primary {
 }
 
 .footer {
-  background: #f0f6ff;
+  background: #f1f0eb;
   border-top: 1px solid var(--line-soft);
-  color: #4e6685;
-  font-family: 'Instrument Sans', 'Jersey 10', 'Modak', sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  font-family: 'Source Sans 3', Arial, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
   font-weight: 600;
 }
 
@@ -427,4 +425,70 @@ section.resume-section .resume-item .resume-date .text-primary {
   .stack-card {
     padding: 1rem;
   }
+}
+
+.research-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.flow-steps {
+  padding-left: 1.4rem;
+  margin: 0 0 1.5rem;
+  color: var(--ink-strong);
+}
+
+.flow-steps li {
+  padding-left: 0.3rem;
+  margin-bottom: 0.45rem;
+}
+
+.flow-steps li::marker {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.key-figure {
+  margin-bottom: 0.45rem;
+  color: var(--primary-strong);
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.stack-card .key-figure + p {
+  margin-top: 0;
+}
+
+.dissertation-findings {
+  padding-left: 1.25rem;
+}
+
+.dissertation-findings li {
+  margin-bottom: 0.65rem;
+}
+
+.dissertation-findings li::marker {
+  color: var(--primary);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tag-list li {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 0.15rem;
+  color: var(--ink-muted);
+  background: var(--bg-surface);
+  font-size: 0.85rem;
 }
