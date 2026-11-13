@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A Python tool for recovering files from a FAT16 disk image after a quick format removed the root directory entries.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="FAT16 File System Reconstruction | Twinkal Sikri">
+  <meta property="og:description" content="A Python tool for recovering files from a FAT16 disk image after a quick format removed the root directory entries.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>FAT16 File System Reconstruction | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Digital forensics · low-level programming</p>
+        <h1>FAT16 File System Reconstruction</h1>
+        <p class="case-deck">A Python tool for recovering files from a FAT16 disk image after a quick format removed the root directory entries.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>Forensics programming assignment</dd></div>
+          <div><dt>My role</dt><dd>Forensic tool development</dd></div>
+          <div><dt>Period</dt><dd>2026</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>The assignment involved examining a FAT16 image whose root directory had been wiped by a quick format. With the directory entries gone, recovery depended on reading the filesystem structures and following the cluster chains directly.</p>
+<p>I wrote a tool to map clusters and reconstruct file contents from the image, while checking the filesystem&#39;s two FAT copies and preserving the image as evidence.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Parsed the FAT16 structures needed to locate and follow file cluster chains.</li>
+<li>Handled 2,048-byte clusters and reconstructed file data from raw image content.</li>
+<li>Compared FAT1 with FAT2 when tracing allocation information.</li>
+<li>Verified the image&#39;s MD5 hash to check that the source evidence had not changed.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>The tool reads the volume structures, maps data clusters using the 2,048-byte cluster size, and consults the FAT entries to follow file chains.</p>
+<p>The two FAT copies are checked against one another. Reconstructed content is then written out for examination, with the original image hash retained as an integrity check.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Work from the image, not the live filesystem</h3><p><span class="decision-label">Choice:</span> Treat the disk image as the source of truth and verify its MD5 before analysis.</p><p><span class="decision-label">Why:</span> Forensic work needs a reproducible input and a check that the evidence has not been altered during handling.</p><p><span class="decision-label">Trade-off:</span> A matching hash establishes that the image stayed consistent; it does not prove that the image itself was collected correctly.</p></div>
+<div class="decision"><h3>Follow cluster chains directly</h3><p><span class="decision-label">Choice:</span> Use FAT allocation entries to reconstruct file content instead of relying on the erased root directory.</p><p><span class="decision-label">Why:</span> The directory records were missing, while allocation information remained available for tracing data clusters.</p><p><span class="decision-label">Trade-off:</span> Recovery quality depends on the state of the allocation tables and how much the quick format had overwritten.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The reconstruction recovered 57 files, 8 directories and 16 sub-directories.</p>
+<p>Two notable recovered files were INVOICE.PDF and TRANSA-1.TXT. Their contents provided matching wallet information for the case exercise.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>A quick format can leave useful allocation information behind, but recovery is not guaranteed if metadata or cluster contents have been overwritten.</p>
+<p>Next, I would add a clearer recovery log that records each chain decision and flag inconsistent FAT entries for manual review.</p></div></section>
+      
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Python</li><li>FAT16</li><li>Digital forensics</li><li>Disk images</li><li>File recovery</li></ul></section>
+      <div class="case-source"><p>Project details are summarised from the FAT16 reconstruction assignment report. No original disk image is published here.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="ccim.html"><span>Previous project</span>Quantitative OT Change Management</a>
+      <a href="nids.html"><span>Next project</span>Network Intrusion Detection System</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  
+  <script src="../js/project.js"></script>
+</body>
+</html>

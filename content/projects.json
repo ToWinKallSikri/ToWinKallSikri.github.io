@@ -1,0 +1,587 @@
+[
+  {
+    "slug": "ccim",
+    "title": "Quantitative OT Change Management",
+    "category": "MSc dissertation · OT and ICS security",
+    "context": "MSc dissertation",
+    "role": "Research, modelling and implementation",
+    "period": "2026",
+    "deck": "A research framework for making proposed changes to operational technology easier to assess, explain and compare.",
+    "overview": [
+      "A change to an industrial system can alter its attack surface, but conventional reviews do not always make the reasoning behind an approval easy to compare. My dissertation explored a structured, CIE-informed way to assess proposed changes in critical infrastructure.",
+      "The framework turns assessed change scenarios into a score and compares it with a threshold calibrated from a labelled set of 22 scenarios. It is a research prototype, not an operational approval system."
+    ],
+    "contribution": [
+      "Formalised the assessment model and its relationship to relevant OT security and safety standards.",
+      "Used the Analytic Hierarchy Process to derive four criterion weights, then checked their consistency.",
+      "Implemented PERT-based uncertainty modelling and Monte Carlo calibration in Python.",
+      "Applied the method to microgrid and water-treatment case studies, including an interlock mitigation and an AI dosing optimiser."
+    ],
+    "decisions": [
+      {
+        "title": "Make uncertainty visible",
+        "choice": "Represent uncertain assessments with PERT distributions rather than treating every input as a single known value.",
+        "why": "Early change reviews often rely on estimates. Showing a range makes that uncertainty part of the assessment instead of hiding it in one score.",
+        "tradeoff": "The result depends on the quality of the input estimates and the assumptions used to construct each distribution."
+      },
+      {
+        "title": "Calibrate against labelled scenarios",
+        "choice": "Use a Monte Carlo simulation with 10,000 trials per class and select a threshold using ROC analysis.",
+        "why": "This gives a repeatable way to compare the separation between acceptable and unacceptable scenarios.",
+        "tradeoff": "The 22-scenario corpus is small and illustrative. The measured separation does not establish real-world predictive performance."
+      },
+      {
+        "title": "Connect standards rather than replace them",
+        "choice": "Structure the model around CIE-informed criteria and show how the criteria relate to existing security and safety standards.",
+        "why": "The aim was to make a review more consistent while keeping it legible to practitioners already working with standards.",
+        "tradeoff": "The framework still needs validation with domain experts and a broader set of operating environments."
+      }
+    ],
+    "howItWorks": [
+      "The criteria are weighted using AHP. The resulting weights are 0.467, 0.277, 0.160 and 0.095, with a consistency ratio of 0.011.",
+      "For each scenario, PERT distributions with λ = 4 model the assessed inputs. Repeated sampling produces a score distribution, which is compared with the calibrated threshold.",
+      "The 22 labelled scenarios comprise 15 unacceptable and 7 acceptable cases. The selected threshold was approximately 0.277; the simulated ROC AUC was approximately 0.993, with Youden's J approximately 0.915."
+    ],
+    "results": [
+      "In the microgrid case, the remote feedback change exceeded its national and manufacturing thresholds: T_N = 0.5158 against approximately 0.286, and T_M = 0.5517 against approximately 0.318.",
+      "The proposed interlock mitigation scored 0.092 and 0.1127, below the corresponding thresholds. The water-treatment AI dosing case sat close enough to its threshold to show why borderline assessments need careful review."
+    ],
+    "limitations": [
+      "The model uses a small, illustrative scenario set and assigned weights. The high AUC describes this dataset and simulation, not performance on unseen industrial changes.",
+      "Next, I would review the criteria and scoring with OT engineers, test the framework against a larger independently labelled dataset, and document how assessors should handle borderline scores."
+    ],
+    "tags": ["Cyber-Informed Engineering", "OT / ICS", "AHP", "PERT", "Monte Carlo", "ROC analysis", "Python"],
+    "evidence": "Figures and results are drawn from my dissertation report. The reported scores are research findings from the study dataset, not operational recommendations.",
+    "images": [
+      {"file": "formalisation-model.webp", "title": "Formalisation model", "alt": "Diagram outlining the formalised change assessment model.", "caption": "The main stages of the proposed assessment."},
+      {"file": "standards-interaction.webp", "title": "Standards interaction", "alt": "Diagram showing relationships between the standards considered in the dissertation.", "caption": "The framework is positioned alongside existing standards rather than as a replacement for them."},
+      {"file": "pert-variables.webp", "title": "PERT input variables", "alt": "Plot of the PERT distributions used for assessment inputs.", "caption": "Uncertain inputs are represented as distributions."},
+      {"file": "roc-curve.webp", "title": "Threshold calibration", "alt": "ROC curve for the simulated threshold calibration.", "caption": "ROC analysis selected a threshold of approximately 0.277 for this dataset."},
+      {"file": "cs1a-wan-pmu.webp", "title": "Microgrid change case", "alt": "Assessment results for the microgrid remote feedback case.", "caption": "The assessed remote feedback change exceeded both tested thresholds."},
+      {"file": "cs1b-interlock.webp", "title": "Interlock mitigation case", "alt": "Assessment results for the microgrid interlock mitigation.", "caption": "The proposed interlock mitigation scored below both thresholds."},
+      {"file": "cs2-ai-dosing.webp", "title": "AI dosing case", "alt": "Assessment results for the water-treatment AI dosing case.", "caption": "This case illustrates the need to review results close to the threshold."}
+    ]
+  },
+  {
+    "slug": "fat16",
+    "title": "FAT16 File System Reconstruction",
+    "category": "Digital forensics · low-level programming",
+    "context": "Forensics programming assignment",
+    "role": "Forensic tool development",
+    "period": "2026",
+    "deck": "A Python tool for recovering files from a FAT16 disk image after a quick format removed the root directory entries.",
+    "overview": [
+      "The assignment involved examining a FAT16 image whose root directory had been wiped by a quick format. With the directory entries gone, recovery depended on reading the filesystem structures and following the cluster chains directly.",
+      "I wrote a tool to map clusters and reconstruct file contents from the image, while checking the filesystem's two FAT copies and preserving the image as evidence."
+    ],
+    "contribution": [
+      "Parsed the FAT16 structures needed to locate and follow file cluster chains.",
+      "Handled 2,048-byte clusters and reconstructed file data from raw image content.",
+      "Compared FAT1 with FAT2 when tracing allocation information.",
+      "Verified the image's MD5 hash to check that the source evidence had not changed."
+    ],
+    "decisions": [
+      {
+        "title": "Work from the image, not the live filesystem",
+        "choice": "Treat the disk image as the source of truth and verify its MD5 before analysis.",
+        "why": "Forensic work needs a reproducible input and a check that the evidence has not been altered during handling.",
+        "tradeoff": "A matching hash establishes that the image stayed consistent; it does not prove that the image itself was collected correctly."
+      },
+      {
+        "title": "Follow cluster chains directly",
+        "choice": "Use FAT allocation entries to reconstruct file content instead of relying on the erased root directory.",
+        "why": "The directory records were missing, while allocation information remained available for tracing data clusters.",
+        "tradeoff": "Recovery quality depends on the state of the allocation tables and how much the quick format had overwritten."
+      }
+    ],
+    "howItWorks": [
+      "The tool reads the volume structures, maps data clusters using the 2,048-byte cluster size, and consults the FAT entries to follow file chains.",
+      "The two FAT copies are checked against one another. Reconstructed content is then written out for examination, with the original image hash retained as an integrity check."
+    ],
+    "results": [
+      "The reconstruction recovered 57 files, 8 directories and 16 sub-directories.",
+      "Two notable recovered files were INVOICE.PDF and TRANSA-1.TXT. Their contents provided matching wallet information for the case exercise."
+    ],
+    "limitations": [
+      "A quick format can leave useful allocation information behind, but recovery is not guaranteed if metadata or cluster contents have been overwritten.",
+      "Next, I would add a clearer recovery log that records each chain decision and flag inconsistent FAT entries for manual review."
+    ],
+    "tags": ["Python", "FAT16", "Digital forensics", "Disk images", "File recovery"],
+    "evidence": "Project details are summarised from the FAT16 reconstruction assignment report. No original disk image is published here."
+  },
+  {
+    "slug": "nids",
+    "title": "Network Intrusion Detection System",
+    "category": "Network security · Python",
+    "context": "Network security project",
+    "role": "Design and implementation",
+    "period": "2026",
+    "deck": "A small Python network monitor that tracks traffic, applies threshold-based detection and protects its audit logs against tampering.",
+    "overview": [
+      "I built a learning-focused network intrusion detection system to inspect traffic and raise alerts when observed activity crossed configured thresholds. The project also explored how a monitoring tool can protect the integrity of its own logs.",
+      "It demonstrates a pipeline and several security mechanisms, but it is not a replacement for a maintained production IDS."
+    ],
+    "contribution": [
+      "Built a Scapy-based packet sniffer and traffic tracker.",
+      "Added threshold-based detection with a cooldown to reduce repeated alerts.",
+      "Implemented the project's mutual CHAP exchange and AES-256, HMAC, CRC and timestamp checks.",
+      "Added HMAC-protected log records and a separate `check_logs.py` verification utility."
+    ],
+    "decisions": [
+      {
+        "title": "Track activity before alerting",
+        "choice": "Separate packet capture and traffic tracking from the threshold decision.",
+        "why": "Keeping the stages distinct makes the detection logic easier to test and change.",
+        "tradeoff": "The thresholds are static, so they do not adapt to normal changes in network behaviour."
+      },
+      {
+        "title": "Make log tampering detectable",
+        "choice": "Authenticate log records with an HMAC and provide a verification script.",
+        "why": "An alert is less useful if the records used to review it can be changed without detection.",
+        "tradeoff": "The prototype uses a hardcoded key, which is not suitable for deployment."
+      }
+    ],
+    "howItWorks": [
+      "Scapy captures packets, and the tracker maintains traffic measurements used by the threshold rules. A cooldown limits repeated notifications for the same condition.",
+      "The project also demonstrates a mutual CHAP exchange and uses AES-256, HMAC, CRC and timestamps in its communication and logging design. The verification utility checks whether protected log data has been modified."
+    ],
+    "results": [
+      "The project produced a working prototype that joins packet observation, threshold rules and integrity-checked audit records.",
+      "The class and sequence diagrams document how the main components and their interactions were intended to work."
+    ],
+    "limitations": [
+      "Static thresholds can miss behaviour outside the rules and can create false positives. A hardcoded key is a significant deployment limitation.",
+      "Next, I would move key material into managed configuration, add tests around malformed and replayed records, and evaluate detection quality on representative traffic before making any operational claims."
+    ],
+    "tags": ["Python", "Scapy", "Network monitoring", "HMAC", "AES-256", "Secure logging"],
+    "evidence": "The diagrams and implementation notes are summarised from the NIDS project report.",
+    "images": [
+      {"file": "class-diagram.webp", "title": "Component design", "alt": "Class diagram of the network monitoring project.", "caption": "The main classes and their relationships."},
+      {"file": "sequence-diagram.webp", "title": "Detection flow", "alt": "Sequence diagram showing the project's detection flow.", "caption": "A view of how packet observation flows through the detection components."},
+      {"file": "secure-logging.webp", "title": "Log integrity", "alt": "Diagram describing the integrity-protected logging process.", "caption": "HMAC verification is used to detect changes to stored log records."}
+    ]
+  },
+  {
+    "slug": "risk-monte-carlo",
+    "title": "Risk Management with Monte Carlo Simulation",
+    "category": "Risk analysis · data analytics",
+    "context": "Programming and analytics assignment",
+    "role": "Model design and analysis",
+    "period": "2025",
+    "deck": "A probabilistic model for exploring annual and quarterly losses when both event frequency and impact are uncertain.",
+    "overview": [
+      "A single expected-loss figure can hide the range of outcomes a risk may produce. This project used simulation to explore how uncertain event frequency and loss severity combine over time.",
+      "The notebook models frequency with a Poisson distribution and severity with a lognormal distribution, then summarises the simulated losses with annual and quarterly views."
+    ],
+    "contribution": [
+      "Built the frequency and severity model in a Jupyter notebook.",
+      "Ran 10,000 Monte Carlo trials and calculated the implied annual loss measure (IALE).",
+      "Plotted loss exceedance curves for individual risks and the portfolio total.",
+      "Produced quarterly event and loss views to make the simulated results easier to interpret."
+    ],
+    "decisions": [
+      {
+        "title": "Model frequency and severity separately",
+        "choice": "Use a Poisson model for event counts and a lognormal model for loss size.",
+        "why": "The two parts represent different uncertainties and can be inspected independently before being combined.",
+        "tradeoff": "The distributions are assumptions. They need evidence and calibration before the output can inform real decisions."
+      },
+      {
+        "title": "Show more than an average",
+        "choice": "Report exceedance curves and quarterly outcomes alongside the annual loss measure.",
+        "why": "Averages alone do not show how often larger losses appear in the modelled range.",
+        "tradeoff": "Simulation plots can look precise even when the underlying inputs are uncertain."
+      }
+    ],
+    "howItWorks": [
+      "For each of 10,000 trials, the model samples an event count from a Poisson distribution and loss severities from a lognormal distribution, then aggregates the losses.",
+      "The notebook compares per-risk and total losses, calculates IALE, and groups simulated events and losses by quarter."
+    ],
+    "results": [
+      "The notebook produces per-risk and total loss exceedance curves, plus quarterly event and loss summaries.",
+      "These views make the effects of the chosen frequency and severity assumptions visible across a range of simulated outcomes."
+    ],
+    "limitations": [
+      "The output is only as credible as the distributions and parameters supplied to the model. The simulation does not remove uncertainty from the input data.",
+      "Next, I would document the data behind each parameter, compare simulated results with observed loss history where available, and add sensitivity analysis."
+    ],
+    "tags": ["Python", "Jupyter", "Poisson distribution", "Lognormal distribution", "Monte Carlo", "Risk analysis"],
+    "evidence": "The charts shown here come from the risk management assignment notebook.",
+    "images": [
+      {"file": "lec-total.webp", "title": "Total annual loss", "alt": "Plot of the simulated total annual loss exceedance curve.", "caption": "Exceedance view for the combined modelled risks."},
+      {"file": "lec-per-risk.webp", "title": "Loss by risk", "alt": "Plot comparing loss exceedance curves for individual risks.", "caption": "The individual curves help show which modelled risks drive the tail."},
+      {"file": "quarterly-events.webp", "title": "Quarterly events", "alt": "Plot of simulated quarterly event counts.", "caption": "Simulated event counts grouped by quarter."},
+      {"file": "quarterly-loss.webp", "title": "Quarterly losses", "alt": "Plot of simulated quarterly losses.", "caption": "Quarterly losses vary with both the number and severity of events."}
+    ]
+  },
+  {
+    "slug": "embedded-1wire",
+    "title": "Embedded Firmware: 1-Wire Sensor Emulation",
+    "category": "Embedded systems · ATmega328P",
+    "context": "Computer architecture laboratory project",
+    "role": "Firmware design and implementation",
+    "period": "2025",
+    "deck": "Bare-metal firmware that reads a DHT22 sensor and presents its values through a virtual 1-Wire scratchpad.",
+    "overview": [
+      "The brief was to build a small embedded system with limited machine resources. The firmware reads temperature and humidity from a DHT22, then exposes the measurements through a virtual 1-Wire device interface.",
+      "I used register-level I/O and a timer-driven state machine, and tested the behaviour in Wokwi."
+    ],
+    "contribution": [
+      "Implemented the DHT22 reading and virtual 1-Wire command handling on an ATmega328P.",
+      "Configured Timer1 in CTC mode with a prescaler of 64 and OCR1A = 249 to generate a 1 ms tick.",
+      "Stored sensor values multiplied by 10 as integers, representing one decimal place in the scratchpad.",
+      "Added a 50 ms conversion interval and checksum verification."
+    ],
+    "decisions": [
+      {
+        "title": "Keep interrupt work short",
+        "choice": "Use a 1 ms Timer1 interrupt to update timing flags and leave longer work to the main state machines.",
+        "why": "Short interrupt handlers help keep the timing predictable and avoid doing sensor or protocol work inside the interrupt.",
+        "tradeoff": "The states and shared flags need careful coordination to avoid timing and synchronisation errors."
+      },
+      {
+        "title": "Use scaled integers for the scratchpad",
+        "choice": "Store each value multiplied by ten rather than using floating-point values.",
+        "why": "This keeps the representation compact while retaining one decimal place.",
+        "tradeoff": "The reading must be interpreted using the scale factor when converting it back to a displayed value."
+      },
+      {
+        "title": "Use direct register I/O",
+        "choice": "Control the relevant pins through DDRD, PORTD and PIND rather than Arduino helper functions or external libraries.",
+        "why": "The assignment focused on understanding the microcontroller's I/O and resource constraints.",
+        "tradeoff": "Register-level code is tied more closely to the target hardware and needs explicit handling of pin states."
+      }
+    ],
+    "howItWorks": [
+      "The sensor-reading state machine obtains the DHT22 values. A separate 1-Wire state machine handles the device commands and scratchpad response.",
+      "Timer1 supplies the 1 ms timing tick. A conversion waits 50 ms before the scaled integer readings and checksum are made available through the scratchpad."
+    ],
+    "results": [
+      "The firmware was simulated in Wokwi, with screenshots showing the project setup and a running simulation.",
+      "The implementation demonstrates the timing and protocol behaviour in a simulator. It is not evidence of validation on a physical board."
+    ],
+    "limitations": [
+      "Simulation does not cover every electrical or timing issue that could appear on physical hardware. The protocol is also an emulation for this project rather than a certified sensor implementation.",
+      "Next, I would test the firmware on an ATmega328P board with a logic analyser, check the timing margins across conditions, and document the pin connections from the original report."
+    ],
+    "tags": ["C", "ATmega328P", "Timer1", "1-Wire", "DHT22", "Wokwi", "Register-level I/O"],
+    "evidence": "The flowchart, timing and simulator images are drawn from the embedded systems project material. The incorrect wiring image in the supplied assets has been left out.",
+    "images": [
+      {"file": "flowchart-solution.webp", "title": "Firmware flow", "alt": "Flowchart of the adopted firmware solution.", "caption": "Separate states coordinate sensor reading and 1-Wire responses."},
+      {"file": "dht22-timing.webp", "title": "DHT22 timing", "alt": "Timing diagram for communicating with the DHT22 sensor.", "caption": "The sensor-reading stage follows the timing required by the DHT22."},
+      {"file": "protocol-comparison.webp", "title": "Protocol comparison", "alt": "Comparison of the sensor and emulated 1-Wire protocol.", "caption": "The project bridges the DHT22 input and a virtual 1-Wire interface."},
+      {"file": "wokwi-editor.webp", "title": "Wokwi setup", "alt": "Firmware and circuit shown in the Wokwi editor.", "caption": "The project was developed and simulated in Wokwi."},
+      {"file": "wokwi-run.webp", "title": "Simulation running", "alt": "The firmware running in the Wokwi simulation.", "caption": "A simulator view of the running project."}
+    ]
+  },
+  {
+    "slug": "soc",
+    "title": "Security Operations Centre for SMEs",
+    "category": "BSc thesis · security operations",
+    "context": "BSc thesis",
+    "role": "System design, integration and evaluation",
+    "period": "2024-2025",
+    "deck": "A resource-conscious home-lab SOC that combines network security tools, virtualisation and custom log decoding.",
+    "overview": [
+      "Small organisations may not have the budget or staff for a large commercial security operations platform. My thesis explored how an affordable lab could collect, interpret and present security events using a combination of open-source tools and existing hardware.",
+      "The system brought together Wazuh, pfSense, Snort, Proxmox and ESXi on an HP ProLiant server. I designed custom decoders for Kea-DHCP4 and the pfSense Captive Portal."
+    ],
+    "contribution": [
+      "Designed the network and virtualisation layout for the SOC environment.",
+      "Integrated Wazuh, pfSense and Snort with Proxmox and VMware ESXi.",
+      "Wrote custom Wazuh decoders for Kea-DHCP4 and pfSense Captive Portal logs.",
+      "Validated alert ingestion with a controlled EICAR test and VirusTotal lookup."
+    ],
+    "decisions": [
+      {
+        "title": "Reuse available hardware",
+        "choice": "Build around an HP ProLiant server and virtualise the lab services.",
+        "why": "Reusing hardware kept the project's additional hardware cost to about €150 while allowing multiple components to run in one environment.",
+        "tradeoff": "A single host concentrates workloads and does not provide the resilience expected in a production SOC."
+      },
+      {
+        "title": "Decode the logs the tools actually produce",
+        "choice": "Add custom decoders for Kea-DHCP4 and the pfSense Captive Portal.",
+        "why": "Useful alerts depend on turning source-specific log formats into fields the monitoring platform can interpret.",
+        "tradeoff": "Custom decoders need maintenance when log formats change and require testing against real event samples."
+      },
+      {
+        "title": "Use a safe validation artefact",
+        "choice": "Use an EICAR test file and VirusTotal as a controlled check of the event pipeline.",
+        "why": "This allowed a known test event to exercise ingestion and alert handling without presenting the exercise as a real attack.",
+        "tradeoff": "The test validates a narrow path through the pipeline, not the SOC's ability to detect every threat."
+      }
+    ],
+    "howItWorks": [
+      "Endpoints and network services produce events. Wazuh collects and processes logs, while custom decoders extract fields from the DHCP and captive portal formats.",
+      "Snort and pfSense provide network security components, and the virtualised lab hosts the supporting services. The final topology connects the data sources to the monitoring and dashboard layers."
+    ],
+    "results": [
+      "The thesis delivered a working lab design and demonstrated log ingestion and alert presentation, including a controlled EICAR / VirusTotal validation.",
+      "The estimated hardware cost was about €150, based on reuse of the HP ProLiant server."
+    ],
+    "limitations": [
+      "The lab did not include SOAR, and the free VirusTotal API quota constrained repeated lookups. A single physical host also limits availability and scalability.",
+      "Next, I would add documented backup and recovery, measure resource use under load, and define a response workflow before extending the environment."
+    ],
+    "tags": ["Wazuh", "pfSense", "Snort", "Proxmox", "VMware ESXi", "Log decoding", "SOC"],
+    "evidence": "Network diagrams and system screenshots are from my BSc thesis material. The validation described here was an EICAR / VirusTotal test.",
+    "images": [
+      {"file": "initial-topology.webp", "title": "Initial topology", "alt": "Initial network layout for the SOC thesis.", "caption": "The starting layout for the home-lab environment."},
+      {"file": "final-topology.webp", "title": "Final topology", "alt": "Final network and virtualisation topology for the SOC.", "caption": "The integrated design connects the security components and monitoring platform."},
+      {"file": "hp-proliant.webp", "title": "HP ProLiant server", "alt": "HP ProLiant server used for the lab.", "caption": "Existing hardware kept the additional hardware cost to about €150."},
+      {"file": "wazuh-log-ingestion.webp", "title": "Wazuh log ingestion", "alt": "Diagram of the Wazuh log ingestion and decoding pipeline.", "caption": "Custom decoders convert source logs into structured events."},
+      {"file": "snort-dashboard.webp", "title": "Snort dashboard", "alt": "Dashboard view from the SOC environment.", "caption": "A view of events presented by the monitoring environment."}
+    ]
+  },
+  {
+    "slug": "municipath",
+    "title": "MuniciPath",
+    "category": "Group project · software engineering",
+    "context": "Software engineering project",
+    "role": "Group project; feature ownership was not attributed in the report",
+    "period": "2023-2024",
+    "deck": "A municipal information platform that organises local posts and events around map locations, with moderation and contributor roles.",
+    "overview": [
+      "MuniciPath was designed to make information about Italian municipalities easier to discover. Users browse municipalities and map-based points containing local posts, events and other information.",
+      "The project was developed as a group using an iterative process. The report describes shared project outcomes but does not attribute individual features to specific team members, so this page does not claim sole ownership of any component."
+    ],
+    "contribution": [
+      "Worked as part of the group that designed and implemented the platform.",
+      "The shared project scope included a Spring Boot backend, an Angular frontend, REST communication and JWT-based authentication.",
+      "The group also implemented municipal moderation workflows and Wilson score-based analytics."
+    ],
+    "decisions": [
+      {
+        "title": "Organise information by place",
+        "choice": "Represent municipal content as map locations containing posts, with a special location for municipality-wide information.",
+        "why": "The platform's purpose was to help visitors find useful local information in context.",
+        "tradeoff": "Map-based browsing depends on accurate location data and may not suit every kind of content."
+      },
+      {
+        "title": "Moderate contributions by role",
+        "choice": "Distinguish between tourists, contributors, moderators and municipal curators, with different publishing permissions.",
+        "why": "The group wanted public information to remain open to contributions while giving municipal staff a way to review submissions.",
+        "tradeoff": "Role-based workflows create more states and permissions to test and maintain."
+      },
+      {
+        "title": "Use Wilson score for ranking",
+        "choice": "Use Wilson score analytics for municipal content rather than relying only on raw popularity.",
+        "why": "The group wanted the analytics to account for the amount of feedback behind a result.",
+        "tradeoff": "The score still depends on the quality and volume of user feedback and should be read in context."
+      }
+    ],
+    "howItWorks": [
+      "The Angular interface communicates with a Spring Boot backend over REST. JWTs support authentication, with the frontend storing them in cookies as described in the project report.",
+      "Municipalities contain map locations and posts. Role permissions govern whether a contribution can be published directly or must first be reviewed; analytics provide municipal views of content performance."
+    ],
+    "results": [
+      "The group produced a web application with an interactive map, municipal content, role-based features and the ability to exchange multimedia content between the frontend and backend.",
+      "The project report describes four iterations, ending with frontend work, REST integration and testing."
+    ],
+    "limitations": [
+      "The report does not assign individual features to team members. I have therefore described the shared project rather than making an unsupported claim about which parts I personally implemented.",
+      "Next, I would add a clear contribution record and test the permission boundaries and token handling as part of a security review."
+    ],
+    "tags": ["Spring Boot", "Angular", "Java", "REST", "JWT", "OpenStreetMap", "Wilson score"],
+    "evidence": "This summary draws on the group's project report, requirements and design notes. Individual feature ownership was not documented in those materials."
+  },
+  {
+    "slug": "vector-rally",
+    "title": "Vector Rally Race Simulator",
+    "category": "Java · object-oriented design",
+    "context": "Java and programming methodologies project",
+    "role": "Game design and implementation",
+    "period": "2023-2024",
+    "deck": "A turn-based console racing game with configurable tracks, bot racers and rule checks for movement and collisions.",
+    "overview": [
+      "Vector Rally is a console racing game built around a grid-based movement model. Players choose a direction and speed, and the game checks whether the resulting trajectory stays on the track and avoids collisions.",
+      "The project separates the race engine from track parsing, rule enforcement and collision checking so that new track layouts and player types can be added without rewriting the whole game."
+    ],
+    "contribution": [
+      "Implemented the Java game structure and Gradle build.",
+      "Added text-file track parsing so that layouts can be changed without editing the game engine.",
+      "Built bot racers with randomly assigned speed strategies.",
+      "Checked movement by splitting trajectories into integer route points and validating track boundaries and collisions."
+    ],
+    "decisions": [
+      {
+        "title": "Separate rules from the race loop",
+        "choice": "Keep the referee, collision checker, parser and game engine as distinct parts.",
+        "why": "This makes the rules easier to reason about and gives the project a path to additional player types.",
+        "tradeoff": "The components need clear interfaces so the same rules are applied consistently."
+      },
+      {
+        "title": "Represent movement as a sequence of points",
+        "choice": "Split each move into integer route points before checking it against the track.",
+        "why": "Checking intermediate points catches a move that crosses an edge or another car even when its destination appears valid.",
+        "tradeoff": "This is a discrete game model and does not attempt to simulate continuous vehicle physics."
+      },
+      {
+        "title": "Load tracks from text files",
+        "choice": "Parse configurable track layouts instead of hard-coding one circuit.",
+        "why": "It makes it easier to try new routes and separate level design from game logic.",
+        "tradeoff": "The parser must reject malformed or inconsistent track files cleanly."
+      }
+    ],
+    "howItWorks": [
+      "The parser turns a text track into the representation used by the game. The race engine advances each racer in turn, while the referee applies the start order and race rules.",
+      "Bot racers use assigned speed strategies. Each proposed movement is checked along its route for off-track points and collisions before the turn is accepted."
+    ],
+    "results": [
+      "The project supports custom tracks and bot-driven races in a console application.",
+      "A track concept shows how route ideas informed the design."
+    ],
+    "limitations": [
+      "The game focuses on turn-based route rules rather than vehicle physics, and the bot strategies are intentionally simple.",
+      "Next, I would add human player input, more varied bot strategies and automated tests for edge cases in track parsing and collision checking."
+    ],
+    "tags": ["Java", "Gradle", "Object-oriented design", "Parsing", "Game logic"],
+    "evidence": "The track concept comes from the project material. The repository contains the game source and build files.",
+    "repository": "https://github.com/ToWinKallSikri/Progetto_F1_Sikri_Twinkal",
+    "images": [
+      {"file": "track-idea.webp", "title": "Track concept", "alt": "Hand-drawn concept for a Vector Rally track.", "caption": "A track idea used during the design process."}
+    ]
+  },
+  {
+    "slug": "pentest",
+    "title": "Penetration Testing Lab Assessment",
+    "category": "Cybersecurity · authorised lab",
+    "context": "Controlled five-VM lab exercise",
+    "role": "Assessment and reporting",
+    "period": "December 2025",
+    "deck": "A report on a time-bounded assessment of an isolated five-virtual-machine lab, focused on documenting findings and their security implications.",
+    "overview": [
+      "This assessment took place in a controlled lab environment on 12 December 2025. The scope covered five virtual machines and several common security-testing themes, including information gathering, application weaknesses and privilege management.",
+      "The work was documented as an academic lab exercise. This case study keeps the discussion at a high level and omits exploit commands, credentials, flags and other lab-only hints."
+    ],
+    "contribution": [
+      "Worked within the defined lab scope and recorded observations in a written report.",
+      "Reviewed the environment across host discovery, service exposure, application security and privilege boundaries.",
+      "Considered how findings should be reported with evidence and context rather than treated as isolated technical wins."
+    ],
+    "decisions": [
+      {
+        "title": "Keep testing inside the authorised range",
+        "choice": "Limit activity to the virtual machines and network provided for the exercise.",
+        "why": "A clear scope is essential to responsible testing and avoids affecting systems outside the lab.",
+        "tradeoff": "The results apply only to that lab environment and should not be generalised to other systems."
+      },
+      {
+        "title": "Report impact, not just tool output",
+        "choice": "Summarise the assessment as findings and security implications rather than publishing reusable exploit steps.",
+        "why": "A useful report should help an owner understand risk and remediation without exposing lab secrets.",
+        "tradeoff": "This public summary intentionally contains less detail than the private academic report."
+      }
+    ],
+    "howItWorks": [
+      "The assessment followed the lab scope and gathered evidence about reachable hosts and exposed services before examining the assigned security themes.",
+      "Findings were recorded in the report with enough context for the exercise. This public page does not include credentials, flags, exploit commands or detailed attack procedures."
+    ],
+    "results": [
+      "The exercise produced a written account of the lab assessment and its observations.",
+      "Only a non-sensitive host-discovery image is included. Screenshots that could reveal credentials, flags or operational exploit details have been excluded."
+    ],
+    "limitations": [
+      "A short, isolated lab exercise is not a comprehensive security assessment and does not establish how a real organisation would respond.",
+      "Next, I would prioritise findings by likelihood and impact, map them to clear remediation advice, and retest only within an explicitly authorised scope."
+    ],
+    "tags": ["Authorised testing", "Virtual lab", "Security assessment", "Reporting"],
+    "evidence": "The page is a deliberately high-level summary of an academic lab report. Sensitive lab screenshots and exploit details are not reproduced here.",
+    "images": [
+      {"file": "host-discovery.webp", "title": "Lab host discovery", "alt": "Host discovery results from the isolated assessment lab.", "caption": "A non-sensitive view of host discovery within the lab network."}
+    ]
+  },
+  {
+    "slug": "synnovis",
+    "title": "Synnovis Incident: Legal Analysis",
+    "category": "Law · data protection and cybercrime",
+    "context": "Academic legal analysis",
+    "role": "Research and written analysis",
+    "deck": "An academic analysis of data-protection responsibilities and computer misuse law in the context of the Synnovis cyber incident.",
+    "overview": [
+      "This essay considered legal responsibilities raised by the Synnovis cyber incident, with a focus on UK GDPR security obligations and the relationship between organisations and processors.",
+      "It also considered the Computer Misuse Act 1990 and used the Information Commissioner's Office decision concerning Advanced as a relevant enforcement comparison."
+    ],
+    "contribution": [
+      "Researched UK GDPR Articles 32 and 28 in relation to security of processing and processor responsibilities.",
+      "Examined the Computer Misuse Act 1990 as part of the legal context around cyber incidents.",
+      "Compared the discussion with the £3.07 million fine issued to Advanced as a relevant precedent."
+    ],
+    "decisions": [
+      {
+        "title": "Separate legal duties by relationship",
+        "choice": "Consider controller security obligations and processor responsibilities separately.",
+        "why": "Article 32 and Article 28 address different aspects of responsibility, so treating them as one duty would obscure the analysis.",
+        "tradeoff": "The legal application depends on the facts and evidence available in each incident."
+      },
+      {
+        "title": "Use an enforcement comparison carefully",
+        "choice": "Discuss the Advanced decision as a comparator rather than assuming it determines the Synnovis outcome.",
+        "why": "A prior enforcement action can provide context for regulatory reasoning without making two incidents legally identical.",
+        "tradeoff": "A comparison cannot substitute for a full analysis of the facts, parties and applicable law."
+      }
+    ],
+    "howItWorks": [
+      "The essay connected the incident context to the obligations around appropriate security measures and processor arrangements, then considered the criminal-law framework for unauthorised access and related conduct.",
+      "The Advanced fine was used as a point of comparison for enforcement discussion. The analysis is academic and is not legal advice."
+    ],
+    "results": [
+      "The work produced a structured legal discussion linking data-protection obligations, processor relationships and computer misuse law to a real incident context.",
+      "It highlighted the importance of distinguishing established legal duties from conclusions that require evidence about the specific incident."
+    ],
+    "limitations": [
+      "An academic essay cannot determine liability or replace legal advice. Conclusions depend on verified facts, current law and decisions by the relevant authorities.",
+      "Next, I would update the analysis against the latest regulatory findings and make the distinction between confirmed facts and legal argument explicit throughout."
+    ],
+    "tags": ["UK GDPR", "Article 32", "Article 28", "Computer Misuse Act 1990", "Cyber law"],
+    "evidence": "This is a summary of an academic essay. It is not legal advice and does not make findings about liability."
+  },
+  {
+    "slug": "booking-api",
+    "title": "C# Booking API",
+    "category": "Software engineering · .NET 8",
+    "context": "Personal software project",
+    "role": "API design and implementation",
+    "deck": "A booking API using EF Core, SQL Server and validation rules to check availability and prevent overlapping bookings.",
+    "overview": [
+      "This project is a .NET 8 API for managing bookings and availability. It uses Entity Framework Core with SQL Server and exposes paginated availability results, with Swagger for exploring the API.",
+      "The project is also a useful example of why authentication features need to be reviewed as carefully as the rest of an application."
+    ],
+    "contribution": [
+      "Built the API around EF Core and SQL Server.",
+      "Added FluentValidation rules for booking inputs, including overlap checks.",
+      "Implemented paginated availability and Swagger documentation.",
+      "Added JWT authentication with HMAC-SHA256 signing and a 30-minute expiry."
+    ],
+    "decisions": [
+      {
+        "title": "Validate booking rules before persistence",
+        "choice": "Use FluentValidation to check booking inputs and overlapping time periods.",
+        "why": "Keeping validation explicit makes the booking constraints easier to understand and test.",
+        "tradeoff": "The database and application validation need to remain consistent when concurrent requests arrive."
+      },
+      {
+        "title": "Limit token lifetime",
+        "choice": "Issue JWTs with a 30-minute expiry.",
+        "why": "A finite lifetime reduces how long a leaked token remains valid.",
+        "tradeoff": "Expiry alone does not address insecure password handling, token storage or revocation."
+      }
+    ],
+    "howItWorks": [
+      "The API validates incoming booking data, checks for overlapping bookings and uses EF Core to persist records in SQL Server.",
+      "Availability queries are paginated. JWTs are signed with HMAC-SHA256 and expire after 30 minutes; Swagger provides an interface for exploring the documented endpoints."
+    ],
+    "results": [
+      "The project brings booking validation, persistence, authentication and API documentation together in one .NET 8 service.",
+      "The repository provides the implementation for further review and testing."
+    ],
+    "limitations": [
+      "Passwords are currently compared in plain text. This is not safe for a real service and must be replaced with a well-reviewed password-hashing approach before deployment. JWT signing does not correct this weakness.",
+      "Next, I would implement salted password hashing with a suitable library, add tests for authentication and concurrent booking conflicts, and review authorisation and token handling before considering deployment."
+    ],
+    "tags": [".NET 8", "C#", "Entity Framework Core", "SQL Server", "FluentValidation", "JWT", "Swagger"],
+    "evidence": "The project details and security limitation are described from the implementation brief. The API should not be used with real accounts until password handling is fixed and reviewed.",
+    "repository": "https://github.com/ToWinKallSikri/Sikri_Twinkal_PAdP_T04"
+  }
+]

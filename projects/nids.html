@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A small Python network monitor that tracks traffic, applies threshold-based detection and protects its audit logs against tampering.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Network Intrusion Detection System | Twinkal Sikri">
+  <meta property="og:description" content="A small Python network monitor that tracks traffic, applies threshold-based detection and protects its audit logs against tampering.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>Network Intrusion Detection System | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Network security · Python</p>
+        <h1>Network Intrusion Detection System</h1>
+        <p class="case-deck">A small Python network monitor that tracks traffic, applies threshold-based detection and protects its audit logs against tampering.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>Network security project</dd></div>
+          <div><dt>My role</dt><dd>Design and implementation</dd></div>
+          <div><dt>Period</dt><dd>2026</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        <a href="#gallery">Images</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>I built a learning-focused network intrusion detection system to inspect traffic and raise alerts when observed activity crossed configured thresholds. The project also explored how a monitoring tool can protect the integrity of its own logs.</p>
+<p>It demonstrates a pipeline and several security mechanisms, but it is not a replacement for a maintained production IDS.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Built a Scapy-based packet sniffer and traffic tracker.</li>
+<li>Added threshold-based detection with a cooldown to reduce repeated alerts.</li>
+<li>Implemented the project&#39;s mutual CHAP exchange and AES-256, HMAC, CRC and timestamp checks.</li>
+<li>Added HMAC-protected log records and a separate `check_logs.py` verification utility.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>Scapy captures packets, and the tracker maintains traffic measurements used by the threshold rules. A cooldown limits repeated notifications for the same condition.</p>
+<p>The project also demonstrates a mutual CHAP exchange and uses AES-256, HMAC, CRC and timestamps in its communication and logging design. The verification utility checks whether protected log data has been modified.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Track activity before alerting</h3><p><span class="decision-label">Choice:</span> Separate packet capture and traffic tracking from the threshold decision.</p><p><span class="decision-label">Why:</span> Keeping the stages distinct makes the detection logic easier to test and change.</p><p><span class="decision-label">Trade-off:</span> The thresholds are static, so they do not adapt to normal changes in network behaviour.</p></div>
+<div class="decision"><h3>Make log tampering detectable</h3><p><span class="decision-label">Choice:</span> Authenticate log records with an HMAC and provide a verification script.</p><p><span class="decision-label">Why:</span> An alert is less useful if the records used to review it can be changed without detection.</p><p><span class="decision-label">Trade-off:</span> The prototype uses a hardcoded key, which is not suitable for deployment.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The project produced a working prototype that joins packet observation, threshold rules and integrity-checked audit records.</p>
+<p>The class and sequence diagrams document how the main components and their interactions were intended to work.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>Static thresholds can miss behaviour outside the rules and can create false positives. A hardcoded key is a significant deployment limitation.</p>
+<p>Next, I would move key material into managed configuration, add tests around malformed and replayed records, and evaluate detection quality on representative traffic before making any operational claims.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Project images</h2>
+    <p class="case-gallery-note">Select an image to view it at a larger size.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/nids/class-diagram.webp" data-title="Component design" aria-label="Enlarge: Component design">
+          <img src="../img/projects/nids/class-diagram.webp" alt="Class diagram of the network monitoring project." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Component design</strong>The main classes and their relationships.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/nids/sequence-diagram.webp" data-title="Detection flow" aria-label="Enlarge: Detection flow">
+          <img src="../img/projects/nids/sequence-diagram.webp" alt="Sequence diagram showing the project&#39;s detection flow." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Detection flow</strong>A view of how packet observation flows through the detection components.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/nids/secure-logging.webp" data-title="Log integrity" aria-label="Enlarge: Log integrity">
+          <img src="../img/projects/nids/secure-logging.webp" alt="Diagram describing the integrity-protected logging process." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Log integrity</strong>HMAC verification is used to detect changes to stored log records.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Python</li><li>Scapy</li><li>Network monitoring</li><li>HMAC</li><li>AES-256</li><li>Secure logging</li></ul></section>
+      <div class="case-source"><p>The diagrams and implementation notes are summarised from the NIDS project report.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="fat16.html"><span>Previous project</span>FAT16 File System Reconstruction</a>
+      <a href="risk-monte-carlo.html"><span>Next project</span>Risk Management with Monte Carlo Simulation</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Close image</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Open image in a new tab</a></dialog>
+  <script src="../js/project.js"></script>
+</body>
+</html>

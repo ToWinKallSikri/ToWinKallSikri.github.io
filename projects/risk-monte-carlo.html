@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A probabilistic model for exploring annual and quarterly losses when both event frequency and impact are uncertain.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Risk Management with Monte Carlo Simulation | Twinkal Sikri">
+  <meta property="og:description" content="A probabilistic model for exploring annual and quarterly losses when both event frequency and impact are uncertain.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>Risk Management with Monte Carlo Simulation | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Risk analysis · data analytics</p>
+        <h1>Risk Management with Monte Carlo Simulation</h1>
+        <p class="case-deck">A probabilistic model for exploring annual and quarterly losses when both event frequency and impact are uncertain.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>Programming and analytics assignment</dd></div>
+          <div><dt>My role</dt><dd>Model design and analysis</dd></div>
+          <div><dt>Period</dt><dd>2025</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        <a href="#gallery">Images</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>A single expected-loss figure can hide the range of outcomes a risk may produce. This project used simulation to explore how uncertain event frequency and loss severity combine over time.</p>
+<p>The notebook models frequency with a Poisson distribution and severity with a lognormal distribution, then summarises the simulated losses with annual and quarterly views.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Built the frequency and severity model in a Jupyter notebook.</li>
+<li>Ran 10,000 Monte Carlo trials and calculated the implied annual loss measure (IALE).</li>
+<li>Plotted loss exceedance curves for individual risks and the portfolio total.</li>
+<li>Produced quarterly event and loss views to make the simulated results easier to interpret.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>For each of 10,000 trials, the model samples an event count from a Poisson distribution and loss severities from a lognormal distribution, then aggregates the losses.</p>
+<p>The notebook compares per-risk and total losses, calculates IALE, and groups simulated events and losses by quarter.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Model frequency and severity separately</h3><p><span class="decision-label">Choice:</span> Use a Poisson model for event counts and a lognormal model for loss size.</p><p><span class="decision-label">Why:</span> The two parts represent different uncertainties and can be inspected independently before being combined.</p><p><span class="decision-label">Trade-off:</span> The distributions are assumptions. They need evidence and calibration before the output can inform real decisions.</p></div>
+<div class="decision"><h3>Show more than an average</h3><p><span class="decision-label">Choice:</span> Report exceedance curves and quarterly outcomes alongside the annual loss measure.</p><p><span class="decision-label">Why:</span> Averages alone do not show how often larger losses appear in the modelled range.</p><p><span class="decision-label">Trade-off:</span> Simulation plots can look precise even when the underlying inputs are uncertain.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The notebook produces per-risk and total loss exceedance curves, plus quarterly event and loss summaries.</p>
+<p>These views make the effects of the chosen frequency and severity assumptions visible across a range of simulated outcomes.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>The output is only as credible as the distributions and parameters supplied to the model. The simulation does not remove uncertainty from the input data.</p>
+<p>Next, I would document the data behind each parameter, compare simulated results with observed loss history where available, and add sensitivity analysis.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Project images</h2>
+    <p class="case-gallery-note">Select an image to view it at a larger size.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/risk-monte-carlo/lec-total.webp" data-title="Total annual loss" aria-label="Enlarge: Total annual loss">
+          <img src="../img/projects/risk-monte-carlo/lec-total.webp" alt="Plot of the simulated total annual loss exceedance curve." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Total annual loss</strong>Exceedance view for the combined modelled risks.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/risk-monte-carlo/lec-per-risk.webp" data-title="Loss by risk" aria-label="Enlarge: Loss by risk">
+          <img src="../img/projects/risk-monte-carlo/lec-per-risk.webp" alt="Plot comparing loss exceedance curves for individual risks." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Loss by risk</strong>The individual curves help show which modelled risks drive the tail.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/risk-monte-carlo/quarterly-events.webp" data-title="Quarterly events" aria-label="Enlarge: Quarterly events">
+          <img src="../img/projects/risk-monte-carlo/quarterly-events.webp" alt="Plot of simulated quarterly event counts." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Quarterly events</strong>Simulated event counts grouped by quarter.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/risk-monte-carlo/quarterly-loss.webp" data-title="Quarterly losses" aria-label="Enlarge: Quarterly losses">
+          <img src="../img/projects/risk-monte-carlo/quarterly-loss.webp" alt="Plot of simulated quarterly losses." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Quarterly losses</strong>Quarterly losses vary with both the number and severity of events.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Python</li><li>Jupyter</li><li>Poisson distribution</li><li>Lognormal distribution</li><li>Monte Carlo</li><li>Risk analysis</li></ul></section>
+      <div class="case-source"><p>The charts shown here come from the risk management assignment notebook.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="nids.html"><span>Previous project</span>Network Intrusion Detection System</a>
+      <a href="embedded-1wire.html"><span>Next project</span>Embedded Firmware: 1-Wire Sensor Emulation</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Close image</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Open image in a new tab</a></dialog>
+  <script src="../js/project.js"></script>
+</body>
+</html>

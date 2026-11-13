@@ -41,6 +41,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/resume.css" rel="stylesheet">
+    <link href="css/project.css" rel="stylesheet">
 
   </head>
 
@@ -407,7 +408,7 @@
               <h3 class="mb-2 research-title">Assessing the security impact of changes to OT systems</h3>
               <div class="subheading mb-3">MSc Cyber Security · Lancaster University · Supervised by Prof. Paul Smith</div>
               <p>My dissertation develops a practical way to assess how proposed changes could affect the security of operational technology (OT) in critical infrastructure. A new sensor, remote connection or cloud service can introduce risk, even when it supports an important operational need.</p>
-              <p>The resulting CIE-Informed Change Impact Metric (CCIM) applies Cyber-Informed Engineering principles to each proposed change. It gives teams a consistent basis for deciding whether to proceed, look more closely, or redesign the change—while considering security, usability and cost together.</p>
+              <p>The resulting CIE-Informed Change Impact Metric (CCIM) applies Cyber-Informed Engineering principles to each proposed change. It gives teams a consistent basis for deciding whether to proceed, look more closely, or redesign the change, while considering security, usability and cost together.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Mar 2026 - Aug 2026</span>
@@ -474,9 +475,9 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">CCIM: Quantitative OT Change Management (MSc Dissertation)</h3>
+              <h3 class="mb-0"><a href="projects/ccim.html">CCIM: Quantitative OT Change Management (MSc Dissertation)</a></h3>
               <div class="subheading mb-3">OT/ICS Security / Risk Management</div>
-              <p>Designed a CIE-informed scoring framework that decides whether a proposed OT change in Critical National Infrastructure can be approved or needs redesign, with the threshold calibrated by a Python Monte Carlo simulation over 22 real incident and mitigation scenarios. <a class="js-scroll-trigger" href="#dissertation">Full summary</a></p>
+              <p>Designed a CIE-informed scoring framework to assess proposed OT changes, with a threshold calibrated by a Python Monte Carlo simulation over 22 labelled scenarios. <a class="js-scroll-trigger" href="#dissertation">Dissertation summary</a></p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Mar 2026 - Aug 2026</span>
@@ -485,7 +486,7 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">FAT16 File System Reconstruction</h3>
+              <h3 class="mb-0"><a href="projects/fat16.html">FAT16 File System Reconstruction</a></h3>
               <div class="subheading mb-3">Digital Forensics / Low-level Programming</div>
               <p>Developed a Python forensic tool to recover and reconstruct files from a FAT16 disk image by traversing FAT cluster chains directly when root directory metadata was wiped.</p>
               <p>Handled fragmented data and cluster mapping to restore file integrity from raw image content.</p>
@@ -497,9 +498,9 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">Network Intrusion Detection System (NIDS)</h3>
+              <h3 class="mb-0"><a href="projects/nids.html">Network Intrusion Detection System (NIDS)</a></h3>
               <div class="subheading mb-3">Network Security</div>
-              <p>Programmed a custom Python NIDS to inspect network traffic, detect suspicious patterns with rule-based logic, and raise real-time alerts for perimeter defense.</p>
+              <p>Programmed a custom Python NIDS to inspect network traffic, detect suspicious patterns with rule-based logic, and raise real-time alerts.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Jan 2026</span>
@@ -508,9 +509,9 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">Risk Management via Monte Carlo Simulation</h3>
+              <h3 class="mb-0"><a href="projects/risk-monte-carlo.html">Risk Management via Monte Carlo Simulation</a></h3>
               <div class="subheading mb-3">Data Analytics</div>
-              <p>Built a probabilistic risk assessment model in Jupyter Notebook, running thousands of Monte Carlo iterations with NumPy and Matplotlib to visualize outcome distribution and trends.</p>
+              <p>Built a probabilistic risk assessment model in Jupyter Notebook, using Monte Carlo simulation to explore loss distributions and trends.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Dec 2025</span>
@@ -530,9 +531,9 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">Embedded Firmware: 1-Wire Sensor Emulation</h3>
+              <h3 class="mb-0"><a href="projects/embedded-1wire.html">Embedded Firmware: 1-Wire Sensor Emulation</a></h3>
               <div class="subheading mb-3">Embedded Systems / Computer Architecture</div>
-              <p>Wrote bare-metal C firmware for an ATmega328P (Arduino Uno, simulated in Wokwi) that reads a DHT22 temperature and humidity sensor and presents the data like a DS18B20 1-Wire device: it interprets the Convert T [44h] command, runs a single conversion, stores the result in a custom 64-bit scratchpad (two-decimal fixed point plus checksum), then returns to idle.</p>
+              <p>Wrote bare-metal C firmware for an ATmega328P (Arduino Uno, simulated in Wokwi) that reads a DHT22 sensor and presents the data through a virtual 1-Wire device. It interprets the Convert T [44h] command, runs a single conversion, stores values multiplied by 10 as integers (one decimal place) in a custom 64-bit scratchpad with a checksum, then returns to idle.</p>
               <p>Built under a "minimum machine resources" brief: independent state machines communicating through global flags, all timing driven by a 1 ms Timer1 CTC interrupt, short ISRs to respect real-time constraints, and direct register I/O (DDRD, PORTD, PIND) with no Arduino functions or external libraries.</p>
             </div>
             <div class="resume-date text-md-right">
@@ -542,9 +543,9 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">SOC Implementation (BSc Thesis)</h3>
+              <h3 class="mb-0"><a href="projects/soc.html">SOC Implementation (BSc Thesis)</a></h3>
               <div class="subheading mb-3">Security Operations for SMEs</div>
-              <p>Designed and implemented a resource-conscious SOC using Wazuh, pfSense, Snort, VirusTotal, Proxmox, and VMware ESXi with custom logging rules and multicloud attack simulation.</p>
+              <p>Designed and implemented a resource-conscious SOC using Wazuh, pfSense, Snort, Proxmox and VMware ESXi, with custom log decoders. Validated the event pipeline with an EICAR / VirusTotal test.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Dec 2024 - Apr 2025</span>
@@ -553,9 +554,9 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">Software Engineering: Java Web Application</h3>
-              <div class="subheading mb-3">Tour Guide Platform</div>
-              <p>Built a full-stack tourism platform with Spring Boot and Angular, applying Unified Process (UP) and UML standards across requirements, architecture, and implementation.</p>
+              <h3 class="mb-0"><a href="projects/municipath.html">MuniciPath: Municipal Information Platform</a></h3>
+              <div class="subheading mb-3">Group Project · Spring Boot and Angular</div>
+              <p>Worked as part of a group building a map-based platform for local information, with JWT authentication, role-based moderation and Wilson score analytics.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Oct 2023 - Feb 2024</span>
@@ -564,10 +565,10 @@
 
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">Java Console Game: Vector Rally Race Simulator</h3>
+              <h3 class="mb-0"><a href="projects/vector-rally.html">Java Console Game: Vector Rally Race Simulator</a></h3>
               <div class="subheading mb-3">Object-Oriented Design / Java and Gradle</div>
               <p>Built a turn-based Formula 1 "vector rally" simulation in Java with Gradle, with a modular design separating the game engine, a referee that enforces rules and start order, a collision checker, and a parser that builds custom tracks from text files.</p>
-              <p>Implemented bot players with randomly assigned speed strategies and trajectory checks that split each move into integer route points to detect off-track moves and collisions; designed to be extended to human players.</p>
+              <p>Implemented bot players with randomly assigned speed strategies and trajectory checks that split each move into integer route points to detect off-track moves and collisions; designed to be extended to human players. <a href="https://github.com/ToWinKallSikri/Progetto_F1_Sikri_Twinkal" target="_blank" rel="noopener noreferrer">GitHub repository</a></p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">2023 - 2024</span>
@@ -585,6 +586,33 @@
             </div>
           </div>
 
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0"><a href="projects/pentest.html">Penetration Testing Lab Assessment</a></h3>
+              <div class="subheading mb-3">Authorised Five-VM Lab</div>
+              <p>Documented a time-bounded assessment of an isolated virtual lab, focusing on scoped testing, evidence and clear reporting. Sensitive lab details are not reproduced.</p>
+            </div>
+            <div class="resume-date text-md-right">
+              <span class="text-primary">Dec 2025</span>
+            </div>
+          </div>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0"><a href="projects/synnovis.html">Synnovis Incident: Legal Analysis</a></h3>
+              <div class="subheading mb-3">Data Protection and Cyber Law</div>
+              <p>Academic analysis of UK GDPR security and processor responsibilities, the Computer Misuse Act 1990 and the Advanced fine as an enforcement comparison.</p>
+            </div>
+          </div>
+
+          <div class="resume-item d-flex flex-column flex-md-row mb-0">
+            <div class="resume-content mr-auto">
+              <h3 class="mb-0"><a href="projects/booking-api.html">C# Booking API</a></h3>
+              <div class="subheading mb-3">.NET 8 · EF Core · SQL Server</div>
+              <p>Built a booking API with overlap validation, paginated availability, Swagger and JWT authentication. The case study also documents a password-handling weakness that must be fixed before deployment. <a href="https://github.com/ToWinKallSikri/Sikri_Twinkal_PAdP_T04" target="_blank" rel="noopener noreferrer">GitHub repository</a></p>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -597,12 +625,12 @@
             My passion for technology led me to explore the exciting worlds of Cyber Security and Computer Science, which I've decided to study and master.<br>
             I am endlessly curious. I never tire of asking "how" and "why" about everything around me.<br>
             I also have a love for motors, hardware, and the incredible amount of technology hidden within even the simplest objects.<br>
-            I could list a thousand more reasons to describe how curious I am and how much I enjoy keeping up with the modern world, but I wouldn't want to bore you!
+            I could list a thousand more reasons to describe how curious I am and how much I enjoy keeping up with the modern world, but I wouldn't want to bore you.
           </p>
           <p>
             Lately I have been drawn to control engineering and embedded systems: how a controller, a few registers and some well-timed interrupts end up moving real, physical equipment. My dissertation took me into PLCs, SCADA and industrial safety from the security side, and I would love to learn them from the engineering side too.
           </p>
-          <p class="mb-0">Oh, and one more thing... I'm a huge fitness enthusiast, fascinated by the entrepreneurship world, and I can say with absolute certainty: I'm a proud nerd!</p>
+          <p class="mb-0">Oh, and one more thing... I'm a huge fitness enthusiast, fascinated by the entrepreneurship world, and I can say with absolute certainty: I'm a proud nerd.</p>
         </div>
       </section>
 

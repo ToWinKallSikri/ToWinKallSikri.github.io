@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A turn-based console racing game with configurable tracks, bot racers and rule checks for movement and collisions.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Vector Rally Race Simulator | Twinkal Sikri">
+  <meta property="og:description" content="A turn-based console racing game with configurable tracks, bot racers and rule checks for movement and collisions.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>Vector Rally Race Simulator | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Java · object-oriented design</p>
+        <h1>Vector Rally Race Simulator</h1>
+        <p class="case-deck">A turn-based console racing game with configurable tracks, bot racers and rule checks for movement and collisions.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>Java and programming methodologies project</dd></div>
+          <div><dt>My role</dt><dd>Game design and implementation</dd></div>
+          <div><dt>Period</dt><dd>2023-2024</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        <a href="#gallery">Images</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>Vector Rally is a console racing game built around a grid-based movement model. Players choose a direction and speed, and the game checks whether the resulting trajectory stays on the track and avoids collisions.</p>
+<p>The project separates the race engine from track parsing, rule enforcement and collision checking so that new track layouts and player types can be added without rewriting the whole game.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Implemented the Java game structure and Gradle build.</li>
+<li>Added text-file track parsing so that layouts can be changed without editing the game engine.</li>
+<li>Built bot racers with randomly assigned speed strategies.</li>
+<li>Checked movement by splitting trajectories into integer route points and validating track boundaries and collisions.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>The parser turns a text track into the representation used by the game. The race engine advances each racer in turn, while the referee applies the start order and race rules.</p>
+<p>Bot racers use assigned speed strategies. Each proposed movement is checked along its route for off-track points and collisions before the turn is accepted.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Separate rules from the race loop</h3><p><span class="decision-label">Choice:</span> Keep the referee, collision checker, parser and game engine as distinct parts.</p><p><span class="decision-label">Why:</span> This makes the rules easier to reason about and gives the project a path to additional player types.</p><p><span class="decision-label">Trade-off:</span> The components need clear interfaces so the same rules are applied consistently.</p></div>
+<div class="decision"><h3>Represent movement as a sequence of points</h3><p><span class="decision-label">Choice:</span> Split each move into integer route points before checking it against the track.</p><p><span class="decision-label">Why:</span> Checking intermediate points catches a move that crosses an edge or another car even when its destination appears valid.</p><p><span class="decision-label">Trade-off:</span> This is a discrete game model and does not attempt to simulate continuous vehicle physics.</p></div>
+<div class="decision"><h3>Load tracks from text files</h3><p><span class="decision-label">Choice:</span> Parse configurable track layouts instead of hard-coding one circuit.</p><p><span class="decision-label">Why:</span> It makes it easier to try new routes and separate level design from game logic.</p><p><span class="decision-label">Trade-off:</span> The parser must reject malformed or inconsistent track files cleanly.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The project supports custom tracks and bot-driven races in a console application.</p>
+<p>A track concept shows how route ideas informed the design.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>The game focuses on turn-based route rules rather than vehicle physics, and the bot strategies are intentionally simple.</p>
+<p>Next, I would add human player input, more varied bot strategies and automated tests for edge cases in track parsing and collision checking.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Project images</h2>
+    <p class="case-gallery-note">Select an image to view it at a larger size.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/vector-rally/track-idea.webp" data-title="Track concept" aria-label="Enlarge: Track concept">
+          <img src="../img/projects/vector-rally/track-idea.webp" alt="Hand-drawn concept for a Vector Rally track." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Track concept</strong>A track idea used during the design process.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Java</li><li>Gradle</li><li>Object-oriented design</li><li>Parsing</li><li>Game logic</li></ul></section>
+      <div class="case-source"><p>The track concept comes from the project material. The repository contains the game source and build files.</p><p><a href="https://github.com/ToWinKallSikri/Progetto_F1_Sikri_Twinkal" target="_blank" rel="noopener noreferrer">View the project on GitHub <span class="sr-only">(opens in a new tab)</span></a></p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="municipath.html"><span>Previous project</span>MuniciPath</a>
+      <a href="pentest.html"><span>Next project</span>Penetration Testing Lab Assessment</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Close image</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Open image in a new tab</a></dialog>
+  <script src="../js/project.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A research framework for making proposed changes to operational technology easier to assess, explain and compare.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Quantitative OT Change Management | Twinkal Sikri">
+  <meta property="og:description" content="A research framework for making proposed changes to operational technology easier to assess, explain and compare.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>Quantitative OT Change Management | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">MSc dissertation · OT and ICS security</p>
+        <h1>Quantitative OT Change Management</h1>
+        <p class="case-deck">A research framework for making proposed changes to operational technology easier to assess, explain and compare.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>MSc dissertation</dd></div>
+          <div><dt>My role</dt><dd>Research, modelling and implementation</dd></div>
+          <div><dt>Period</dt><dd>2026</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        <a href="#gallery">Images</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>A change to an industrial system can alter its attack surface, but conventional reviews do not always make the reasoning behind an approval easy to compare. My dissertation explored a structured, CIE-informed way to assess proposed changes in critical infrastructure.</p>
+<p>The framework turns assessed change scenarios into a score and compares it with a threshold calibrated from a labelled set of 22 scenarios. It is a research prototype, not an operational approval system.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Formalised the assessment model and its relationship to relevant OT security and safety standards.</li>
+<li>Used the Analytic Hierarchy Process to derive four criterion weights, then checked their consistency.</li>
+<li>Implemented PERT-based uncertainty modelling and Monte Carlo calibration in Python.</li>
+<li>Applied the method to microgrid and water-treatment case studies, including an interlock mitigation and an AI dosing optimiser.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>The criteria are weighted using AHP. The resulting weights are 0.467, 0.277, 0.160 and 0.095, with a consistency ratio of 0.011.</p>
+<p>For each scenario, PERT distributions with λ = 4 model the assessed inputs. Repeated sampling produces a score distribution, which is compared with the calibrated threshold.</p>
+<p>The 22 labelled scenarios comprise 15 unacceptable and 7 acceptable cases. The selected threshold was approximately 0.277; the simulated ROC AUC was approximately 0.993, with Youden&#39;s J approximately 0.915.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Make uncertainty visible</h3><p><span class="decision-label">Choice:</span> Represent uncertain assessments with PERT distributions rather than treating every input as a single known value.</p><p><span class="decision-label">Why:</span> Early change reviews often rely on estimates. Showing a range makes that uncertainty part of the assessment instead of hiding it in one score.</p><p><span class="decision-label">Trade-off:</span> The result depends on the quality of the input estimates and the assumptions used to construct each distribution.</p></div>
+<div class="decision"><h3>Calibrate against labelled scenarios</h3><p><span class="decision-label">Choice:</span> Use a Monte Carlo simulation with 10,000 trials per class and select a threshold using ROC analysis.</p><p><span class="decision-label">Why:</span> This gives a repeatable way to compare the separation between acceptable and unacceptable scenarios.</p><p><span class="decision-label">Trade-off:</span> The 22-scenario corpus is small and illustrative. The measured separation does not establish real-world predictive performance.</p></div>
+<div class="decision"><h3>Connect standards rather than replace them</h3><p><span class="decision-label">Choice:</span> Structure the model around CIE-informed criteria and show how the criteria relate to existing security and safety standards.</p><p><span class="decision-label">Why:</span> The aim was to make a review more consistent while keeping it legible to practitioners already working with standards.</p><p><span class="decision-label">Trade-off:</span> The framework still needs validation with domain experts and a broader set of operating environments.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>In the microgrid case, the remote feedback change exceeded its national and manufacturing thresholds: T_N = 0.5158 against approximately 0.286, and T_M = 0.5517 against approximately 0.318.</p>
+<p>The proposed interlock mitigation scored 0.092 and 0.1127, below the corresponding thresholds. The water-treatment AI dosing case sat close enough to its threshold to show why borderline assessments need careful review.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>The model uses a small, illustrative scenario set and assigned weights. The high AUC describes this dataset and simulation, not performance on unseen industrial changes.</p>
+<p>Next, I would review the criteria and scoring with OT engineers, test the framework against a larger independently labelled dataset, and document how assessors should handle borderline scores.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Project images</h2>
+    <p class="case-gallery-note">Select an image to view it at a larger size.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/formalisation-model.webp" data-title="Formalisation model" aria-label="Enlarge: Formalisation model">
+          <img src="../img/projects/ccim/formalisation-model.webp" alt="Diagram outlining the formalised change assessment model." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Formalisation model</strong>The main stages of the proposed assessment.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/standards-interaction.webp" data-title="Standards interaction" aria-label="Enlarge: Standards interaction">
+          <img src="../img/projects/ccim/standards-interaction.webp" alt="Diagram showing relationships between the standards considered in the dissertation." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Standards interaction</strong>The framework is positioned alongside existing standards rather than as a replacement for them.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/pert-variables.webp" data-title="PERT input variables" aria-label="Enlarge: PERT input variables">
+          <img src="../img/projects/ccim/pert-variables.webp" alt="Plot of the PERT distributions used for assessment inputs." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>PERT input variables</strong>Uncertain inputs are represented as distributions.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/roc-curve.webp" data-title="Threshold calibration" aria-label="Enlarge: Threshold calibration">
+          <img src="../img/projects/ccim/roc-curve.webp" alt="ROC curve for the simulated threshold calibration." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Threshold calibration</strong>ROC analysis selected a threshold of approximately 0.277 for this dataset.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/cs1a-wan-pmu.webp" data-title="Microgrid change case" aria-label="Enlarge: Microgrid change case">
+          <img src="../img/projects/ccim/cs1a-wan-pmu.webp" alt="Assessment results for the microgrid remote feedback case." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Microgrid change case</strong>The assessed remote feedback change exceeded both tested thresholds.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/cs1b-interlock.webp" data-title="Interlock mitigation case" aria-label="Enlarge: Interlock mitigation case">
+          <img src="../img/projects/ccim/cs1b-interlock.webp" alt="Assessment results for the microgrid interlock mitigation." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Interlock mitigation case</strong>The proposed interlock mitigation scored below both thresholds.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/ccim/cs2-ai-dosing.webp" data-title="AI dosing case" aria-label="Enlarge: AI dosing case">
+          <img src="../img/projects/ccim/cs2-ai-dosing.webp" alt="Assessment results for the water-treatment AI dosing case." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>AI dosing case</strong>This case illustrates the need to review results close to the threshold.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Cyber-Informed Engineering</li><li>OT / ICS</li><li>AHP</li><li>PERT</li><li>Monte Carlo</li><li>ROC analysis</li><li>Python</li></ul></section>
+      <div class="case-source"><p>Figures and results are drawn from my dissertation report. The reported scores are research findings from the study dataset, not operational recommendations.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="booking-api.html"><span>Previous project</span>C# Booking API</a>
+      <a href="fat16.html"><span>Next project</span>FAT16 File System Reconstruction</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Close image</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Open image in a new tab</a></dialog>
+  <script src="../js/project.js"></script>
+</body>
+</html>

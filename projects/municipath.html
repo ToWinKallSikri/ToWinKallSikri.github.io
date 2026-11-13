@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A municipal information platform that organises local posts and events around map locations, with moderation and contributor roles.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="MuniciPath | Twinkal Sikri">
+  <meta property="og:description" content="A municipal information platform that organises local posts and events around map locations, with moderation and contributor roles.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>MuniciPath | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Group project · software engineering</p>
+        <h1>MuniciPath</h1>
+        <p class="case-deck">A municipal information platform that organises local posts and events around map locations, with moderation and contributor roles.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>Software engineering project</dd></div>
+          <div><dt>My role</dt><dd>Group project; feature ownership was not attributed in the report</dd></div>
+          <div><dt>Period</dt><dd>2023-2024</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>MuniciPath was designed to make information about Italian municipalities easier to discover. Users browse municipalities and map-based points containing local posts, events and other information.</p>
+<p>The project was developed as a group using an iterative process. The report describes shared project outcomes but does not attribute individual features to specific team members, so this page does not claim sole ownership of any component.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Worked as part of the group that designed and implemented the platform.</li>
+<li>The shared project scope included a Spring Boot backend, an Angular frontend, REST communication and JWT-based authentication.</li>
+<li>The group also implemented municipal moderation workflows and Wilson score-based analytics.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>The Angular interface communicates with a Spring Boot backend over REST. JWTs support authentication, with the frontend storing them in cookies as described in the project report.</p>
+<p>Municipalities contain map locations and posts. Role permissions govern whether a contribution can be published directly or must first be reviewed; analytics provide municipal views of content performance.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Organise information by place</h3><p><span class="decision-label">Choice:</span> Represent municipal content as map locations containing posts, with a special location for municipality-wide information.</p><p><span class="decision-label">Why:</span> The platform&#39;s purpose was to help visitors find useful local information in context.</p><p><span class="decision-label">Trade-off:</span> Map-based browsing depends on accurate location data and may not suit every kind of content.</p></div>
+<div class="decision"><h3>Moderate contributions by role</h3><p><span class="decision-label">Choice:</span> Distinguish between tourists, contributors, moderators and municipal curators, with different publishing permissions.</p><p><span class="decision-label">Why:</span> The group wanted public information to remain open to contributions while giving municipal staff a way to review submissions.</p><p><span class="decision-label">Trade-off:</span> Role-based workflows create more states and permissions to test and maintain.</p></div>
+<div class="decision"><h3>Use Wilson score for ranking</h3><p><span class="decision-label">Choice:</span> Use Wilson score analytics for municipal content rather than relying only on raw popularity.</p><p><span class="decision-label">Why:</span> The group wanted the analytics to account for the amount of feedback behind a result.</p><p><span class="decision-label">Trade-off:</span> The score still depends on the quality and volume of user feedback and should be read in context.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The group produced a web application with an interactive map, municipal content, role-based features and the ability to exchange multimedia content between the frontend and backend.</p>
+<p>The project report describes four iterations, ending with frontend work, REST integration and testing.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>The report does not assign individual features to team members. I have therefore described the shared project rather than making an unsupported claim about which parts I personally implemented.</p>
+<p>Next, I would add a clear contribution record and test the permission boundaries and token handling as part of a security review.</p></div></section>
+      
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Spring Boot</li><li>Angular</li><li>Java</li><li>REST</li><li>JWT</li><li>OpenStreetMap</li><li>Wilson score</li></ul></section>
+      <div class="case-source"><p>This summary draws on the group&#39;s project report, requirements and design notes. Individual feature ownership was not documented in those materials.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="soc.html"><span>Previous project</span>Security Operations Centre for SMEs</a>
+      <a href="vector-rally.html"><span>Next project</span>Vector Rally Race Simulator</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  
+  <script src="../js/project.js"></script>
+</body>
+</html>

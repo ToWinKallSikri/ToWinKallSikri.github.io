@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bare-metal firmware that reads a DHT22 sensor and presents its values through a virtual 1-Wire scratchpad.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Embedded Firmware: 1-Wire Sensor Emulation | Twinkal Sikri">
+  <meta property="og:description" content="Bare-metal firmware that reads a DHT22 sensor and presents its values through a virtual 1-Wire scratchpad.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>Embedded Firmware: 1-Wire Sensor Emulation | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Embedded systems · ATmega328P</p>
+        <h1>Embedded Firmware: 1-Wire Sensor Emulation</h1>
+        <p class="case-deck">Bare-metal firmware that reads a DHT22 sensor and presents its values through a virtual 1-Wire scratchpad.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>Computer architecture laboratory project</dd></div>
+          <div><dt>My role</dt><dd>Firmware design and implementation</dd></div>
+          <div><dt>Period</dt><dd>2025</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        <a href="#gallery">Images</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>The brief was to build a small embedded system with limited machine resources. The firmware reads temperature and humidity from a DHT22, then exposes the measurements through a virtual 1-Wire device interface.</p>
+<p>I used register-level I/O and a timer-driven state machine, and tested the behaviour in Wokwi.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Implemented the DHT22 reading and virtual 1-Wire command handling on an ATmega328P.</li>
+<li>Configured Timer1 in CTC mode with a prescaler of 64 and OCR1A = 249 to generate a 1 ms tick.</li>
+<li>Stored sensor values multiplied by 10 as integers, representing one decimal place in the scratchpad.</li>
+<li>Added a 50 ms conversion interval and checksum verification.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>The sensor-reading state machine obtains the DHT22 values. A separate 1-Wire state machine handles the device commands and scratchpad response.</p>
+<p>Timer1 supplies the 1 ms timing tick. A conversion waits 50 ms before the scaled integer readings and checksum are made available through the scratchpad.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Keep interrupt work short</h3><p><span class="decision-label">Choice:</span> Use a 1 ms Timer1 interrupt to update timing flags and leave longer work to the main state machines.</p><p><span class="decision-label">Why:</span> Short interrupt handlers help keep the timing predictable and avoid doing sensor or protocol work inside the interrupt.</p><p><span class="decision-label">Trade-off:</span> The states and shared flags need careful coordination to avoid timing and synchronisation errors.</p></div>
+<div class="decision"><h3>Use scaled integers for the scratchpad</h3><p><span class="decision-label">Choice:</span> Store each value multiplied by ten rather than using floating-point values.</p><p><span class="decision-label">Why:</span> This keeps the representation compact while retaining one decimal place.</p><p><span class="decision-label">Trade-off:</span> The reading must be interpreted using the scale factor when converting it back to a displayed value.</p></div>
+<div class="decision"><h3>Use direct register I/O</h3><p><span class="decision-label">Choice:</span> Control the relevant pins through DDRD, PORTD and PIND rather than Arduino helper functions or external libraries.</p><p><span class="decision-label">Why:</span> The assignment focused on understanding the microcontroller&#39;s I/O and resource constraints.</p><p><span class="decision-label">Trade-off:</span> Register-level code is tied more closely to the target hardware and needs explicit handling of pin states.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The firmware was simulated in Wokwi, with screenshots showing the project setup and a running simulation.</p>
+<p>The implementation demonstrates the timing and protocol behaviour in a simulator. It is not evidence of validation on a physical board.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>Simulation does not cover every electrical or timing issue that could appear on physical hardware. The protocol is also an emulation for this project rather than a certified sensor implementation.</p>
+<p>Next, I would test the firmware on an ATmega328P board with a logic analyser, check the timing margins across conditions, and document the pin connections from the original report.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Project images</h2>
+    <p class="case-gallery-note">Select an image to view it at a larger size.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/embedded-1wire/flowchart-solution.webp" data-title="Firmware flow" aria-label="Enlarge: Firmware flow">
+          <img src="../img/projects/embedded-1wire/flowchart-solution.webp" alt="Flowchart of the adopted firmware solution." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Firmware flow</strong>Separate states coordinate sensor reading and 1-Wire responses.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/embedded-1wire/dht22-timing.webp" data-title="DHT22 timing" aria-label="Enlarge: DHT22 timing">
+          <img src="../img/projects/embedded-1wire/dht22-timing.webp" alt="Timing diagram for communicating with the DHT22 sensor." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>DHT22 timing</strong>The sensor-reading stage follows the timing required by the DHT22.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/embedded-1wire/protocol-comparison.webp" data-title="Protocol comparison" aria-label="Enlarge: Protocol comparison">
+          <img src="../img/projects/embedded-1wire/protocol-comparison.webp" alt="Comparison of the sensor and emulated 1-Wire protocol." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Protocol comparison</strong>The project bridges the DHT22 input and a virtual 1-Wire interface.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/embedded-1wire/wokwi-editor.webp" data-title="Wokwi setup" aria-label="Enlarge: Wokwi setup">
+          <img src="../img/projects/embedded-1wire/wokwi-editor.webp" alt="Firmware and circuit shown in the Wokwi editor." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Wokwi setup</strong>The project was developed and simulated in Wokwi.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/embedded-1wire/wokwi-run.webp" data-title="Simulation running" aria-label="Enlarge: Simulation running">
+          <img src="../img/projects/embedded-1wire/wokwi-run.webp" alt="The firmware running in the Wokwi simulation." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Simulation running</strong>A simulator view of the running project.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>C</li><li>ATmega328P</li><li>Timer1</li><li>1-Wire</li><li>DHT22</li><li>Wokwi</li><li>Register-level I/O</li></ul></section>
+      <div class="case-source"><p>The flowchart, timing and simulator images are drawn from the embedded systems project material. The incorrect wiring image in the supplied assets has been left out.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="risk-monte-carlo.html"><span>Previous project</span>Risk Management with Monte Carlo Simulation</a>
+      <a href="soc.html"><span>Next project</span>Security Operations Centre for SMEs</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Close image</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Open image in a new tab</a></dialog>
+  <script src="../js/project.js"></script>
+</body>
+</html>

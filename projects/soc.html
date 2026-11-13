@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A resource-conscious home-lab SOC that combines network security tools, virtualisation and custom log decoding.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Security Operations Centre for SMEs | Twinkal Sikri">
+  <meta property="og:description" content="A resource-conscious home-lab SOC that combines network security tools, virtualisation and custom log decoding.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../css/resume.css" rel="stylesheet">
+  <link href="../css/project.css" rel="stylesheet">
+  <title>Security Operations Centre for SMEs | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Skip to case study</a>
+  <nav class="case-nav" aria-label="Main navigation">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">All projects</a>
+    <a href="mailto:twinxvii@gmail.com">Contact</a>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Back to projects</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">BSc thesis · security operations</p>
+        <h1>Security Operations Centre for SMEs</h1>
+        <p class="case-deck">A resource-conscious home-lab SOC that combines network security tools, virtualisation and custom log decoding.</p>
+        <dl class="case-meta">
+          <div><dt>Context</dt><dd>BSc thesis</dd></div>
+          <div><dt>My role</dt><dd>System design, integration and evaluation</dd></div>
+          <div><dt>Period</dt><dd>2024-2025</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Case study sections">
+        <a href="#overview">Overview</a><a href="#contribution">My contribution</a>
+        <a href="#how-it-works">How it works</a><a href="#decisions">Key decisions</a>
+        <a href="#results">Results</a><a href="#limitations">Limits and next steps</a>
+        <a href="#gallery">Images</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Overview</h2><div><p>Small organisations may not have the budget or staff for a large commercial security operations platform. My thesis explored how an affordable lab could collect, interpret and present security events using a combination of open-source tools and existing hardware.</p>
+<p>The system brought together Wazuh, pfSense, Snort, Proxmox and ESXi on an HP ProLiant server. I designed custom decoders for Kea-DHCP4 and the pfSense Captive Portal.</p></div></section>
+      <section class="case-section" id="contribution"><h2>My contribution</h2><div><ul><li>Designed the network and virtualisation layout for the SOC environment.</li>
+<li>Integrated Wazuh, pfSense and Snort with Proxmox and VMware ESXi.</li>
+<li>Wrote custom Wazuh decoders for Kea-DHCP4 and pfSense Captive Portal logs.</li>
+<li>Validated alert ingestion with a controlled EICAR test and VirusTotal lookup.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>How it works</h2><div><p>Endpoints and network services produce events. Wazuh collects and processes logs, while custom decoders extract fields from the DHCP and captive portal formats.</p>
+<p>Snort and pfSense provide network security components, and the virtualised lab hosts the supporting services. The final topology connects the data sources to the monitoring and dashboard layers.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Key decisions</h2><div><div class="decision"><h3>Reuse available hardware</h3><p><span class="decision-label">Choice:</span> Build around an HP ProLiant server and virtualise the lab services.</p><p><span class="decision-label">Why:</span> Reusing hardware kept the project&#39;s additional hardware cost to about €150 while allowing multiple components to run in one environment.</p><p><span class="decision-label">Trade-off:</span> A single host concentrates workloads and does not provide the resilience expected in a production SOC.</p></div>
+<div class="decision"><h3>Decode the logs the tools actually produce</h3><p><span class="decision-label">Choice:</span> Add custom decoders for Kea-DHCP4 and the pfSense Captive Portal.</p><p><span class="decision-label">Why:</span> Useful alerts depend on turning source-specific log formats into fields the monitoring platform can interpret.</p><p><span class="decision-label">Trade-off:</span> Custom decoders need maintenance when log formats change and require testing against real event samples.</p></div>
+<div class="decision"><h3>Use a safe validation artefact</h3><p><span class="decision-label">Choice:</span> Use an EICAR test file and VirusTotal as a controlled check of the event pipeline.</p><p><span class="decision-label">Why:</span> This allowed a known test event to exercise ingestion and alert handling without presenting the exercise as a real attack.</p><p><span class="decision-label">Trade-off:</span> The test validates a narrow path through the pipeline, not the SOC&#39;s ability to detect every threat.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Results</h2><div><p>The thesis delivered a working lab design and demonstrated log ingestion and alert presentation, including a controlled EICAR / VirusTotal validation.</p>
+<p>The estimated hardware cost was about €150, based on reuse of the HP ProLiant server.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limits and next steps</h2><div><p>The lab did not include SOAR, and the free VirusTotal API quota constrained repeated lookups. A single physical host also limits availability and scalability.</p>
+<p>Next, I would add documented backup and recovery, measure resource use under load, and define a response workflow before extending the environment.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Project images</h2>
+    <p class="case-gallery-note">Select an image to view it at a larger size.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/soc/initial-topology.webp" data-title="Initial topology" aria-label="Enlarge: Initial topology">
+          <img src="../img/projects/soc/initial-topology.webp" alt="Initial network layout for the SOC thesis." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Initial topology</strong>The starting layout for the home-lab environment.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/soc/final-topology.webp" data-title="Final topology" aria-label="Enlarge: Final topology">
+          <img src="../img/projects/soc/final-topology.webp" alt="Final network and virtualisation topology for the SOC." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Final topology</strong>The integrated design connects the security components and monitoring platform.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/soc/hp-proliant.webp" data-title="HP ProLiant server" aria-label="Enlarge: HP ProLiant server">
+          <img src="../img/projects/soc/hp-proliant.webp" alt="HP ProLiant server used for the lab." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>HP ProLiant server</strong>Existing hardware kept the additional hardware cost to about €150.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/soc/wazuh-log-ingestion.webp" data-title="Wazuh log ingestion" aria-label="Enlarge: Wazuh log ingestion">
+          <img src="../img/projects/soc/wazuh-log-ingestion.webp" alt="Diagram of the Wazuh log ingestion and decoding pipeline." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Wazuh log ingestion</strong>Custom decoders convert source logs into structured events.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../img/projects/soc/snort-dashboard.webp" data-title="Snort dashboard" aria-label="Enlarge: Snort dashboard">
+          <img src="../img/projects/soc/snort-dashboard.webp" alt="Dashboard view from the SOC environment." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Snort dashboard</strong>A view of events presented by the monitoring environment.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Tools and methods</h2><ul class="tag-list"><li>Wazuh</li><li>pfSense</li><li>Snort</li><li>Proxmox</li><li>VMware ESXi</li><li>Log decoding</li><li>SOC</li></ul></section>
+      <div class="case-source"><p>Network diagrams and system screenshots are from my BSc thesis material. The validation described here was an EICAR / VirusTotal test.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="More projects">
+      <a href="embedded-1wire.html"><span>Previous project</span>Embedded Firmware: 1-Wire Sensor Emulation</a>
+      <a href="municipath.html"><span>Next project</span>MuniciPath</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">All projects</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Get in touch</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Close image</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Open image in a new tab</a></dialog>
+  <script src="../js/project.js"></script>
+</body>
+</html>
