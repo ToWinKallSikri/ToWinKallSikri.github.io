@@ -2,7 +2,7 @@
 
 The portfolio is a static site hosted with GitHub Pages. Project case studies are generated as standalone HTML pages from `content/projects.json`.
 
-The “Italiano” navigation link opens the current page through Google Translate, including project case studies. Translation requires an internet connection and is provided by Google Translate.
+The portfolio is currently available in English. Italian translations have not yet been added.
 
 To rebuild the case studies after editing their content:
 

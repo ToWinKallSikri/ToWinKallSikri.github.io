@@ -499,6 +499,7 @@
     "category": "Law · data protection and cybercrime",
     "context": "Academic legal analysis",
     "role": "Research and written analysis",
+    "period": "Feb 2026",
     "deck": "An academic analysis of data-protection responsibilities and computer misuse law in the context of the Synnovis cyber incident.",
     "overview": [
       "This essay considered legal responsibilities raised by the Synnovis cyber incident, with a focus on UK GDPR security obligations and the relationship between organisations and processors.",
@@ -529,6 +530,7 @@
     ],
     "results": [
       "The work produced a structured legal discussion linking data-protection obligations, processor relationships and computer misuse law to a real incident context.",
+      "The essay received an Upper Distinction.",
       "It highlighted the importance of distinguishing established legal duties from conclusions that require evidence about the specific incident."
     ],
     "limitations": [
@@ -544,6 +546,7 @@
     "category": "Software engineering · .NET 8",
     "context": "Personal software project",
     "role": "API design and implementation",
+    "period": "Sep 2024",
     "deck": "A booking API using EF Core, SQL Server and validation rules to check availability and prevent overlapping bookings.",
     "overview": [
       "This project is a .NET 8 API for managing bookings and availability. It uses Entity Framework Core with SQL Server and exposes paginated availability results, with Swagger for exploring the API.",
