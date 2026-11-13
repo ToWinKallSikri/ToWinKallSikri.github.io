@@ -427,29 +427,6 @@ section.resume-section .resume-item .resume-date .text-primary {
   }
 }
 
-.research-title {
-  font-family: 'Lora', Georgia, serif;
-  font-size: 1.65rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.flow-steps {
-  padding-left: 1.4rem;
-  margin: 0 0 1.5rem;
-  color: var(--ink-strong);
-}
-
-.flow-steps li {
-  padding-left: 0.3rem;
-  margin-bottom: 0.45rem;
-}
-
-.flow-steps li::marker {
-  color: var(--primary);
-  font-weight: 700;
-}
-
 .key-figure {
   margin-bottom: 0.45rem;
   color: var(--primary-strong);
@@ -461,18 +438,6 @@ section.resume-section .resume-item .resume-date .text-primary {
 
 .stack-card .key-figure + p {
   margin-top: 0;
-}
-
-.dissertation-findings {
-  padding-left: 1.25rem;
-}
-
-.dissertation-findings li {
-  margin-bottom: 0.65rem;
-}
-
-.dissertation-findings li::marker {
-  color: var(--primary);
 }
 
 .tag-list {

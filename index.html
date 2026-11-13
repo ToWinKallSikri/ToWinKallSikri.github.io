@@ -80,9 +80,6 @@
             <a class="nav-link js-scroll-trigger" href="#tech-stack">Tech Stack</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#dissertation">Dissertation</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
           </li>
           <li class="nav-item">
@@ -187,7 +184,7 @@
               <div class="subheading mb-3">MSc in Cyber Security</div>
               <div>School of Computing and Communications</div>
               <p>Grade: 75% (Distinction)</p>
-              <p>Dissertation: <a class="js-scroll-trigger" href="#dissertation">A Quantitative CIE-Informed Change Management Framework for OT Attack Surface Reduction in CNI</a>, supervised by Prof. Paul Smith.</p>
+              <p>Dissertation: <a class="js-scroll-trigger" href="#ccim-project">A Quantitative CIE-Informed Change Management Framework for OT Attack Surface Reduction in CNI</a>, supervised by Prof. Paul Smith.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Sep 2025 - Dec 2026</span>
@@ -403,85 +400,15 @@
           </div>
       </section>
 
-      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="dissertation">
-        <div class="my-auto">
-          <h2 class="mb-5">Dissertation</h2>
-
-          <div class="resume-item d-flex flex-column flex-md-row mb-4">
-            <div class="resume-content mr-auto">
-              <h3 class="mb-2 research-title">Assessing the security impact of changes to OT systems</h3>
-              <div class="subheading mb-3">MSc Cyber Security · Lancaster University · Supervised by Prof. Paul Smith</div>
-              <p>My dissertation develops a practical way to assess how proposed changes could affect the security of operational technology (OT) in critical infrastructure. A new sensor, remote connection or cloud service can introduce risk, even when it supports an important operational need.</p>
-              <p>The resulting CIE-Informed Change Impact Metric (CCIM) applies Cyber-Informed Engineering principles to each proposed change. It gives teams a consistent basis for deciding whether to proceed, look more closely, or redesign the change, while considering security, usability and cost together.</p>
-            </div>
-            <div class="resume-date text-md-right">
-              <span class="text-primary">Mar 2026 - Aug 2026</span>
-            </div>
-          </div>
-
-          <div class="subheading mb-3">How the framework works</div>
-          <ol class="flow-steps">
-            <li>Describe the proposed change and the system it affects.</li>
-            <li>Assess its potential consequences, existing protections, digital connections and dependencies.</li>
-            <li>Combine the assessment into a score and compare it with a threshold to guide approval or further review.</li>
-          </ol>
-
-          <div class="row stack-grid mb-4">
-            <div class="col-md-4 mb-4">
-              <div class="stack-card">
-                <div class="key-figure">22 scenarios</div>
-                <p>Documented incidents and published mitigations informed the example assessment set.</p>
-              </div>
-            </div>
-            <div class="col-md-4 mb-4">
-              <div class="stack-card">
-                <div class="key-figure">20,000 simulations</div>
-                <p>Monte Carlo simulations explored how scores varied for acceptable and unacceptable changes.</p>
-              </div>
-            </div>
-            <div class="col-md-4 mb-4">
-              <div class="stack-card">
-                <div class="key-figure">AUC ≈ 0.993</div>
-                <p>In the simulated dataset, ROC analysis showed strong separation between incident scenarios and mitigations.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="subheading mb-3">Case studies and findings</div>
-          <ul class="dissertation-findings mb-4">
-            <li><strong>Microgrid:</strong> A remote feedback connection was flagged for redesign under both tested risk profiles. A proposed interlock mitigation passed.</li>
-            <li><strong>Water treatment:</strong> A cloud-based chlorine-dosing optimiser scored close to the approval threshold. A small change in its assessment changed the result, highlighting the need for careful review of borderline cases.</li>
-            <li><strong>Comparison:</strong> The framework builds on standards-led reviews by adding a consistent, repeatable way to document decisions.</li>
-            <li><strong>Limitations:</strong> The scores and weightings are illustrative. Expert validation and a larger set of examples are needed before the framework could be used in practice.</li>
-          </ul>
-
-          <div class="subheading mb-3">Related standards and methods</div>
-          <ul class="tag-list">
-            <li>Cyber-Informed Engineering (CIE)</li>
-            <li>Consequence-driven CIE (CCE)</li>
-            <li>IEC 62443</li>
-            <li>ISO/IEC 27001</li>
-            <li>NIST SP 800-82r3</li>
-            <li>NIST CSF 2.0</li>
-            <li>IEC 61508 / IEC 61511</li>
-            <li>STPA-SafeSec</li>
-            <li>AHP</li>
-            <li>Monte Carlo (PERT)</li>
-            <li>ROC / Youden's J</li>
-            <li>Design Science Research</li>
-          </ul>
-        </div>
-      </section>
-
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="projects">
         <div class="my-auto">
           <h2 class="mb-5">Projects</h2>
 
-          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+          <div id="ccim-project" class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
               <h3 class="mb-0"><a href="projects/ccim.html">CCIM: Quantitative OT Change Management (MSc Dissertation)</a></h3>
               <div class="subheading mb-3">OT/ICS Security / Risk Management</div>
-              <p>Designed a CIE-informed scoring framework to assess proposed OT changes, with a threshold calibrated by a Python Monte Carlo simulation over 22 labelled scenarios. <a class="js-scroll-trigger" href="#dissertation">Dissertation summary</a></p>
+              <p>Designed a CIE-informed scoring framework to assess proposed OT changes, with a threshold calibrated by a Python Monte Carlo simulation over 22 labelled scenarios.</p>
             </div>
             <div class="resume-date text-md-right">
               <span class="text-primary">Mar 2026 - Aug 2026</span>
