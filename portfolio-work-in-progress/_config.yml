@@ -1,0 +1,12 @@
+# Keep source material out of the default GitHub Pages / Jekyll output.
+# This does not remove these files from the public Git repository or its history.
+exclude:
+  - Relevant_Material
+  - content
+  - tools
+  - README.md
+  - serve.json
+  - package.json
+  - package-lock.json
+  - gulpfile.js
+  - scss
