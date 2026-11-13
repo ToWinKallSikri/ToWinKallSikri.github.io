@@ -384,7 +384,8 @@
       "Next, I would add a clear contribution record and test the permission boundaries and token handling as part of a security review."
     ],
     "tags": ["Spring Boot", "Angular", "Java", "REST", "JWT", "OpenStreetMap", "Wilson score"],
-    "evidence": "This summary draws on the group's project report, requirements and design notes. Individual feature ownership was not documented in those materials."
+    "evidence": "This summary draws on the group's project report, requirements and design notes. Individual feature ownership was not documented in those materials.",
+    "repository": "https://github.com/ToWinKallSikri/IdS_MuniciPath"
   },
   {
     "slug": "vector-rally",
