@@ -80,6 +80,37 @@
 }
 
 .case-nav a { text-decoration: none; }
+
+.language-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  flex: 0 0 auto;
+  font-size: .85rem;
+}
+
+.language-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding: .15rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.language-nav a[aria-current="page"] img { outline: 2px solid currentColor; outline-offset: 2px; }
+.language-nav a:hover { opacity: .8; }
+.language-nav a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.language-nav img {
+  display: block;
+  width: 1.5rem;
+  height: 1rem;
+  border: 1px solid rgb(127 127 127 / .35);
+  object-fit: cover;
+}
+
+#sideNav .language-nav { margin: .75rem .5rem; color: #fff; }
+.case-nav .language-nav { margin-right: .25rem; }
+
 .case-nav .case-brand {
   margin-right: auto;
   color: var(--case-ink);

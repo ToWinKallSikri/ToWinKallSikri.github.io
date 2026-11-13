@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un modello probabilistico per esplorare le perdite annuali e trimestrali quando sono incerti sia la frequenza degli eventi sia il loro impatto.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Analisi del rischio con simulazione Monte Carlo | Twinkal Sikri">
+  <meta property="og:description" content="Un modello probabilistico per esplorare le perdite annuali e trimestrali quando sono incerti sia la frequenza degli eventi sia il loro impatto.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../../css/resume.css" rel="stylesheet">
+  <link href="../../css/project.css" rel="stylesheet">
+  <title>Analisi del rischio con simulazione Monte Carlo | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Vai al caso studio</a>
+  <nav class="case-nav" aria-label="Navigazione principale">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">Tutti i progetti</a>
+    <a href="mailto:twinxvii@gmail.com">Contatti</a>
+    <div class="language-nav" role="group" aria-label="Versioni linguistiche">
+      <a href="../../projects/risk-monte-carlo.html" lang="en-GB" aria-label="Inglese" title="Inglese"><img src="../../img/flags/gb.svg" alt=""></a>
+      <a href="risk-monte-carlo.html" lang="it" aria-label="Italiano" title="Italiano"><img src="../../img/flags/it.svg" alt=""></a>
+    </div>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Torna ai progetti</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Analisi del rischio · analisi dei dati</p>
+        <h1>Analisi del rischio con simulazione Monte Carlo</h1>
+        <p class="case-deck">Un modello probabilistico per esplorare le perdite annuali e trimestrali quando sono incerti sia la frequenza degli eventi sia il loro impatto.</p>
+        <dl class="case-meta">
+          <div><dt>Contesto</dt><dd>Progetto di programmazione e analisi dei dati</dd></div>
+          <div><dt>Ruolo</dt><dd>Progettazione e analisi del modello</dd></div>
+          <div><dt>Periodo</dt><dd>2025</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Sezioni del caso studio">
+        <a href="#overview">Panoramica</a><a href="#contribution">Il mio contributo</a>
+        <a href="#how-it-works">Come funziona</a><a href="#decisions">Decisioni chiave</a>
+        <a href="#results">Risultati</a><a href="#limitations">Limiti e sviluppi futuri</a>
+        <a href="#gallery">Immagini</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Panoramica</h2><div><p>Un singolo valore di perdita attesa può nascondere la varietà degli esiti possibili. In questo progetto ho usato una simulazione per studiare come l’incertezza sulla frequenza degli eventi e sulla gravità delle perdite si combini nel tempo.</p>
+<p>Il notebook modella la frequenza con una distribuzione di Poisson e la gravità con una distribuzione lognormale, quindi riepiloga le perdite simulate su base annuale e trimestrale.</p></div></section>
+      <section class="case-section" id="contribution"><h2>Il mio contributo</h2><div><ul><li>Ho sviluppato in un notebook Jupyter il modello di frequenza e gravità delle perdite.</li>
+<li>Ho eseguito 10.000 simulazioni Monte Carlo e calcolato la misura di perdita annua implicita (IALE).</li>
+<li>Ho tracciato le curve di superamento delle perdite per i singoli rischi e per il portafoglio complessivo.</li>
+<li>Ho prodotto riepiloghi trimestrali degli eventi e delle perdite per rendere più leggibili i risultati simulati.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>Come funziona</h2><div><p>In ciascuna delle 10.000 prove, il modello estrae il numero di eventi da una distribuzione di Poisson e la gravità delle perdite da una distribuzione lognormale, quindi aggrega le perdite.</p>
+<p>Il notebook confronta i risultati per singolo rischio con il totale, calcola l’IALE e raggruppa per trimestre gli eventi e le perdite simulati.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Decisioni chiave</h2><div><div class="decision"><h3>Modellare separatamente frequenza e gravità</h3><p><span class="decision-label">Scelta:</span> Usare un modello di Poisson per il numero di eventi e uno lognormale per l’entità delle perdite.</p><p><span class="decision-label">Motivazione:</span> I due componenti rappresentano fonti d’incertezza diverse e possono essere esaminati singolarmente prima di combinarli.</p><p><span class="decision-label">Compromesso:</span> Le distribuzioni sono ipotesi: servono dati e calibrazione prima che i risultati possano supportare decisioni reali.</p></div>
+<div class="decision"><h3>Mostrare più di una media</h3><p><span class="decision-label">Scelta:</span> Affiancare le curve di superamento e gli esiti trimestrali alla misura di perdita annua.</p><p><span class="decision-label">Motivazione:</span> La sola media non indica quanto spesso il modello produce perdite più elevate.</p><p><span class="decision-label">Compromesso:</span> I grafici di una simulazione possono sembrare precisi anche quando i dati in ingresso restano incerti.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Risultati</h2><div><p>Il notebook produce curve di superamento delle perdite per ciascun rischio e per il totale, oltre a riepiloghi trimestrali di eventi e perdite.</p>
+<p>Queste viste rendono evidente l’effetto delle ipotesi scelte su frequenza e gravità nei diversi esiti simulati.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limiti e sviluppi futuri</h2><div><p>L’attendibilità dei risultati dipende dalle distribuzioni e dai parametri forniti al modello. La simulazione non elimina l’incertezza dei dati in ingresso.</p>
+<p>Come passo successivo, documenterei i dati alla base di ogni parametro, confronterei i risultati simulati con le perdite osservate, ove disponibili, e aggiungerei un’analisi di sensibilità.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Immagini del progetto</h2>
+    <p class="case-gallery-note">Seleziona un’immagine per ingrandirla.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/risk-monte-carlo/lec-total.webp" data-title="Perdita annua totale" aria-label="Ingrandisci: Perdita annua totale">
+          <img src="../../img/projects/risk-monte-carlo/lec-total.webp" alt="Curva simulata di superamento della perdita annua totale." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Perdita annua totale</strong>Curva di superamento per l’insieme dei rischi modellati.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/risk-monte-carlo/lec-per-risk.webp" data-title="Perdite per rischio" aria-label="Ingrandisci: Perdite per rischio">
+          <img src="../../img/projects/risk-monte-carlo/lec-per-risk.webp" alt="Confronto tra le curve di superamento delle perdite dei singoli rischi." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Perdite per rischio</strong>Le curve dei singoli rischi aiutano a individuare quelli che incidono maggiormente sugli esiti estremi.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/risk-monte-carlo/quarterly-events.webp" data-title="Eventi trimestrali" aria-label="Ingrandisci: Eventi trimestrali">
+          <img src="../../img/projects/risk-monte-carlo/quarterly-events.webp" alt="Numero simulato di eventi per trimestre." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Eventi trimestrali</strong>Conteggio degli eventi simulati raggruppato per trimestre.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/risk-monte-carlo/quarterly-loss.webp" data-title="Perdite trimestrali" aria-label="Ingrandisci: Perdite trimestrali">
+          <img src="../../img/projects/risk-monte-carlo/quarterly-loss.webp" alt="Perdite simulate per trimestre." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Perdite trimestrali</strong>Le perdite trimestrali variano in base al numero e alla gravità degli eventi.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Strumenti e metodi</h2><ul class="tag-list"><li>Python</li><li>Jupyter</li><li>Distribuzione di Poisson</li><li>Distribuzione lognormale</li><li>Monte Carlo</li><li>Analisi del rischio</li></ul></section>
+      <div class="case-source"><p>I grafici presentati provengono dal notebook dell’esercitazione di gestione del rischio.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="Tutti i progetti">
+      <a href="nids.html"><span>Progetto precedente</span>Sistema di rilevamento delle intrusioni di rete</a>
+      <a href="embedded-1wire.html"><span>Progetto successivo</span>Firmware embedded: emulazione di un sensore 1-Wire</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">Tutti i progetti</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Contattami</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Chiudi immagine</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Apri l’immagine in una nuova scheda</a></dialog>
+  <script src="../../js/project.js"></script>
+</body>
+</html>

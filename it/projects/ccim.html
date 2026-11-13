@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un framework di ricerca per valutare, motivare e confrontare le modifiche proposte ai sistemi OT.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Gestione quantitativa delle modifiche OT | Twinkal Sikri">
+  <meta property="og:description" content="Un framework di ricerca per valutare, motivare e confrontare le modifiche proposte ai sistemi OT.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../../css/resume.css" rel="stylesheet">
+  <link href="../../css/project.css" rel="stylesheet">
+  <title>Gestione quantitativa delle modifiche OT | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Vai al caso studio</a>
+  <nav class="case-nav" aria-label="Navigazione principale">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">Tutti i progetti</a>
+    <a href="mailto:twinxvii@gmail.com">Contatti</a>
+    <div class="language-nav" role="group" aria-label="Versioni linguistiche">
+      <a href="../../projects/ccim.html" lang="en-GB" aria-label="Inglese" title="Inglese"><img src="../../img/flags/gb.svg" alt=""></a>
+      <a href="ccim.html" lang="it" aria-label="Italiano" title="Italiano"><img src="../../img/flags/it.svg" alt=""></a>
+    </div>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Torna ai progetti</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Tesi magistrale · sicurezza OT e ICS</p>
+        <h1>Gestione quantitativa delle modifiche OT</h1>
+        <p class="case-deck">Un framework di ricerca per valutare, motivare e confrontare le modifiche proposte ai sistemi OT.</p>
+        <dl class="case-meta">
+          <div><dt>Contesto</dt><dd>Tesi magistrale</dd></div>
+          <div><dt>Ruolo</dt><dd>Ricerca, modellazione e implementazione</dd></div>
+          <div><dt>Periodo</dt><dd>2026</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Sezioni del caso studio">
+        <a href="#overview">Panoramica</a><a href="#contribution">Il mio contributo</a>
+        <a href="#how-it-works">Come funziona</a><a href="#decisions">Decisioni chiave</a>
+        <a href="#results">Risultati</a><a href="#limitations">Limiti e sviluppi futuri</a>
+        <a href="#gallery">Immagini</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Panoramica</h2><div><p>Una modifica a un sistema industriale può ampliarne la superficie d’attacco, ma nelle revisioni tradizionali non sempre è facile confrontare le motivazioni alla base delle approvazioni. Nella mia tesi ho studiato un metodo strutturato, ispirato al Cyber-Informed Engineering (CIE), per valutare le modifiche proposte alle infrastrutture critiche.</p>
+<p>Il framework assegna un punteggio agli scenari valutati e lo confronta con una soglia calibrata su 22 scenari etichettati. È un prototipo di ricerca, non un sistema operativo per approvare le modifiche.</p></div></section>
+      <section class="case-section" id="contribution"><h2>Il mio contributo</h2><div><ul><li>Ho formalizzato il modello di valutazione e il suo rapporto con gli standard pertinenti in materia di sicurezza OT e safety.</li>
+<li>Ho applicato l’Analytic Hierarchy Process per ricavare i pesi di quattro criteri e ne ho verificato la coerenza.</li>
+<li>Ho implementato in Python la modellazione dell’incertezza basata su PERT e la calibrazione tramite simulazione Monte Carlo.</li>
+<li>Ho applicato il metodo a casi studio su microreti e trattamento delle acque, includendo una mitigazione con interblocco e un ottimizzatore AI per il dosaggio.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>Come funziona</h2><div><p>I criteri vengono pesati con AHP. I pesi risultanti sono 0,467, 0,277, 0,160 e 0,095, con un rapporto di coerenza pari a 0,011.</p>
+<p>Per ogni scenario, distribuzioni PERT con λ = 4 modellano i valori assegnati ai criteri. Campionamenti ripetuti producono una distribuzione dei punteggi, poi confrontata con la soglia calibrata.</p>
+<p>I 22 scenari etichettati comprendono 15 casi non accettabili e 7 accettabili. La soglia selezionata è circa 0,277; nella simulazione, l’AUC ROC è circa 0,993 e l’indice J di Youden circa 0,915.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Decisioni chiave</h2><div><div class="decision"><h3>Rendere esplicita l’incertezza</h3><p><span class="decision-label">Scelta:</span> Rappresentare le valutazioni incerte con distribuzioni PERT, anziché trattare ogni dato in ingresso come un valore noto.</p><p><span class="decision-label">Motivazione:</span> Nelle prime fasi di una revisione si lavora spesso con stime. Mostrare un intervallo rende l’incertezza parte della valutazione, invece di nasconderla in un unico punteggio.</p><p><span class="decision-label">Compromesso:</span> Il risultato dipende dalla qualità delle stime iniziali e dalle ipotesi usate per costruire ciascuna distribuzione.</p></div>
+<div class="decision"><h3>Calibrare il modello su scenari etichettati</h3><p><span class="decision-label">Scelta:</span> Eseguire una simulazione Monte Carlo con 10.000 prove per classe e selezionare la soglia tramite analisi ROC.</p><p><span class="decision-label">Motivazione:</span> Questo approccio permette di confrontare in modo ripetibile quanto si distinguono gli scenari accettabili da quelli non accettabili.</p><p><span class="decision-label">Compromesso:</span> I 22 scenari costituiscono un insieme ridotto e illustrativo: la separazione misurata non dimostra capacità predittive nel mondo reale.</p></div>
+<div class="decision"><h3>Integrare gli standard, non sostituirli</h3><p><span class="decision-label">Scelta:</span> Strutturare il modello attorno a criteri ispirati al CIE e mostrare come si collegano agli standard di sicurezza esistenti.</p><p><span class="decision-label">Motivazione:</span> L’obiettivo era rendere le revisioni più coerenti, mantenendo il metodo comprensibile a chi già lavora con gli standard.</p><p><span class="decision-label">Compromesso:</span> Il framework deve ancora essere validato da esperti del settore e provato in una gamma più ampia di contesti operativi.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Risultati</h2><div><p>Nel caso della microrete, la modifica relativa al feedback remoto supera le soglie nazionali e manifatturiere considerate: T_N = 0,5158 rispetto a circa 0,286 e T_M = 0,5517 rispetto a circa 0,318.</p>
+<p>La mitigazione con interblocco ottiene punteggi di 0,092 e 0,1127, inferiori alle rispettive soglie. Il caso del dosaggio AI nel trattamento delle acque è abbastanza vicino alla soglia da mostrare perché i risultati al limite richiedano un esame attento.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limiti e sviluppi futuri</h2><div><p>Il modello usa un insieme ridotto e illustrativo di scenari e pesi assegnati. L’AUC elevata descrive questo dataset e questa simulazione, non le prestazioni su modifiche industriali mai osservate.</p>
+<p>Come passo successivo, rivedrei criteri e punteggi insieme a ingegneri OT, proverei il framework su un dataset più ampio con etichette assegnate in modo indipendente e definirei come trattare i punteggi prossimi alla soglia.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Immagini del progetto</h2>
+    <p class="case-gallery-note">Seleziona un’immagine per ingrandirla.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/formalisation-model.webp" data-title="Modello formalizzato" aria-label="Ingrandisci: Modello formalizzato">
+          <img src="../../img/projects/ccim/formalisation-model.webp" alt="Schema delle fasi del modello formalizzato per valutare le modifiche." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Modello formalizzato</strong>Le fasi principali del metodo di valutazione proposto.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/standards-interaction.webp" data-title="Relazione con gli standard" aria-label="Ingrandisci: Relazione con gli standard">
+          <img src="../../img/projects/ccim/standards-interaction.webp" alt="Schema dei rapporti tra gli standard analizzati nella tesi." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Relazione con gli standard</strong>Il framework affianca gli standard esistenti, senza proporsi come sostituto.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/pert-variables.webp" data-title="Variabili PERT" aria-label="Ingrandisci: Variabili PERT">
+          <img src="../../img/projects/ccim/pert-variables.webp" alt="Grafico delle distribuzioni PERT usate per i valori in ingresso." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Variabili PERT</strong>I valori incerti sono rappresentati tramite distribuzioni.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/roc-curve.webp" data-title="Calibrazione della soglia" aria-label="Ingrandisci: Calibrazione della soglia">
+          <img src="../../img/projects/ccim/roc-curve.webp" alt="Curva ROC usata nella simulazione per calibrare la soglia." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Calibrazione della soglia</strong>Per questo dataset, l’analisi ROC ha selezionato una soglia di circa 0,277.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/cs1a-wan-pmu.webp" data-title="Caso di modifica alla microrete" aria-label="Ingrandisci: Caso di modifica alla microrete">
+          <img src="../../img/projects/ccim/cs1a-wan-pmu.webp" alt="Risultati della valutazione del feedback remoto nella microrete." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Caso di modifica alla microrete</strong>La modifica al feedback remoto supera entrambe le soglie analizzate.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/cs1b-interlock.webp" data-title="Caso di mitigazione con interblocco" aria-label="Ingrandisci: Caso di mitigazione con interblocco">
+          <img src="../../img/projects/ccim/cs1b-interlock.webp" alt="Risultati della valutazione della mitigazione con interblocco nella microrete." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Caso di mitigazione con interblocco</strong>La mitigazione proposta ottiene un punteggio inferiore a entrambe le soglie.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/ccim/cs2-ai-dosing.webp" data-title="Caso di dosaggio AI" aria-label="Ingrandisci: Caso di dosaggio AI">
+          <img src="../../img/projects/ccim/cs2-ai-dosing.webp" alt="Risultati della valutazione del dosaggio AI nel trattamento delle acque." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Caso di dosaggio AI</strong>Il caso mostra perché sia importante esaminare i risultati vicini alla soglia.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Strumenti e metodi</h2><ul class="tag-list"><li>Cyber-Informed Engineering</li><li>Sicurezza OT / ICS</li><li>AHP</li><li>PERT</li><li>Monte Carlo</li><li>Analisi ROC</li><li>Python</li></ul></section>
+      <div class="case-source"><p>Figure e risultati provengono dalla relazione della tesi. I punteggi riportati sono risultati di ricerca ottenuti sul dataset dello studio, non raccomandazioni operative.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="Tutti i progetti">
+      <a href="booking-api.html"><span>Progetto precedente</span>API di prenotazione in C#</a>
+      <a href="fat16.html"><span>Progetto successivo</span>Ricostruzione di un file system FAT16</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">Tutti i progetti</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Contattami</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Chiudi immagine</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Apri l’immagine in una nuova scheda</a></dialog>
+  <script src="../../js/project.js"></script>
+</body>
+</html>

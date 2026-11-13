@@ -1,0 +1,580 @@
+{
+  "ccim": {
+    "title": "Gestione quantitativa delle modifiche OT",
+    "category": "Tesi magistrale · sicurezza OT e ICS",
+    "context": "Tesi magistrale",
+    "role": "Ricerca, modellazione e implementazione",
+    "period": "2026",
+    "deck": "Un framework di ricerca per valutare, motivare e confrontare le modifiche proposte ai sistemi OT.",
+    "overview": [
+      "Una modifica a un sistema industriale può ampliarne la superficie d’attacco, ma nelle revisioni tradizionali non sempre è facile confrontare le motivazioni alla base delle approvazioni. Nella mia tesi ho studiato un metodo strutturato, ispirato al Cyber-Informed Engineering (CIE), per valutare le modifiche proposte alle infrastrutture critiche.",
+      "Il framework assegna un punteggio agli scenari valutati e lo confronta con una soglia calibrata su 22 scenari etichettati. È un prototipo di ricerca, non un sistema operativo per approvare le modifiche."
+    ],
+    "contribution": [
+      "Ho formalizzato il modello di valutazione e il suo rapporto con gli standard pertinenti in materia di sicurezza OT e safety.",
+      "Ho applicato l’Analytic Hierarchy Process per ricavare i pesi di quattro criteri e ne ho verificato la coerenza.",
+      "Ho implementato in Python la modellazione dell’incertezza basata su PERT e la calibrazione tramite simulazione Monte Carlo.",
+      "Ho applicato il metodo a casi studio su microreti e trattamento delle acque, includendo una mitigazione con interblocco e un ottimizzatore AI per il dosaggio."
+    ],
+    "decisions": [
+      {
+        "title": "Rendere esplicita l’incertezza",
+        "choice": "Rappresentare le valutazioni incerte con distribuzioni PERT, anziché trattare ogni dato in ingresso come un valore noto.",
+        "why": "Nelle prime fasi di una revisione si lavora spesso con stime. Mostrare un intervallo rende l’incertezza parte della valutazione, invece di nasconderla in un unico punteggio.",
+        "tradeoff": "Il risultato dipende dalla qualità delle stime iniziali e dalle ipotesi usate per costruire ciascuna distribuzione."
+      },
+      {
+        "title": "Calibrare il modello su scenari etichettati",
+        "choice": "Eseguire una simulazione Monte Carlo con 10.000 prove per classe e selezionare la soglia tramite analisi ROC.",
+        "why": "Questo approccio permette di confrontare in modo ripetibile quanto si distinguono gli scenari accettabili da quelli non accettabili.",
+        "tradeoff": "I 22 scenari costituiscono un insieme ridotto e illustrativo: la separazione misurata non dimostra capacità predittive nel mondo reale."
+      },
+      {
+        "title": "Integrare gli standard, non sostituirli",
+        "choice": "Strutturare il modello attorno a criteri ispirati al CIE e mostrare come si collegano agli standard di sicurezza esistenti.",
+        "why": "L’obiettivo era rendere le revisioni più coerenti, mantenendo il metodo comprensibile a chi già lavora con gli standard.",
+        "tradeoff": "Il framework deve ancora essere validato da esperti del settore e provato in una gamma più ampia di contesti operativi."
+      }
+    ],
+    "howItWorks": [
+      "I criteri vengono pesati con AHP. I pesi risultanti sono 0,467, 0,277, 0,160 e 0,095, con un rapporto di coerenza pari a 0,011.",
+      "Per ogni scenario, distribuzioni PERT con λ = 4 modellano i valori assegnati ai criteri. Campionamenti ripetuti producono una distribuzione dei punteggi, poi confrontata con la soglia calibrata.",
+      "I 22 scenari etichettati comprendono 15 casi non accettabili e 7 accettabili. La soglia selezionata è circa 0,277; nella simulazione, l’AUC ROC è circa 0,993 e l’indice J di Youden circa 0,915."
+    ],
+    "results": [
+      "Nel caso della microrete, la modifica relativa al feedback remoto supera le soglie nazionali e manifatturiere considerate: T_N = 0,5158 rispetto a circa 0,286 e T_M = 0,5517 rispetto a circa 0,318.",
+      "La mitigazione con interblocco ottiene punteggi di 0,092 e 0,1127, inferiori alle rispettive soglie. Il caso del dosaggio AI nel trattamento delle acque è abbastanza vicino alla soglia da mostrare perché i risultati al limite richiedano un esame attento."
+    ],
+    "limitations": [
+      "Il modello usa un insieme ridotto e illustrativo di scenari e pesi assegnati. L’AUC elevata descrive questo dataset e questa simulazione, non le prestazioni su modifiche industriali mai osservate.",
+      "Come passo successivo, rivedrei criteri e punteggi insieme a ingegneri OT, proverei il framework su un dataset più ampio con etichette assegnate in modo indipendente e definirei come trattare i punteggi prossimi alla soglia."
+    ],
+    "tags": ["Cyber-Informed Engineering", "Sicurezza OT / ICS", "AHP", "PERT", "Monte Carlo", "Analisi ROC", "Python"],
+    "evidence": "Figure e risultati provengono dalla relazione della tesi. I punteggi riportati sono risultati di ricerca ottenuti sul dataset dello studio, non raccomandazioni operative.",
+    "images": [
+      {"title": "Modello formalizzato", "alt": "Schema delle fasi del modello formalizzato per valutare le modifiche.", "caption": "Le fasi principali del metodo di valutazione proposto."},
+      {"title": "Relazione con gli standard", "alt": "Schema dei rapporti tra gli standard analizzati nella tesi.", "caption": "Il framework affianca gli standard esistenti, senza proporsi come sostituto."},
+      {"title": "Variabili PERT", "alt": "Grafico delle distribuzioni PERT usate per i valori in ingresso.", "caption": "I valori incerti sono rappresentati tramite distribuzioni."},
+      {"title": "Calibrazione della soglia", "alt": "Curva ROC usata nella simulazione per calibrare la soglia.", "caption": "Per questo dataset, l’analisi ROC ha selezionato una soglia di circa 0,277."},
+      {"title": "Caso di modifica alla microrete", "alt": "Risultati della valutazione del feedback remoto nella microrete.", "caption": "La modifica al feedback remoto supera entrambe le soglie analizzate."},
+      {"title": "Caso di mitigazione con interblocco", "alt": "Risultati della valutazione della mitigazione con interblocco nella microrete.", "caption": "La mitigazione proposta ottiene un punteggio inferiore a entrambe le soglie."},
+      {"title": "Caso di dosaggio AI", "alt": "Risultati della valutazione del dosaggio AI nel trattamento delle acque.", "caption": "Il caso mostra perché sia importante esaminare i risultati vicini alla soglia."}
+    ]
+  },
+  "fat16": {
+    "title": "Ricostruzione di un file system FAT16",
+    "category": "Informatica forense · programmazione a basso livello",
+    "context": "Progetto di programmazione forense",
+    "role": "Sviluppo di uno strumento forense",
+    "period": "2026",
+    "deck": "Uno strumento Python per recuperare file da un’immagine FAT16 dopo che una formattazione rapida ha cancellato le voci della directory principale.",
+    "overview": [
+      "Il progetto richiedeva di esaminare un’immagine FAT16 la cui directory principale era stata azzerata da una formattazione rapida. Venute meno le voci di directory, il recupero dipendeva dalla lettura delle strutture del file system e dalla ricostruzione diretta delle catene di cluster.",
+      "Ho scritto uno strumento per mappare i cluster e ricostruire i file dall’immagine, confrontando le due copie della FAT e preservando l’immagine come reperto."
+    ],
+    "contribution": [
+      "Ho analizzato le strutture FAT16 necessarie a individuare e seguire le catene di cluster dei file.",
+      "Ho gestito cluster da 2.048 byte e ricostruito i dati a partire dal contenuto grezzo dell’immagine.",
+      "Ho confrontato FAT1 e FAT2 durante l’analisi delle informazioni di allocazione.",
+      "Ho verificato l’hash MD5 dell’immagine per controllare che il reperto originale non fosse stato modificato."
+    ],
+    "decisions": [
+      {
+        "title": "Lavorare sull’immagine, non sul file system attivo",
+        "choice": "Usare l’immagine disco come fonte dei dati e verificarne l’MD5 prima dell’analisi.",
+        "why": "Un’analisi forense richiede un input riproducibile e un controllo che il reperto non sia stato alterato durante la gestione.",
+        "tradeoff": "Un hash invariato conferma che l’immagine non è cambiata durante l’analisi, ma non dimostra che sia stata acquisita correttamente."
+      },
+      {
+        "title": "Ricostruire direttamente le catene di cluster",
+        "choice": "Usare le voci di allocazione FAT per ricostruire i file, senza dipendere dalla directory principale cancellata.",
+        "why": "Le voci di directory non erano più presenti, mentre le informazioni di allocazione permettevano ancora di seguire i cluster dei dati.",
+        "tradeoff": "La qualità del recupero dipende dallo stato delle tabelle di allocazione e da quanto la formattazione rapida abbia sovrascritto."
+      }
+    ],
+    "howItWorks": [
+      "Lo strumento legge le strutture del volume, mappa i cluster dei dati con dimensione di 2.048 byte e consulta le voci FAT per seguire le catene dei file.",
+      "Le due copie della FAT vengono confrontate. Il contenuto ricostruito viene poi salvato per l’esame, mantenendo l’hash originale dell’immagine come controllo d’integrità."
+    ],
+    "results": [
+      "La ricostruzione ha recuperato 57 file, 8 directory e 16 sottodirectory.",
+      "Tra i file recuperati più rilevanti figurano INVOICE.PDF e TRANSA-1.TXT. I loro contenuti fornivano informazioni coerenti sul wallet usato nell’esercitazione."
+    ],
+    "limitations": [
+      "Una formattazione rapida può lasciare intatte informazioni di allocazione utili, ma il recupero non è garantito se i metadati o i cluster sono stati sovrascritti.",
+      "Come passo successivo, aggiungerei un registro più dettagliato delle decisioni prese per ogni catena e segnalerei le incoerenze tra le voci FAT per la revisione manuale."
+    ],
+    "tags": ["Python", "FAT16", "Informatica forense", "Immagini disco", "Recupero file"],
+    "evidence": "I dettagli del progetto sono riassunti dalla relazione dell’esercitazione di ricostruzione FAT16. L’immagine disco originale non è pubblicata.",
+    "images": []
+  },
+  "nids": {
+    "title": "Sistema di rilevamento delle intrusioni di rete",
+    "category": "Sicurezza di rete · Python",
+    "context": "Progetto di sicurezza di rete",
+    "role": "Progettazione e implementazione",
+    "period": "2026",
+    "deck": "Un piccolo monitor di rete in Python che osserva il traffico, applica soglie di rilevamento e protegge i log di audit dalle manomissioni.",
+    "overview": [
+      "Ho realizzato un sistema didattico di rilevamento delle intrusioni di rete per analizzare il traffico e generare avvisi quando l’attività osservata superava determinate soglie. Il progetto esplora anche come proteggere l’integrità dei log prodotti dallo stesso strumento di monitoraggio.",
+      "Il progetto dimostra una pipeline e diversi meccanismi di sicurezza, ma non è un sostituto di un IDS di produzione mantenuto e aggiornato."
+    ],
+    "contribution": [
+      "Ho realizzato uno sniffer basato su Scapy e un componente per il tracciamento del traffico.",
+      "Ho aggiunto il rilevamento basato su soglie e un intervallo di cooldown per limitare gli avvisi ripetuti.",
+      "Ho implementato lo scambio CHAP reciproco del progetto e i controlli basati su AES-256, HMAC, CRC e timestamp.",
+      "Ho protetto i record di log con HMAC e aggiunto un programma separato, `check_logs.py`, per verificarli."
+    ],
+    "decisions": [
+      {
+        "title": "Rilevare l’attività prima di generare gli avvisi",
+        "choice": "Tenere separati l’acquisizione dei pacchetti e il tracciamento del traffico dalla valutazione delle soglie.",
+        "why": "Separare le fasi rende più semplice verificare e modificare la logica di rilevamento.",
+        "tradeoff": "Le soglie sono statiche e non si adattano ai normali cambiamenti del comportamento della rete."
+      },
+      {
+        "title": "Rendere rilevabili le manomissioni dei log",
+        "choice": "Autenticare i record con HMAC e fornire uno script di verifica.",
+        "why": "Un avviso è meno utile se i record usati per analizzarlo possono essere modificati senza lasciare traccia.",
+        "tradeoff": "Il prototipo usa una chiave hardcoded, inadatta a un ambiente operativo."
+      }
+    ],
+    "howItWorks": [
+      "Scapy acquisisce i pacchetti e il tracker aggiorna le misure di traffico usate dalle regole a soglia. Un cooldown limita le notifiche ripetute per la stessa condizione.",
+      "Il progetto dimostra inoltre uno scambio CHAP reciproco e usa AES-256, HMAC, CRC e timestamp nella progettazione delle comunicazioni e dei log. Lo strumento di verifica controlla se i dati protetti sono stati modificati."
+    ],
+    "results": [
+      "Il prototipo integra l’osservazione dei pacchetti, regole a soglia e record di audit la cui integrità può essere verificata.",
+      "I diagrammi delle classi e delle sequenze documentano i componenti principali e le interazioni previste."
+    ],
+    "limitations": [
+      "Le soglie statiche possono non rilevare attività che esulano dalle regole e possono generare falsi positivi. L’uso di una chiave hardcoded è un limite importante per un eventuale rilascio.",
+      "Come passo successivo, sposterei le chiavi in una configurazione gestita, aggiungerei test per record malformati o riprodotti e valuterei la qualità del rilevamento su traffico rappresentativo prima di trarre conclusioni operative."
+    ],
+    "tags": ["Python", "Scapy", "Monitoraggio di rete", "HMAC", "AES-256", "Log sicuri"],
+    "evidence": "I diagrammi e le note di implementazione sono riassunti dalla relazione sul progetto NIDS.",
+    "images": [
+      {"title": "Struttura dei componenti", "alt": "Diagramma delle classi del progetto di monitoraggio di rete.", "caption": "Le classi principali e le loro relazioni."},
+      {"title": "Flusso di rilevamento", "alt": "Diagramma di sequenza del flusso di rilevamento del progetto.", "caption": "Il percorso dei pacchetti osservati attraverso i componenti di rilevamento."},
+      {"title": "Integrità dei log", "alt": "Schema del processo di registrazione con protezione d’integrità.", "caption": "La verifica HMAC permette di rilevare modifiche ai record memorizzati."}
+    ]
+  },
+  "risk-monte-carlo": {
+    "title": "Analisi del rischio con simulazione Monte Carlo",
+    "category": "Analisi del rischio · analisi dei dati",
+    "context": "Progetto di programmazione e analisi dei dati",
+    "role": "Progettazione e analisi del modello",
+    "period": "2025",
+    "deck": "Un modello probabilistico per esplorare le perdite annuali e trimestrali quando sono incerti sia la frequenza degli eventi sia il loro impatto.",
+    "overview": [
+      "Un singolo valore di perdita attesa può nascondere la varietà degli esiti possibili. In questo progetto ho usato una simulazione per studiare come l’incertezza sulla frequenza degli eventi e sulla gravità delle perdite si combini nel tempo.",
+      "Il notebook modella la frequenza con una distribuzione di Poisson e la gravità con una distribuzione lognormale, quindi riepiloga le perdite simulate su base annuale e trimestrale."
+    ],
+    "contribution": [
+      "Ho sviluppato in un notebook Jupyter il modello di frequenza e gravità delle perdite.",
+      "Ho eseguito 10.000 simulazioni Monte Carlo e calcolato la misura di perdita annua implicita (IALE).",
+      "Ho tracciato le curve di superamento delle perdite per i singoli rischi e per il portafoglio complessivo.",
+      "Ho prodotto riepiloghi trimestrali degli eventi e delle perdite per rendere più leggibili i risultati simulati."
+    ],
+    "decisions": [
+      {
+        "title": "Modellare separatamente frequenza e gravità",
+        "choice": "Usare un modello di Poisson per il numero di eventi e uno lognormale per l’entità delle perdite.",
+        "why": "I due componenti rappresentano fonti d’incertezza diverse e possono essere esaminati singolarmente prima di combinarli.",
+        "tradeoff": "Le distribuzioni sono ipotesi: servono dati e calibrazione prima che i risultati possano supportare decisioni reali."
+      },
+      {
+        "title": "Mostrare più di una media",
+        "choice": "Affiancare le curve di superamento e gli esiti trimestrali alla misura di perdita annua.",
+        "why": "La sola media non indica quanto spesso il modello produce perdite più elevate.",
+        "tradeoff": "I grafici di una simulazione possono sembrare precisi anche quando i dati in ingresso restano incerti."
+      }
+    ],
+    "howItWorks": [
+      "In ciascuna delle 10.000 prove, il modello estrae il numero di eventi da una distribuzione di Poisson e la gravità delle perdite da una distribuzione lognormale, quindi aggrega le perdite.",
+      "Il notebook confronta i risultati per singolo rischio con il totale, calcola l’IALE e raggruppa per trimestre gli eventi e le perdite simulati."
+    ],
+    "results": [
+      "Il notebook produce curve di superamento delle perdite per ciascun rischio e per il totale, oltre a riepiloghi trimestrali di eventi e perdite.",
+      "Queste viste rendono evidente l’effetto delle ipotesi scelte su frequenza e gravità nei diversi esiti simulati."
+    ],
+    "limitations": [
+      "L’attendibilità dei risultati dipende dalle distribuzioni e dai parametri forniti al modello. La simulazione non elimina l’incertezza dei dati in ingresso.",
+      "Come passo successivo, documenterei i dati alla base di ogni parametro, confronterei i risultati simulati con le perdite osservate, ove disponibili, e aggiungerei un’analisi di sensibilità."
+    ],
+    "tags": ["Python", "Jupyter", "Distribuzione di Poisson", "Distribuzione lognormale", "Monte Carlo", "Analisi del rischio"],
+    "evidence": "I grafici presentati provengono dal notebook dell’esercitazione di gestione del rischio.",
+    "images": [
+      {"title": "Perdita annua totale", "alt": "Curva simulata di superamento della perdita annua totale.", "caption": "Curva di superamento per l’insieme dei rischi modellati."},
+      {"title": "Perdite per rischio", "alt": "Confronto tra le curve di superamento delle perdite dei singoli rischi.", "caption": "Le curve dei singoli rischi aiutano a individuare quelli che incidono maggiormente sugli esiti estremi."},
+      {"title": "Eventi trimestrali", "alt": "Numero simulato di eventi per trimestre.", "caption": "Conteggio degli eventi simulati raggruppato per trimestre."},
+      {"title": "Perdite trimestrali", "alt": "Perdite simulate per trimestre.", "caption": "Le perdite trimestrali variano in base al numero e alla gravità degli eventi."}
+    ]
+    },
+    "embedded-1wire": {
+      "title": "Firmware embedded: emulazione di un sensore 1-Wire",
+      "category": "Sistemi embedded · ATmega328P",
+      "context": "Progetto di laboratorio di architettura dei calcolatori",
+      "role": "Progettazione e implementazione del firmware",
+      "period": "2025",
+      "deck": "Firmware bare-metal che legge un sensore DHT22 e rende disponibili i valori tramite lo scratchpad di un dispositivo 1-Wire virtuale.",
+      "overview": [
+        "Il progetto richiedeva di realizzare un piccolo sistema embedded con risorse limitate. Il firmware legge temperatura e umidità da un DHT22, poi espone le misure tramite l’interfaccia di un dispositivo 1-Wire virtuale.",
+        "Ho usato accesso diretto ai registri e una macchina a stati temporizzata da un timer, verificando il comportamento con Wokwi."
+      ],
+      "contribution": [
+        "Ho implementato la lettura del DHT22 e la gestione dei comandi 1-Wire su ATmega328P.",
+        "Ho configurato Timer1 in modalità CTC, con prescaler 64 e OCR1A = 249, per generare un tick da 1 ms.",
+        "Ho rappresentato i valori del sensore come interi moltiplicati per 10, conservando una cifra decimale nello scratchpad.",
+        "Ho aggiunto un intervallo di conversione di 50 ms e il controllo del checksum."
+      ],
+      "decisions": [
+        {
+          "title": "Mantenere brevi le routine di interrupt",
+          "choice": "Usare l’interrupt di Timer1 ogni millisecondo per aggiornare i flag temporali, lasciando il lavoro più lungo alle macchine a stati principali.",
+          "why": "Routine brevi aiutano a mantenere prevedibile la temporizzazione ed evitano di svolgere attività del sensore o del protocollo dentro l’interrupt.",
+          "tradeoff": "Gli stati e i flag condivisi devono essere coordinati con attenzione per evitare errori di temporizzazione e sincronizzazione."
+        },
+        {
+          "title": "Usare interi scalati nello scratchpad",
+          "choice": "Memorizzare ciascun valore moltiplicato per dieci, invece di usare numeri in virgola mobile.",
+          "why": "La rappresentazione resta compatta e conserva una cifra decimale.",
+          "tradeoff": "Per visualizzare la misura occorre applicare il fattore di scala e riconvertire il valore."
+        },
+        {
+          "title": "Accedere direttamente ai registri",
+          "choice": "Controllare i pin tramite DDRD, PORTD e PIND, senza funzioni Arduino o librerie esterne.",
+          "why": "L’esercitazione puntava a comprendere l’I/O del microcontrollore e i vincoli delle sue risorse.",
+          "tradeoff": "Il codice è più legato all’hardware specifico e richiede di gestire esplicitamente gli stati dei pin."
+        }
+      ],
+      "howItWorks": [
+        "La macchina a stati dedicata al sensore acquisisce i valori del DHT22. Una seconda macchina a stati gestisce i comandi del dispositivo 1-Wire e la risposta dello scratchpad.",
+        "Timer1 fornisce il tick temporale da 1 ms. Dopo 50 ms di conversione, le letture scalate e il checksum diventano disponibili tramite lo scratchpad."
+      ],
+      "results": [
+        "Il firmware è stato simulato con Wokwi; le schermate mostrano la configurazione del progetto e una simulazione in esecuzione.",
+        "L’implementazione dimostra il comportamento temporale e del protocollo nel simulatore, ma non costituisce una validazione su una scheda fisica."
+      ],
+      "limitations": [
+        "La simulazione non copre tutti i possibili problemi elettrici e temporali che potrebbero presentarsi sull’hardware reale. Inoltre, il protocollo è un’emulazione realizzata per il progetto, non un’implementazione certificata del sensore.",
+        "Come passo successivo, proverei il firmware su una scheda ATmega328P con un analizzatore logico, verificherei i margini temporali in condizioni diverse e documenterei i collegamenti a partire dalla relazione originale."
+      ],
+      "tags": ["C", "ATmega328P", "Timer1", "1-Wire", "DHT22", "Wokwi", "I/O a livello di registro"],
+      "evidence": "Il diagramma di flusso, la temporizzazione e le immagini del simulatore provengono dal materiale del progetto di sistemi embedded. L’immagine con i collegamenti errati fornita tra gli asset è stata esclusa.",
+      "images": [
+        {"title": "Flusso del firmware", "alt": "Diagramma di flusso della soluzione firmware adottata.", "caption": "Stati distinti coordinano la lettura del sensore e le risposte 1-Wire."},
+        {"title": "Temporizzazione del DHT22", "alt": "Diagramma temporale della comunicazione con il sensore DHT22.", "caption": "La lettura del sensore rispetta la temporizzazione richiesta dal DHT22."},
+        {"title": "Confronto tra protocolli", "alt": "Confronto tra il protocollo del sensore e quello 1-Wire emulato.", "caption": "Il progetto collega l’ingresso del DHT22 a un’interfaccia 1-Wire virtuale."},
+        {"title": "Configurazione Wokwi", "alt": "Firmware e circuito visualizzati nell’editor Wokwi.", "caption": "Il progetto è stato sviluppato e simulato con Wokwi."},
+        {"title": "Simulazione in esecuzione", "alt": "Firmware in esecuzione nella simulazione Wokwi.", "caption": "Il progetto mentre gira nel simulatore."}
+      ]
+    },
+    "soc": {
+      "title": "Security Operations Centre per PMI",
+      "category": "Tesi triennale · Security Operations",
+      "context": "Tesi triennale",
+      "role": "Progettazione, integrazione e valutazione del sistema",
+      "period": "2024–2025",
+      "deck": "Un SOC da laboratorio, attento ai costi e alle risorse, che integra strumenti di sicurezza di rete, virtualizzazione e decodificatori di log personalizzati.",
+      "overview": [
+        "Le piccole organizzazioni potrebbero non avere budget o personale per adottare una piattaforma commerciale di Security Operations su larga scala. Nella mia tesi ho studiato come un laboratorio accessibile potesse raccogliere, interpretare e presentare eventi di sicurezza combinando strumenti open source e hardware già disponibile.",
+        "Il sistema integra Wazuh, pfSense, Snort, Proxmox ed ESXi su un server HP ProLiant. Ho progettato decodificatori personalizzati per i log di Kea-DHCP4 e del Captive Portal di pfSense."
+      ],
+      "contribution": [
+        "Ho progettato la topologia di rete e virtualizzazione dell’ambiente SOC.",
+        "Ho integrato Wazuh, pfSense e Snort con Proxmox e VMware ESXi.",
+        "Ho scritto decodificatori Wazuh personalizzati per i log di Kea-DHCP4 e del Captive Portal di pfSense.",
+        "Ho verificato l’ingestione degli avvisi con un test EICAR controllato e una consultazione di VirusTotal."
+      ],
+      "decisions": [
+        {
+          "title": "Riutilizzare l’hardware disponibile",
+          "choice": "Basare il laboratorio su un server HP ProLiant e virtualizzare i servizi.",
+          "why": "Riutilizzare l’hardware ha contenuto a circa 150 € il costo aggiuntivo, consentendo comunque di eseguire più componenti nello stesso ambiente.",
+          "tradeoff": "Concentrare i carichi su un solo host non offre la resilienza attesa da un SOC di produzione."
+        },
+        {
+          "title": "Decodificare i log effettivamente prodotti dagli strumenti",
+          "choice": "Aggiungere decodificatori personalizzati per Kea-DHCP4 e per il Captive Portal di pfSense.",
+          "why": "Per generare avvisi utili, i formati specifici dei log devono essere convertiti in campi comprensibili alla piattaforma di monitoraggio.",
+          "tradeoff": "I decodificatori personalizzati vanno aggiornati quando cambiano i formati dei log e verificati su campioni reali."
+        },
+        {
+          "title": "Usare un artefatto di test sicuro",
+          "choice": "Usare il file di test EICAR e VirusTotal per verificare in modo controllato la pipeline degli eventi.",
+          "why": "Un evento di test noto ha permesso di esercitare l’ingestione e la gestione degli avvisi senza presentare l’esercitazione come un attacco reale.",
+          "tradeoff": "Il test verifica solo un percorso circoscritto della pipeline, non la capacità del SOC di rilevare ogni minaccia."
+        }
+      ],
+      "howItWorks": [
+        "Gli endpoint e i servizi di rete generano eventi. Wazuh raccoglie ed elabora i log, mentre i decodificatori personalizzati estraggono i campi dai formati DHCP e Captive Portal.",
+        "Snort e pfSense forniscono i componenti di sicurezza di rete, mentre il laboratorio virtualizzato ospita i servizi di supporto. La topologia finale collega le fonti dati ai livelli di monitoraggio e dashboard."
+      ],
+      "results": [
+        "La tesi ha prodotto un progetto di laboratorio funzionante e ha dimostrato l’ingestione dei log e la presentazione degli avvisi, compresa una verifica controllata con EICAR e VirusTotal.",
+        "Il costo hardware stimato è stato di circa 150 €, grazie al riutilizzo del server HP ProLiant."
+      ],
+      "limitations": [
+        "Il laboratorio non includeva funzionalità SOAR e la quota gratuita dell’API VirusTotal limitava le verifiche ripetute. La presenza di un solo host fisico limita inoltre disponibilità e scalabilità.",
+        "Come passo successivo, aggiungerei procedure documentate di backup e ripristino, misurerei l’uso delle risorse sotto carico e definirei un flusso di risposta prima di ampliare l’ambiente."
+      ],
+      "tags": ["Wazuh", "pfSense", "Snort", "Proxmox", "VMware ESXi", "Decodifica dei log", "SOC"],
+      "evidence": "I diagrammi di rete e le schermate del sistema provengono dal materiale della mia tesi triennale. La verifica descritta è stata un test EICAR / VirusTotal.",
+      "images": [
+        {"title": "Topologia iniziale", "alt": "Schema iniziale della rete per la tesi sul SOC.", "caption": "La configurazione di partenza del laboratorio."},
+        {"title": "Topologia finale", "alt": "Topologia finale di rete e virtualizzazione del SOC.", "caption": "Il progetto integrato collega i componenti di sicurezza alla piattaforma di monitoraggio."},
+        {"title": "Server HP ProLiant", "alt": "Server HP ProLiant utilizzato nel laboratorio.", "caption": "Il riutilizzo dell’hardware ha mantenuto il costo aggiuntivo intorno a 150 €."},
+        {"title": "Ingestione dei log in Wazuh", "alt": "Schema della pipeline di ingestione e decodifica dei log in Wazuh.", "caption": "I decodificatori personalizzati trasformano i log sorgente in eventi strutturati."},
+        {"title": "Dashboard Snort", "alt": "Vista della dashboard nell’ambiente SOC.", "caption": "Esempio di eventi presentati dall’ambiente di monitoraggio."}
+      ]
+    },
+    "municipath": {
+      "title": "MuniciPath",
+      "category": "Progetto di gruppo · ingegneria del software",
+      "context": "Progetto di ingegneria del software",
+      "role": "Progetto di gruppo; la relazione non attribuisce le singole funzionalità ai membri",
+      "period": "2023–2024",
+      "deck": "Una piattaforma di informazione comunale che organizza post ed eventi locali su una mappa, con ruoli per moderatori e contributori.",
+      "overview": [
+        "MuniciPath è stato ideato per rendere più facile trovare informazioni sui comuni italiani. Gli utenti possono esplorare i comuni e i punti sulla mappa che raccolgono notizie locali, eventi e altri contenuti.",
+        "Il progetto è stato realizzato in gruppo con un processo iterativo. La relazione descrive i risultati condivisi, ma non attribuisce le singole funzionalità ai membri: per questo non rivendico la responsabilità esclusiva di alcun componente."
+      ],
+      "contribution": [
+        "Ho partecipato al gruppo che ha progettato e realizzato la piattaforma.",
+        "Il progetto condiviso comprendeva un backend Spring Boot, un frontend Angular, comunicazione REST e autenticazione basata su JWT.",
+        "Il gruppo ha inoltre realizzato flussi di moderazione comunale e analisi basate sul punteggio di Wilson."
+      ],
+      "decisions": [
+        {
+          "title": "Organizzare le informazioni in base al luogo",
+          "choice": "Rappresentare i contenuti comunali come punti sulla mappa, con una posizione dedicata alle informazioni valide per l’intero comune.",
+          "why": "La piattaforma voleva aiutare chi visita un luogo a trovare informazioni locali utili nel contesto in cui servono.",
+          "tradeoff": "La consultazione su mappa dipende dall’accuratezza dei dati geografici e non è adatta a ogni tipo di contenuto."
+        },
+        {
+          "title": "Moderare i contributi in base al ruolo",
+          "choice": "Distinguere turisti, contributori, moderatori e curatori comunali, assegnando permessi di pubblicazione diversi.",
+          "why": "Il gruppo voleva consentire contributi pubblici e offrire al personale comunale la possibilità di esaminare le proposte.",
+          "tradeoff": "I flussi basati sui ruoli introducono più stati e permessi da verificare e mantenere."
+        },
+        {
+          "title": "Usare il punteggio di Wilson per l’ordinamento",
+          "choice": "Applicare l’analisi basata sul punteggio di Wilson ai contenuti comunali, senza affidarsi soltanto alla popolarità assoluta.",
+          "why": "Il gruppo voleva che l’analisi tenesse conto anche della quantità di feedback alla base di ogni risultato.",
+          "tradeoff": "Il punteggio dipende comunque dalla qualità e dal volume dei feedback e va interpretato nel contesto."
+        }
+      ],
+      "howItWorks": [
+        "L’interfaccia Angular comunica via REST con il backend Spring Boot. I JWT gestiscono l’autenticazione e, come descritto nella relazione, il frontend li conserva nei cookie.",
+        "Ogni comune contiene posizioni sulla mappa e relativi post. I permessi determinano se un contributo può essere pubblicato subito o deve prima essere moderato; le analisi offrono ai comuni una vista sulle prestazioni dei contenuti."
+      ],
+      "results": [
+        "Il gruppo ha realizzato un’applicazione web con mappa interattiva, contenuti comunali, funzionalità basate sui ruoli e scambio di contenuti multimediali tra frontend e backend.",
+        "La relazione descrive quattro iterazioni, concluse con il lavoro sul frontend, l’integrazione REST e i test."
+      ],
+      "limitations": [
+        "La relazione non attribuisce le singole funzionalità ai membri del gruppo. Ho quindi descritto il progetto condiviso, senza fare affermazioni non documentate sul mio contributo individuale.",
+        "Come passo successivo, documenterei in modo chiaro i contributi individuali e verificherei i confini dei permessi e la gestione dei token nell’ambito di una revisione di sicurezza."
+      ],
+      "tags": ["Spring Boot", "Angular", "Java", "REST", "JWT", "OpenStreetMap", "Punteggio di Wilson"],
+      "evidence": "Questa sintesi si basa sulla relazione di gruppo, sui requisiti e sulle note di progettazione. I materiali non documentano la responsabilità individuale sulle singole funzionalità.",
+      "images": []
+    },
+    "vector-rally": {
+      "title": "Simulatore di corse Vector Rally",
+      "category": "Java · progettazione orientata agli oggetti",
+      "context": "Progetto di Java e metodologie di programmazione",
+      "role": "Progettazione e implementazione del gioco",
+      "period": "2023–2024",
+      "deck": "Un gioco di corse a turni da console, con circuiti configurabili, piloti automatici e controlli su traiettorie e collisioni.",
+      "overview": [
+        "Vector Rally è un gioco di corse da console basato su movimenti su una griglia. A ogni turno si scelgono direzione e velocità; il gioco controlla che la traiettoria resti in pista e non provochi collisioni.",
+        "Il progetto separa il motore di gara dal parser dei circuiti, dalla gestione delle regole e dal controllo delle collisioni. In questo modo è possibile aggiungere nuovi circuiti e tipi di giocatore senza riscrivere l’intero gioco."
+      ],
+      "contribution": [
+        "Ho realizzato la struttura del gioco in Java e la build Gradle.",
+        "Ho aggiunto un parser per caricare i circuiti da file di testo, così da modificarli senza intervenire sul motore di gara.",
+        "Ho implementato piloti automatici con strategie di velocità assegnate casualmente.",
+        "Ho suddiviso le traiettorie in punti interi e verificato i limiti del circuito e le collisioni lungo il percorso."
+      ],
+      "decisions": [
+        {
+          "title": "Separare le regole dal ciclo di gara",
+          "choice": "Mantenere distinti arbitro, controllo delle collisioni, parser e motore di gara.",
+          "why": "La separazione rende le regole più comprensibili e facilita l’aggiunta di altri tipi di giocatore.",
+          "tradeoff": "I componenti devono avere interfacce chiare, così che le regole siano applicate in modo coerente."
+        },
+        {
+          "title": "Rappresentare il movimento come una sequenza di punti",
+          "choice": "Suddividere ogni mossa in punti interi lungo la traiettoria prima di verificarla rispetto al circuito.",
+          "why": "Controllare anche i punti intermedi permette di rilevare l’attraversamento del bordo o di un’altra vettura, anche quando la destinazione sembra valida.",
+          "tradeoff": "È un modello di gioco discreto e non simula la fisica continua dei veicoli."
+        },
+        {
+          "title": "Caricare i circuiti da file di testo",
+          "choice": "Interpretare circuiti configurabili invece di codificare un solo tracciato nel programma.",
+          "why": "In questo modo è più facile provare nuovi percorsi e tenere separata la progettazione dei circuiti dalla logica di gioco.",
+          "tradeoff": "Il parser deve gestire in modo chiaro i file malformati o incoerenti."
+        }
+      ],
+      "howItWorks": [
+        "Il parser converte il circuito testuale nella struttura usata dal gioco. Il motore fa avanzare i piloti a turno, mentre l’arbitro applica l’ordine di partenza e le regole della gara.",
+        "I piloti automatici usano strategie di velocità assegnate. Prima di accettare una mossa, il gioco controlla lungo la traiettoria che non ci siano punti fuori pista o collisioni."
+      ],
+      "results": [
+        "L’applicazione console supporta circuiti personalizzati e gare con piloti automatici.",
+        "Un bozzetto del tracciato mostra come le idee sui percorsi abbiano contribuito alla progettazione."
+      ],
+      "limitations": [
+        "Il gioco si concentra sulle regole dei percorsi a turni, non sulla fisica dei veicoli; anche le strategie dei piloti automatici sono volutamente semplici.",
+        "Come passo successivo, aggiungerei l’input per giocatori umani, strategie automatiche più varie e test sui casi limite del parser e dei controlli di collisione."
+      ],
+      "tags": ["Java", "Gradle", "Programmazione orientata agli oggetti", "Parsing", "Logica di gioco"],
+      "evidence": "Il bozzetto del circuito proviene dal materiale del progetto. Nel repository sono disponibili il codice sorgente e i file di build.",
+      "images": [
+        {"title": "Bozzetto del circuito", "alt": "Disegno a mano del concept di un circuito per Vector Rally.", "caption": "Un’idea per il tracciato elaborata durante la progettazione."}
+      ]
+    },
+    "pentest": {
+      "title": "Valutazione di sicurezza in laboratorio",
+      "category": "Cybersecurity · laboratorio autorizzato",
+      "context": "Esercitazione controllata su cinque macchine virtuali",
+      "role": "Valutazione e redazione del report",
+      "period": "Dicembre 2025",
+      "deck": "Report su una valutazione a tempo di un laboratorio isolato con cinque macchine virtuali, incentrata sulla documentazione dei risultati e delle relative implicazioni di sicurezza.",
+      "overview": [
+        "La valutazione si è svolta il 12 dicembre 2025 in un laboratorio controllato. L’ambito comprendeva cinque macchine virtuali e alcuni temi comuni di sicurezza, tra cui raccolta di informazioni, vulnerabilità applicative e gestione dei privilegi.",
+        "Il lavoro è stato documentato come esercitazione accademica. Questa scheda ne mantiene la descrizione ad alto livello e non include comandi di exploit, credenziali, flag o altri indizi utilizzabili soltanto nel laboratorio."
+      ],
+      "contribution": [
+        "Ho operato entro i limiti definiti per il laboratorio e raccolto le osservazioni in un report.",
+        "Ho esaminato l’ambiente considerando individuazione degli host, servizi esposti, sicurezza applicativa e confini dei privilegi.",
+        "Ho valutato come descrivere i risultati con prove e contesto, invece di presentarli come semplici successi tecnici isolati."
+      ],
+      "decisions": [
+        {
+          "title": "Limitare i test all’ambito autorizzato",
+          "choice": "Svolgere le attività esclusivamente sulle macchine virtuali e sulla rete messi a disposizione per l’esercitazione.",
+          "why": "Definire chiaramente l’ambito è essenziale per operare responsabilmente ed evitare effetti su sistemi esterni al laboratorio.",
+          "tradeoff": "I risultati riguardano soltanto quell’ambiente e non vanno generalizzati ad altri sistemi."
+        },
+        {
+          "title": "Descrivere l’impatto, non soltanto l’output degli strumenti",
+          "choice": "Riassumere la valutazione in termini di risultati e implicazioni di sicurezza, senza pubblicare passaggi di exploit riutilizzabili.",
+          "why": "Un report utile aiuta chi gestisce il sistema a capire i rischi e le possibili correzioni, senza esporre segreti del laboratorio.",
+          "tradeoff": "Questa sintesi pubblica contiene deliberatamente meno dettagli del report accademico riservato."
+        }
+      ],
+      "howItWorks": [
+        "La valutazione ha rispettato l’ambito del laboratorio e ha raccolto evidenze sugli host raggiungibili e sui servizi esposti prima di esaminare i temi di sicurezza assegnati.",
+        "I risultati sono stati documentati nel report con il contesto necessario all’esercitazione. Questa pagina pubblica non include credenziali, flag, comandi di exploit o procedure d’attacco dettagliate."
+      ],
+      "results": [
+        "L’esercitazione ha prodotto un resoconto scritto della valutazione e delle osservazioni raccolte in laboratorio.",
+        "È inclusa soltanto un’immagine non sensibile dell’individuazione degli host. Sono state escluse le schermate che potrebbero rivelare credenziali, flag o dettagli operativi."
+      ],
+      "limitations": [
+        "Una breve esercitazione in un laboratorio isolato non equivale a una valutazione di sicurezza completa e non permette di prevedere come reagirebbe un’organizzazione reale.",
+        "Come passo successivo, darei priorità ai risultati in base a probabilità e impatto, li collegherei a indicazioni correttive chiare e ripeterei i test solo entro un ambito esplicitamente autorizzato."
+      ],
+      "tags": ["Test autorizzati", "Laboratorio virtuale", "Valutazione di sicurezza", "Reportistica"],
+      "evidence": "Questa pagina è una sintesi volutamente generale di un report accademico di laboratorio. Non riproduce schermate sensibili né dettagli di exploit.",
+      "images": [
+        {"title": "Individuazione degli host nel laboratorio", "alt": "Risultati dell’individuazione degli host nel laboratorio isolato.", "caption": "Vista non sensibile dell’individuazione degli host nella rete di laboratorio."}
+      ]
+      },
+      "synnovis": {
+      "title": "Incidente Synnovis: analisi giuridica",
+      "category": "Diritto · protezione dei dati e criminalità informatica",
+      "context": "Analisi giuridica accademica",
+      "role": "Ricerca e redazione dell’elaborato",
+      "period": "Febbraio 2026",
+      "deck": "Analisi accademica degli obblighi in materia di protezione dei dati e della normativa sui reati informatici nel contesto dell’incidente cyber che ha coinvolto Synnovis.",
+      "overview": [
+        "L’elaborato ha esaminato le responsabilità giuridiche emerse dall’incidente cyber che ha coinvolto Synnovis, concentrandosi sugli obblighi di sicurezza previsti dal UK GDPR e sui rapporti tra titolari del trattamento e responsabili del trattamento.",
+        "Ho considerato anche il Computer Misuse Act 1990 e la decisione dell’Information Commissioner’s Office relativa ad Advanced come termine di confronto in materia di sanzioni."
+      ],
+      "contribution": [
+        "Ho analizzato gli articoli 32 e 28 del UK GDPR in relazione alla sicurezza del trattamento e alle responsabilità dei responsabili del trattamento.",
+        "Ho esaminato il Computer Misuse Act 1990 nel quadro giuridico degli incidenti informatici.",
+        "Ho confrontato l’analisi con la sanzione di 3,07 milioni di sterline inflitta ad Advanced, usandola come precedente di riferimento."
+      ],
+      "decisions": [
+        {
+          "title": "Distinguere gli obblighi in base al ruolo",
+          "choice": "Esaminare separatamente gli obblighi di sicurezza del titolare del trattamento e le responsabilità del responsabile.",
+          "why": "Gli articoli 32 e 28 disciplinano aspetti diversi; considerarli come un unico obbligo avrebbe reso meno chiara l’analisi.",
+          "tradeoff": "L’applicazione delle norme dipende dai fatti e dalle prove disponibili per ciascun incidente."
+        },
+        {
+          "title": "Usare con cautela il confronto con una sanzione precedente",
+          "choice": "Presentare la decisione su Advanced come termine di confronto, senza presumere che determini l’esito del caso Synnovis.",
+          "why": "Una precedente decisione può aiutare a inquadrare il ragionamento dell’autorità senza equiparare due incidenti diversi.",
+          "tradeoff": "Il confronto non sostituisce l’esame dei fatti, dei soggetti coinvolti e delle norme applicabili al caso specifico."
+        }
+      ],
+      "howItWorks": [
+        "L’elaborato ha collegato il contesto dell’incidente agli obblighi relativi alle misure di sicurezza adeguate e ai rapporti con i responsabili del trattamento, esaminando poi il quadro penale sull’accesso non autorizzato e le condotte connesse.",
+        "La sanzione ad Advanced è stata usata come termine di confronto per discutere l’attività di vigilanza. Si tratta di un’analisi accademica, non di consulenza legale."
+      ],
+      "results": [
+        "L’elaborato ha sviluppato un’analisi giuridica strutturata che collega gli obblighi di protezione dei dati, i rapporti tra titolari e responsabili del trattamento e la normativa sui reati informatici a un incidente reale.",
+        "L’elaborato ha ottenuto la valutazione Upper Distinction.",
+        "L’analisi ha evidenziato l’importanza di distinguere gli obblighi giuridici accertati dalle conclusioni che richiedono prove specifiche sull’incidente."
+      ],
+      "limitations": [
+        "Un elaborato accademico non può accertare responsabilità né sostituire una consulenza legale. Le conclusioni dipendono da fatti verificati, dalla normativa vigente e dalle decisioni delle autorità competenti.",
+        "Come passo successivo, aggiornerei l’analisi alla luce delle più recenti conclusioni delle autorità e distinguerei con maggiore evidenza i fatti confermati dalle argomentazioni giuridiche."
+      ],
+      "tags": ["UK GDPR", "Articolo 32", "Articolo 28", "Computer Misuse Act 1990", "Diritto informatico"],
+      "evidence": "Questa pagina riassume un elaborato accademico. Non costituisce consulenza legale né formula conclusioni sulle responsabilità."
+      },
+      "booking-api": {
+      "title": "API di prenotazione in C#",
+      "category": "Ingegneria del software · .NET 8",
+      "context": "Progetto software personale",
+      "role": "Progettazione e implementazione dell’API",
+      "period": "Settembre 2024",
+      "deck": "Un’API di prenotazione con EF Core, SQL Server e regole di validazione per controllare la disponibilità e impedire sovrapposizioni.",
+      "overview": [
+        "Il progetto consiste in un’API .NET 8 per gestire prenotazioni e disponibilità. Usa Entity Framework Core con SQL Server e offre risultati di disponibilità paginati; Swagger permette di esplorare gli endpoint.",
+        "Il progetto mostra anche perché le funzionalità di autenticazione vadano sottoposte a verifiche rigorose quanto il resto dell’applicazione."
+      ],
+      "contribution": [
+        "Ho realizzato l’API usando EF Core e SQL Server.",
+        "Ho aggiunto regole FluentValidation per i dati delle prenotazioni, inclusi i controlli sulle sovrapposizioni.",
+        "Ho implementato la disponibilità paginata e la documentazione Swagger.",
+        "Ho aggiunto l’autenticazione JWT con firma HMAC-SHA256 e scadenza dopo 30 minuti."
+      ],
+      "decisions": [
+        {
+          "title": "Validare le regole di prenotazione prima del salvataggio",
+          "choice": "Usare FluentValidation per controllare i dati delle prenotazioni e individuare intervalli temporali sovrapposti.",
+          "why": "Rendere esplicita la validazione facilita la comprensione e il test dei vincoli sulle prenotazioni.",
+          "tradeoff": "In presenza di richieste concorrenti, la validazione applicativa e quella del database devono restare coerenti."
+        },
+        {
+          "title": "Limitare la durata dei token",
+          "choice": "Emettere JWT con una scadenza di 30 minuti.",
+          "why": "Una durata limitata riduce il periodo in cui un token eventualmente sottratto rimane valido.",
+          "tradeoff": "La scadenza, da sola, non risolve i problemi di gestione delle password, conservazione dei token o revoca."
+        }
+      ],
+      "howItWorks": [
+        "L’API valida i dati in ingresso, controlla che gli intervalli non si sovrappongano e usa EF Core per salvare le prenotazioni in SQL Server.",
+        "Le interrogazioni sulla disponibilità sono paginabili. I JWT sono firmati con HMAC-SHA256 e scadono dopo 30 minuti; Swagger offre un’interfaccia per esplorare gli endpoint documentati."
+      ],
+      "results": [
+        "Il progetto riunisce validazione delle prenotazioni, persistenza, autenticazione e documentazione API in un unico servizio .NET 8.",
+        "Il repository contiene l’implementazione per ulteriori verifiche e test."
+      ],
+      "limitations": [
+        "Al momento le password vengono confrontate in chiaro. Questa modalità non è sicura per un servizio reale e deve essere sostituita con un sistema di hashing delle password affidabile prima della pubblicazione. La firma JWT non corregge questa vulnerabilità.",
+        "Come passo successivo, implementerei l’hashing con salt tramite una libreria adeguata, aggiungerei test per l’autenticazione e le prenotazioni concorrenti e rivedrei autorizzazioni e gestione dei token prima di valutare una distribuzione."
+      ],
+      "tags": [".NET 8", "C#", "Entity Framework Core", "SQL Server", "FluentValidation", "JWT", "Swagger"],
+      "evidence": "I dettagli del progetto e il limite relativo alla sicurezza sono descritti a partire dalle specifiche di implementazione. L’API non dovrebbe gestire account reali finché la gestione delle password non è stata corretta e verificata.",
+      "repositoryLabel": "Visualizza il progetto su GitHub"
+      }
+    }

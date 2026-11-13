@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un piccolo monitor di rete in Python che osserva il traffico, applica soglie di rilevamento e protegge i log di audit dalle manomissioni.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Sistema di rilevamento delle intrusioni di rete | Twinkal Sikri">
+  <meta property="og:description" content="Un piccolo monitor di rete in Python che osserva il traffico, applica soglie di rilevamento e protegge i log di audit dalle manomissioni.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../../css/resume.css" rel="stylesheet">
+  <link href="../../css/project.css" rel="stylesheet">
+  <title>Sistema di rilevamento delle intrusioni di rete | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Vai al caso studio</a>
+  <nav class="case-nav" aria-label="Navigazione principale">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">Tutti i progetti</a>
+    <a href="mailto:twinxvii@gmail.com">Contatti</a>
+    <div class="language-nav" role="group" aria-label="Versioni linguistiche">
+      <a href="../../projects/nids.html" lang="en-GB" aria-label="Inglese" title="Inglese"><img src="../../img/flags/gb.svg" alt=""></a>
+      <a href="nids.html" lang="it" aria-label="Italiano" title="Italiano"><img src="../../img/flags/it.svg" alt=""></a>
+    </div>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Torna ai progetti</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Sicurezza di rete · Python</p>
+        <h1>Sistema di rilevamento delle intrusioni di rete</h1>
+        <p class="case-deck">Un piccolo monitor di rete in Python che osserva il traffico, applica soglie di rilevamento e protegge i log di audit dalle manomissioni.</p>
+        <dl class="case-meta">
+          <div><dt>Contesto</dt><dd>Progetto di sicurezza di rete</dd></div>
+          <div><dt>Ruolo</dt><dd>Progettazione e implementazione</dd></div>
+          <div><dt>Periodo</dt><dd>2026</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Sezioni del caso studio">
+        <a href="#overview">Panoramica</a><a href="#contribution">Il mio contributo</a>
+        <a href="#how-it-works">Come funziona</a><a href="#decisions">Decisioni chiave</a>
+        <a href="#results">Risultati</a><a href="#limitations">Limiti e sviluppi futuri</a>
+        <a href="#gallery">Immagini</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Panoramica</h2><div><p>Ho realizzato un sistema didattico di rilevamento delle intrusioni di rete per analizzare il traffico e generare avvisi quando l’attività osservata superava determinate soglie. Il progetto esplora anche come proteggere l’integrità dei log prodotti dallo stesso strumento di monitoraggio.</p>
+<p>Il progetto dimostra una pipeline e diversi meccanismi di sicurezza, ma non è un sostituto di un IDS di produzione mantenuto e aggiornato.</p></div></section>
+      <section class="case-section" id="contribution"><h2>Il mio contributo</h2><div><ul><li>Ho realizzato uno sniffer basato su Scapy e un componente per il tracciamento del traffico.</li>
+<li>Ho aggiunto il rilevamento basato su soglie e un intervallo di cooldown per limitare gli avvisi ripetuti.</li>
+<li>Ho implementato lo scambio CHAP reciproco del progetto e i controlli basati su AES-256, HMAC, CRC e timestamp.</li>
+<li>Ho protetto i record di log con HMAC e aggiunto un programma separato, `check_logs.py`, per verificarli.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>Come funziona</h2><div><p>Scapy acquisisce i pacchetti e il tracker aggiorna le misure di traffico usate dalle regole a soglia. Un cooldown limita le notifiche ripetute per la stessa condizione.</p>
+<p>Il progetto dimostra inoltre uno scambio CHAP reciproco e usa AES-256, HMAC, CRC e timestamp nella progettazione delle comunicazioni e dei log. Lo strumento di verifica controlla se i dati protetti sono stati modificati.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Decisioni chiave</h2><div><div class="decision"><h3>Rilevare l’attività prima di generare gli avvisi</h3><p><span class="decision-label">Scelta:</span> Tenere separati l’acquisizione dei pacchetti e il tracciamento del traffico dalla valutazione delle soglie.</p><p><span class="decision-label">Motivazione:</span> Separare le fasi rende più semplice verificare e modificare la logica di rilevamento.</p><p><span class="decision-label">Compromesso:</span> Le soglie sono statiche e non si adattano ai normali cambiamenti del comportamento della rete.</p></div>
+<div class="decision"><h3>Rendere rilevabili le manomissioni dei log</h3><p><span class="decision-label">Scelta:</span> Autenticare i record con HMAC e fornire uno script di verifica.</p><p><span class="decision-label">Motivazione:</span> Un avviso è meno utile se i record usati per analizzarlo possono essere modificati senza lasciare traccia.</p><p><span class="decision-label">Compromesso:</span> Il prototipo usa una chiave hardcoded, inadatta a un ambiente operativo.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Risultati</h2><div><p>Il prototipo integra l’osservazione dei pacchetti, regole a soglia e record di audit la cui integrità può essere verificata.</p>
+<p>I diagrammi delle classi e delle sequenze documentano i componenti principali e le interazioni previste.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limiti e sviluppi futuri</h2><div><p>Le soglie statiche possono non rilevare attività che esulano dalle regole e possono generare falsi positivi. L’uso di una chiave hardcoded è un limite importante per un eventuale rilascio.</p>
+<p>Come passo successivo, sposterei le chiavi in una configurazione gestita, aggiungerei test per record malformati o riprodotti e valuterei la qualità del rilevamento su traffico rappresentativo prima di trarre conclusioni operative.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Immagini del progetto</h2>
+    <p class="case-gallery-note">Seleziona un’immagine per ingrandirla.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/nids/class-diagram.webp" data-title="Struttura dei componenti" aria-label="Ingrandisci: Struttura dei componenti">
+          <img src="../../img/projects/nids/class-diagram.webp" alt="Diagramma delle classi del progetto di monitoraggio di rete." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Struttura dei componenti</strong>Le classi principali e le loro relazioni.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/nids/sequence-diagram.webp" data-title="Flusso di rilevamento" aria-label="Ingrandisci: Flusso di rilevamento">
+          <img src="../../img/projects/nids/sequence-diagram.webp" alt="Diagramma di sequenza del flusso di rilevamento del progetto." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Flusso di rilevamento</strong>Il percorso dei pacchetti osservati attraverso i componenti di rilevamento.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/nids/secure-logging.webp" data-title="Integrità dei log" aria-label="Ingrandisci: Integrità dei log">
+          <img src="../../img/projects/nids/secure-logging.webp" alt="Schema del processo di registrazione con protezione d’integrità." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Integrità dei log</strong>La verifica HMAC permette di rilevare modifiche ai record memorizzati.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Strumenti e metodi</h2><ul class="tag-list"><li>Python</li><li>Scapy</li><li>Monitoraggio di rete</li><li>HMAC</li><li>AES-256</li><li>Log sicuri</li></ul></section>
+      <div class="case-source"><p>I diagrammi e le note di implementazione sono riassunti dalla relazione sul progetto NIDS.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="Tutti i progetti">
+      <a href="fat16.html"><span>Progetto precedente</span>Ricostruzione di un file system FAT16</a>
+      <a href="risk-monte-carlo.html"><span>Progetto successivo</span>Analisi del rischio con simulazione Monte Carlo</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">Tutti i progetti</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Contattami</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Chiudi immagine</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Apri l’immagine in una nuova scheda</a></dialog>
+  <script src="../../js/project.js"></script>
+</body>
+</html>

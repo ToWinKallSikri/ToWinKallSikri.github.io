@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Uno strumento Python per recuperare file da un’immagine FAT16 dopo che una formattazione rapida ha cancellato le voci della directory principale.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Ricostruzione di un file system FAT16 | Twinkal Sikri">
+  <meta property="og:description" content="Uno strumento Python per recuperare file da un’immagine FAT16 dopo che una formattazione rapida ha cancellato le voci della directory principale.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../../css/resume.css" rel="stylesheet">
+  <link href="../../css/project.css" rel="stylesheet">
+  <title>Ricostruzione di un file system FAT16 | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Vai al caso studio</a>
+  <nav class="case-nav" aria-label="Navigazione principale">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">Tutti i progetti</a>
+    <a href="mailto:twinxvii@gmail.com">Contatti</a>
+    <div class="language-nav" role="group" aria-label="Versioni linguistiche">
+      <a href="../../projects/fat16.html" lang="en-GB" aria-label="Inglese" title="Inglese"><img src="../../img/flags/gb.svg" alt=""></a>
+      <a href="fat16.html" lang="it" aria-label="Italiano" title="Italiano"><img src="../../img/flags/it.svg" alt=""></a>
+    </div>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Torna ai progetti</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Informatica forense · programmazione a basso livello</p>
+        <h1>Ricostruzione di un file system FAT16</h1>
+        <p class="case-deck">Uno strumento Python per recuperare file da un’immagine FAT16 dopo che una formattazione rapida ha cancellato le voci della directory principale.</p>
+        <dl class="case-meta">
+          <div><dt>Contesto</dt><dd>Progetto di programmazione forense</dd></div>
+          <div><dt>Ruolo</dt><dd>Sviluppo di uno strumento forense</dd></div>
+          <div><dt>Periodo</dt><dd>2026</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Sezioni del caso studio">
+        <a href="#overview">Panoramica</a><a href="#contribution">Il mio contributo</a>
+        <a href="#how-it-works">Come funziona</a><a href="#decisions">Decisioni chiave</a>
+        <a href="#results">Risultati</a><a href="#limitations">Limiti e sviluppi futuri</a>
+        
+      </nav>
+      <section class="case-section" id="overview"><h2>Panoramica</h2><div><p>Il progetto richiedeva di esaminare un’immagine FAT16 la cui directory principale era stata azzerata da una formattazione rapida. Venute meno le voci di directory, il recupero dipendeva dalla lettura delle strutture del file system e dalla ricostruzione diretta delle catene di cluster.</p>
+<p>Ho scritto uno strumento per mappare i cluster e ricostruire i file dall’immagine, confrontando le due copie della FAT e preservando l’immagine come reperto.</p></div></section>
+      <section class="case-section" id="contribution"><h2>Il mio contributo</h2><div><ul><li>Ho analizzato le strutture FAT16 necessarie a individuare e seguire le catene di cluster dei file.</li>
+<li>Ho gestito cluster da 2.048 byte e ricostruito i dati a partire dal contenuto grezzo dell’immagine.</li>
+<li>Ho confrontato FAT1 e FAT2 durante l’analisi delle informazioni di allocazione.</li>
+<li>Ho verificato l’hash MD5 dell’immagine per controllare che il reperto originale non fosse stato modificato.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>Come funziona</h2><div><p>Lo strumento legge le strutture del volume, mappa i cluster dei dati con dimensione di 2.048 byte e consulta le voci FAT per seguire le catene dei file.</p>
+<p>Le due copie della FAT vengono confrontate. Il contenuto ricostruito viene poi salvato per l’esame, mantenendo l’hash originale dell’immagine come controllo d’integrità.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Decisioni chiave</h2><div><div class="decision"><h3>Lavorare sull’immagine, non sul file system attivo</h3><p><span class="decision-label">Scelta:</span> Usare l’immagine disco come fonte dei dati e verificarne l’MD5 prima dell’analisi.</p><p><span class="decision-label">Motivazione:</span> Un’analisi forense richiede un input riproducibile e un controllo che il reperto non sia stato alterato durante la gestione.</p><p><span class="decision-label">Compromesso:</span> Un hash invariato conferma che l’immagine non è cambiata durante l’analisi, ma non dimostra che sia stata acquisita correttamente.</p></div>
+<div class="decision"><h3>Ricostruire direttamente le catene di cluster</h3><p><span class="decision-label">Scelta:</span> Usare le voci di allocazione FAT per ricostruire i file, senza dipendere dalla directory principale cancellata.</p><p><span class="decision-label">Motivazione:</span> Le voci di directory non erano più presenti, mentre le informazioni di allocazione permettevano ancora di seguire i cluster dei dati.</p><p><span class="decision-label">Compromesso:</span> La qualità del recupero dipende dallo stato delle tabelle di allocazione e da quanto la formattazione rapida abbia sovrascritto.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Risultati</h2><div><p>La ricostruzione ha recuperato 57 file, 8 directory e 16 sottodirectory.</p>
+<p>Tra i file recuperati più rilevanti figurano INVOICE.PDF e TRANSA-1.TXT. I loro contenuti fornivano informazioni coerenti sul wallet usato nell’esercitazione.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limiti e sviluppi futuri</h2><div><p>Una formattazione rapida può lasciare intatte informazioni di allocazione utili, ma il recupero non è garantito se i metadati o i cluster sono stati sovrascritti.</p>
+<p>Come passo successivo, aggiungerei un registro più dettagliato delle decisioni prese per ogni catena e segnalerei le incoerenze tra le voci FAT per la revisione manuale.</p></div></section>
+      
+      <section class="case-section" id="tools"><h2>Strumenti e metodi</h2><ul class="tag-list"><li>Python</li><li>FAT16</li><li>Informatica forense</li><li>Immagini disco</li><li>Recupero file</li></ul></section>
+      <div class="case-source"><p>I dettagli del progetto sono riassunti dalla relazione dell’esercitazione di ricostruzione FAT16. L’immagine disco originale non è pubblicata.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="Tutti i progetti">
+      <a href="ccim.html"><span>Progetto precedente</span>Gestione quantitativa delle modifiche OT</a>
+      <a href="nids.html"><span>Progetto successivo</span>Sistema di rilevamento delle intrusioni di rete</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">Tutti i progetti</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Contattami</a></footer>
+  </main>
+  
+  <script src="../../js/project.js"></script>
+</body>
+</html>

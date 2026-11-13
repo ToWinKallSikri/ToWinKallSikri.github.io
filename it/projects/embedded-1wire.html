@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Firmware bare-metal che legge un sensore DHT22 e rende disponibili i valori tramite lo scratchpad di un dispositivo 1-Wire virtuale.">
+  <meta name="author" content="Twinkal Sikri">
+  <meta property="og:title" content="Firmware embedded: emulazione di un sensore 1-Wire | Twinkal Sikri">
+  <meta property="og:description" content="Firmware bare-metal che legge un sensore DHT22 e rende disponibili i valori tramite lo scratchpad di un dispositivo 1-Wire virtuale.">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="../../img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="../../css/resume.css" rel="stylesheet">
+  <link href="../../css/project.css" rel="stylesheet">
+  <title>Firmware embedded: emulazione di un sensore 1-Wire | Twinkal Sikri</title>
+</head>
+<body class="case-study" id="page-top">
+  <a class="skip-link" href="#main">Vai al caso studio</a>
+  <nav class="case-nav" aria-label="Navigazione principale">
+    <a class="case-brand" href="../index.html#about">Twinkal Sikri</a>
+    <a href="../index.html#projects">Tutti i progetti</a>
+    <a href="mailto:twinxvii@gmail.com">Contatti</a>
+    <div class="language-nav" role="group" aria-label="Versioni linguistiche">
+      <a href="../../projects/embedded-1wire.html" lang="en-GB" aria-label="Inglese" title="Inglese"><img src="../../img/flags/gb.svg" alt=""></a>
+      <a href="embedded-1wire.html" lang="it" aria-label="Italiano" title="Italiano"><img src="../../img/flags/it.svg" alt=""></a>
+    </div>
+  </nav>
+  <main class="case-main" id="main">
+    <a class="case-back" href="../index.html#projects">&larr; Torna ai progetti</a>
+    <article>
+      <header class="case-header">
+        <p class="eyebrow">Sistemi embedded · ATmega328P</p>
+        <h1>Firmware embedded: emulazione di un sensore 1-Wire</h1>
+        <p class="case-deck">Firmware bare-metal che legge un sensore DHT22 e rende disponibili i valori tramite lo scratchpad di un dispositivo 1-Wire virtuale.</p>
+        <dl class="case-meta">
+          <div><dt>Contesto</dt><dd>Progetto di laboratorio di architettura dei calcolatori</dd></div>
+          <div><dt>Ruolo</dt><dd>Progettazione e implementazione del firmware</dd></div>
+          <div><dt>Periodo</dt><dd>2025</dd></div>
+        </dl>
+      </header>
+      <nav class="case-jump" aria-label="Sezioni del caso studio">
+        <a href="#overview">Panoramica</a><a href="#contribution">Il mio contributo</a>
+        <a href="#how-it-works">Come funziona</a><a href="#decisions">Decisioni chiave</a>
+        <a href="#results">Risultati</a><a href="#limitations">Limiti e sviluppi futuri</a>
+        <a href="#gallery">Immagini</a>
+      </nav>
+      <section class="case-section" id="overview"><h2>Panoramica</h2><div><p>Il progetto richiedeva di realizzare un piccolo sistema embedded con risorse limitate. Il firmware legge temperatura e umidità da un DHT22, poi espone le misure tramite l’interfaccia di un dispositivo 1-Wire virtuale.</p>
+<p>Ho usato accesso diretto ai registri e una macchina a stati temporizzata da un timer, verificando il comportamento con Wokwi.</p></div></section>
+      <section class="case-section" id="contribution"><h2>Il mio contributo</h2><div><ul><li>Ho implementato la lettura del DHT22 e la gestione dei comandi 1-Wire su ATmega328P.</li>
+<li>Ho configurato Timer1 in modalità CTC, con prescaler 64 e OCR1A = 249, per generare un tick da 1 ms.</li>
+<li>Ho rappresentato i valori del sensore come interi moltiplicati per 10, conservando una cifra decimale nello scratchpad.</li>
+<li>Ho aggiunto un intervallo di conversione di 50 ms e il controllo del checksum.</li></ul></div></section>
+      <section class="case-section" id="how-it-works"><h2>Come funziona</h2><div><p>La macchina a stati dedicata al sensore acquisisce i valori del DHT22. Una seconda macchina a stati gestisce i comandi del dispositivo 1-Wire e la risposta dello scratchpad.</p>
+<p>Timer1 fornisce il tick temporale da 1 ms. Dopo 50 ms di conversione, le letture scalate e il checksum diventano disponibili tramite lo scratchpad.</p></div></section>
+      <section class="case-section" id="decisions"><h2>Decisioni chiave</h2><div><div class="decision"><h3>Mantenere brevi le routine di interrupt</h3><p><span class="decision-label">Scelta:</span> Usare l’interrupt di Timer1 ogni millisecondo per aggiornare i flag temporali, lasciando il lavoro più lungo alle macchine a stati principali.</p><p><span class="decision-label">Motivazione:</span> Routine brevi aiutano a mantenere prevedibile la temporizzazione ed evitano di svolgere attività del sensore o del protocollo dentro l’interrupt.</p><p><span class="decision-label">Compromesso:</span> Gli stati e i flag condivisi devono essere coordinati con attenzione per evitare errori di temporizzazione e sincronizzazione.</p></div>
+<div class="decision"><h3>Usare interi scalati nello scratchpad</h3><p><span class="decision-label">Scelta:</span> Memorizzare ciascun valore moltiplicato per dieci, invece di usare numeri in virgola mobile.</p><p><span class="decision-label">Motivazione:</span> La rappresentazione resta compatta e conserva una cifra decimale.</p><p><span class="decision-label">Compromesso:</span> Per visualizzare la misura occorre applicare il fattore di scala e riconvertire il valore.</p></div>
+<div class="decision"><h3>Accedere direttamente ai registri</h3><p><span class="decision-label">Scelta:</span> Controllare i pin tramite DDRD, PORTD e PIND, senza funzioni Arduino o librerie esterne.</p><p><span class="decision-label">Motivazione:</span> L’esercitazione puntava a comprendere l’I/O del microcontrollore e i vincoli delle sue risorse.</p><p><span class="decision-label">Compromesso:</span> Il codice è più legato all’hardware specifico e richiede di gestire esplicitamente gli stati dei pin.</p></div></div></section>
+      <section class="case-section" id="results"><h2>Risultati</h2><div><p>Il firmware è stato simulato con Wokwi; le schermate mostrano la configurazione del progetto e una simulazione in esecuzione.</p>
+<p>L’implementazione dimostra il comportamento temporale e del protocollo nel simulatore, ma non costituisce una validazione su una scheda fisica.</p></div></section>
+      <section class="case-section" id="limitations"><h2>Limiti e sviluppi futuri</h2><div><p>La simulazione non copre tutti i possibili problemi elettrici e temporali che potrebbero presentarsi sull’hardware reale. Inoltre, il protocollo è un’emulazione realizzata per il progetto, non un’implementazione certificata del sensore.</p>
+<p>Come passo successivo, proverei il firmware su una scheda ATmega328P con un analizzatore logico, verificherei i margini temporali in condizioni diverse e documenterei i collegamenti a partire dalla relazione originale.</p></div></section>
+      <section class="case-gallery-section" id="gallery">
+    <h2>Immagini del progetto</h2>
+    <p class="case-gallery-note">Seleziona un’immagine per ingrandirla.</p>
+    <div class="case-gallery"><figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/embedded-1wire/flowchart-solution.webp" data-title="Flusso del firmware" aria-label="Ingrandisci: Flusso del firmware">
+          <img src="../../img/projects/embedded-1wire/flowchart-solution.webp" alt="Diagramma di flusso della soluzione firmware adottata." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Flusso del firmware</strong>Stati distinti coordinano la lettura del sensore e le risposte 1-Wire.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/embedded-1wire/dht22-timing.webp" data-title="Temporizzazione del DHT22" aria-label="Ingrandisci: Temporizzazione del DHT22">
+          <img src="../../img/projects/embedded-1wire/dht22-timing.webp" alt="Diagramma temporale della comunicazione con il sensore DHT22." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Temporizzazione del DHT22</strong>La lettura del sensore rispetta la temporizzazione richiesta dal DHT22.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/embedded-1wire/protocol-comparison.webp" data-title="Confronto tra protocolli" aria-label="Ingrandisci: Confronto tra protocolli">
+          <img src="../../img/projects/embedded-1wire/protocol-comparison.webp" alt="Confronto tra il protocollo del sensore e quello 1-Wire emulato." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Confronto tra protocolli</strong>Il progetto collega l’ingresso del DHT22 a un’interfaccia 1-Wire virtuale.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/embedded-1wire/wokwi-editor.webp" data-title="Configurazione Wokwi" aria-label="Ingrandisci: Configurazione Wokwi">
+          <img src="../../img/projects/embedded-1wire/wokwi-editor.webp" alt="Firmware e circuito visualizzati nell’editor Wokwi." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Configurazione Wokwi</strong>Il progetto è stato sviluppato e simulato con Wokwi.</figcaption>
+      </figure>
+<figure class="case-figure">
+        <a class="case-image-link" href="../../img/projects/embedded-1wire/wokwi-run.webp" data-title="Simulazione in esecuzione" aria-label="Ingrandisci: Simulazione in esecuzione">
+          <img src="../../img/projects/embedded-1wire/wokwi-run.webp" alt="Firmware in esecuzione nella simulazione Wokwi." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>Simulazione in esecuzione</strong>Il progetto mentre gira nel simulatore.</figcaption>
+      </figure></div></section>
+      <section class="case-section" id="tools"><h2>Strumenti e metodi</h2><ul class="tag-list"><li>C</li><li>ATmega328P</li><li>Timer1</li><li>1-Wire</li><li>DHT22</li><li>Wokwi</li><li>I/O a livello di registro</li></ul></section>
+      <div class="case-source"><p>Il diagramma di flusso, la temporizzazione e le immagini del simulatore provengono dal materiale del progetto di sistemi embedded. L’immagine con i collegamenti errati fornita tra gli asset è stata esclusa.</p></div>
+    </article>
+    <nav class="case-pagination" aria-label="Tutti i progetti">
+      <a href="risk-monte-carlo.html"><span>Progetto precedente</span>Analisi del rischio con simulazione Monte Carlo</a>
+      <a href="soc.html"><span>Progetto successivo</span>Security Operations Centre per PMI</a>
+    </nav>
+    <footer class="case-footer"><a href="../index.html#projects">Tutti i progetti</a><span>Twinkal Sikri</span><a href="mailto:twinxvii@gmail.com">Contattami</a></footer>
+  </main>
+  <dialog class="image-dialog" aria-labelledby="image-title"><div class="image-dialog-bar"><p id="image-title"></p><button type="button" autofocus>Chiudi immagine</button></div><img alt=""><a class="original-image" target="_blank" rel="noopener noreferrer">Apri l’immagine in una nuova scheda</a></dialog>
+  <script src="../../js/project.js"></script>
+</body>
+</html>
